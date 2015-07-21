@@ -13,6 +13,10 @@ logAnalyzer.dashboard = logAnalyzer.dashboard || {};
 		var signOutContainer = $('#signOutContainer');
 		var contentContainer = $('#contentContainer');
 
+		/* Load GoogleChart */
+
+		google.charts.load('current', {packages: ['corechart']});
+
 		/* Menu sliding */
 
 		navigationContainer.addClass('small');

@@ -1,0 +1,3 @@
+log_analyzer_dashboard_dashboard:
+    path:     /
+    defaults: { _controller: LogAnalyzerCoreBundle:Dashboard:index }
