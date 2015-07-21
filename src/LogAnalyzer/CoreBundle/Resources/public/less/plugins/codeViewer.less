@@ -1,0 +1,50 @@
+@import '../variables.less';
+
+@codeViewerBackgroundColor: #000000;
+@codeViewerFont: 'consolas', monospace;
+@codeViewerColor: #ffffff;
+@codeViewerLineNumberColor: grey;
+
+.moduleContainer
+{
+	.codeViewerContainer
+	{
+		width: 100%;
+		border-collapse: collapse;
+
+		font-family: @codeViewerFont;
+		color: @codeViewerColor;
+
+		background-color: @codeViewerBackgroundColor;
+
+		*
+		{
+			transition: all @transitionDuration;
+		}
+
+		tr
+		{
+			td
+			{
+				padding: 5px;
+
+				&.lineNumber
+				{
+					width: 30px;
+					text-align: right;
+					color: @codeViewerLineNumberColor
+				}
+
+				&.codeLine
+				{
+
+				}
+			}
+
+			&:hover
+			{
+				background-color: lighten(@codeViewerBackgroundColor, 20%);
+			}
+		}
+	}
+}

@@ -1,0 +1,206 @@
+@import '../variables.less';
+
+@tableViewerBackgroundColor1: @grey0025;
+@tableViewerBackgroundColor2: darken(@grey0025, 2.5%);
+@tableViewerBackgroundColorHover: darken(@grey0025, 5%);
+@tableViewerBackgroundColorHeader: darken(@grey0025, 5%);
+@tableViewerFont: 'helvetica';
+@tableViewerColor: #000000;
+@tableViewerLineNumberColor: grey;
+
+.moduleContainer
+{
+	.tableViewerContainer
+	{
+		.tableViewerTableContainer
+		{
+			width: 100%;
+			border-collapse: collapse;
+
+			font-family: @tableViewerFont;
+			color: @tableViewerColor;
+
+			*
+			{
+				transition: all @transitionDuration;
+			}
+
+			tr
+			{
+				&:nth-child(even)
+				{
+					background-color: @tableViewerBackgroundColor1;
+				}
+
+				&:nth-child(odd)
+				{
+					background-color: @tableViewerBackgroundColor2;
+				}
+
+				&:hover
+				{
+					background-color: @tableViewerBackgroundColorHover;
+				}
+
+				&.red
+				{
+					&:nth-child(odd)
+					{
+						background-color: @red;
+					}
+
+					&:nth-child(even)
+					{
+						background-color: darken(@red, 10%);;
+					}
+
+					&:hover
+					{
+						background-color: lighten(@red, 10%);
+					}
+				}
+
+				&.orange
+				{
+					&:nth-child(odd)
+					{
+						background-color: @orange;
+					}
+
+					&:nth-child(even)
+					{
+						background-color: darken(@orange, 10%);;
+					}
+
+					&:hover
+					{
+						background-color: lighten(@orange, 10%);
+					}
+				}
+
+				&.green
+				{
+					&:nth-child(odd)
+					{
+						background-color: @green;
+					}
+
+					&:nth-child(even)
+					{
+						background-color: darken(@green, 5%);;
+					}
+
+					&:hover
+					{
+						background-color: lighten(@green, 10%);
+					}
+				}
+
+				th
+				{
+					height: 15px;
+					padding: 7.5px;
+					background-color: @tableViewerBackgroundColorHeader;
+
+					//border: 1px solid @grey01;
+				}
+
+				td
+				{
+					height: 15px;
+					padding: 7.5px;
+
+					text-align: left;
+
+					//border: 1px solid @grey01;
+
+					&.lineNumber
+					{
+						text-align: right;
+						width: 30px;
+						color: @tableViewerLineNumberColor;
+					}
+
+					.highlighted
+					{
+						color: @red;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+
+		.tableViewerNavigationContainer
+		{
+			width: 100%;
+			border-collapse: collapse;
+
+			font-family: @tableViewerFont;
+			color: @tableViewerColor;
+
+			*
+			{
+				transition: all @transitionDuration;
+			}
+
+			tr
+			{
+				td
+				{
+					width: 33%;
+					height: 15px;
+					padding: 7.5px;
+					text-align: center;
+
+					&.navigation
+					{
+						cursor: pointer;
+
+						&:hover
+						{
+							padding: 7.5px;
+						}
+					};
+				}
+			}
+
+			&.previous
+			{
+				tr
+				{
+					td
+					{
+						&.navigation
+						{
+							padding: 10px 7.5px 5px 7.5px;
+
+							&:hover
+							{
+								padding: 7.5px;
+							}
+						};
+					}
+				}
+			}
+
+			&.next
+			{
+				tr
+				{
+					td
+					{
+						&.navigation
+						{
+							padding: 5px 7.5px 10px 7.5px;
+
+							&:hover
+							{
+								padding: 7.5px;
+							}
+						};
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,100 @@
+@import '../variables.less';
+
+@requestViewerBackgroundColor: #000000;
+@requestViewerFont: 'consolas', monospace;
+@requestViewerColor: #ffffff;
+@requestViewerLineNumberColor: grey;
+@requestViewerDateTimeColor: grey;
+@requestViewerExecutionTimeColor: average(grey, darkgrey);
+
+.moduleContainer
+{
+	.requestViewerContainer
+	{
+		width: 100%;
+		border-collapse: collapse;
+
+		font-family: @requestViewerFont;
+
+		*
+		{
+			transition: all @transitionDuration;
+		}
+
+		tr
+		{
+			color: @requestViewerColor;
+			background-color: @requestViewerBackgroundColor;
+
+			td
+			{
+				height: 20px;
+				padding: 7.5px;
+
+				&.requestNumber
+				{
+					width: 30px;
+					text-align: right;
+					color: @requestViewerLineNumberColor;
+				}
+
+				&.requestDateTime
+				{
+					width: 140px;
+					text-align: center;
+					color: @requestViewerDateTimeColor;
+				}
+
+				&.requestExecutionTime
+				{
+					width: 70px;
+					text-align: center;
+					color: @requestViewerExecutionTimeColor;
+				}
+
+				&.requestResultCode
+				{
+					display: none;
+					width: 20px;
+					text-align: center;
+				}
+
+				&.requestMessage
+				{
+					text-align: left;
+				}
+
+				&.requestInformation
+				{
+					text-align: right;
+					width: 5px;
+
+					i
+					{
+						cursor: default;
+					}
+				}
+			}
+
+			&.green{ background-color: @green; }
+			&.orange{ background-color: @orange; }
+			&.red{ background-color: @red; }
+		}
+
+		&.activationEnabled
+		{
+			tr
+			{
+				cursor: pointer;
+
+				&.active,
+				&:hover
+				{
+					&.green{ background-color: lighten(@green, 10%); }
+					&.orange{ background-color: lighten(@orange, 10%); }
+					&.red{ background-color: lighten(@red, 10%); }
+				}
+			}
+		}
+	}
+}

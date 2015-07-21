@@ -1,0 +1,315 @@
+@import '../variables.less';
+
+.moduleContainer
+{
+	.formContainer
+	{
+		*
+		{
+			transition: all @transitionDuration;
+		}
+
+		.fieldsContainer
+		{
+			width: 100%;
+			border-collapse: collapse;
+
+			tr
+			{
+				&:not(:last-child){ border-bottom: 1px solid @grey0125; }
+
+				&.separator:not(:last-child){ border-bottom: 1px solid @grey0175; }
+			}
+
+			td
+			{
+				padding: 10px;
+				height: 25px;
+				vertical-align: middle;
+
+				&.labelContainer
+				{
+					width: 120px;
+					font-weight: bold;
+
+					label
+					{
+						display: block;
+						width: 100%;
+						user-select: none;
+						cursor: pointer;
+					}
+				}
+
+				&.informationContainer
+				{
+					width: 35px;
+					text-align: center;
+
+					i
+					{
+						margin: 2px;
+						cursor: default;
+
+						&.help
+						{
+							color: @grey025;
+						}
+
+						&.warning
+						{
+							color: @orange;
+						}
+					}
+				}
+
+				&.activationContainer{ width: 15px; }
+
+				&.fieldContainer{ width: auto; }
+			}
+		}
+
+		.buttonsContainer
+		{
+			height: 20px;
+			padding: 10px 0px 10px 10px;
+		}
+
+		input[type=text],
+		input[type=password],
+		input[type=number],
+		select,
+		textarea
+		{
+			display: inline;
+			width: 160px;
+			height: 15px;
+			padding: 7.5px;
+			margin-right: 20px;
+
+			font-family: @font;
+			font-size: 12px;
+
+			background-color: @grey005;
+			border: 1px solid darken(@grey005, 5%);
+
+			vertical-align: middle;
+
+			outline: none;
+			box-shadow: none;
+
+			&:hover{ background-color: darken(@grey005, 2.5%); }
+		}
+
+		input[type=radio],
+		input[type=checkbox]
+		{
+			display: none;
+
+			&.activation{ display: block; }
+
+			&:checked + label
+			{
+				color: black;
+				background-color: @grey0025;
+				border: 1px solid darken(@grey005, 5%);
+
+				&:hover{ background-color: darken(@grey005, 2.5%); }
+			}
+
+			&+label
+			{
+				display: inline-block;
+				height: 15px;
+				min-width: 40px;
+				padding: 7.5px 7.5px 7.5px 7.5px;
+				margin-right: 0px;
+
+				text-align: center;
+				user-select: none;
+				color: grey;
+
+				background-color: @grey0075;
+				border: 1px solid @grey01;
+
+				cursor: pointer;
+
+				&:hover{ background-color: darken(@grey0025, 2.5%); }
+			}
+		}
+
+		select
+		{
+			width: 177px;
+			height: 32px;
+
+			-webkit-appearance: none;
+			-webkit-border-radius: 0px;
+		}
+
+		button
+		{
+			display: inline;
+			float: right;
+			width: 110px;
+			height: 30px;
+			padding: 7.5px;
+			margin-left: 20px;
+
+			color: #ffffff;
+			font-family: @font;
+			font-size: 12px;
+			vertical-align: middle;
+
+			background-color: @blue2;
+			border: none;
+
+			cursor: pointer;
+
+			outline: none;
+			box-shadow: none;
+
+			-webkit-appearance: none;
+			-webkit-border-radius: 0px;
+
+			&:hover{ background-color: lighten(@blue2, 10%) }
+
+			&:disabled
+			{
+				background-color: lighten(@blue2, 25%);
+				cursor: not-allowed;
+			}
+		}
+	}
+}
+
+.ui-datepicker
+{
+	background-color: @grey005;
+
+	width: 160px;
+	padding: 7.5px;
+	margin-right: 20px;
+
+	font-family: @font;
+	font-size: 12px;
+
+	border: 1px solid darken(@grey005, 5%);
+
+	.ui-datepicker-header
+	{
+		padding: 5px;
+		margin-bottom: 7.5px;
+		font-weight: bold;
+		background-color: darken(@grey005, 5%);
+
+		.ui-datepicker-prev
+		{
+			float: left;
+
+			&:before{content: '<';}
+
+			span{display: none;}
+		}
+
+		.ui-datepicker-next
+		{
+			float: right;
+			margin-right: 0px;
+
+			&:after{content: '>';}
+
+			span{display: none;}
+		}
+
+		.ui-datepicker-title
+		{
+			text-align: center;
+		}
+	}
+
+	.ui-datepicker-calendar
+	{
+		width: 100%;
+
+		thead
+		{
+			//display: none;
+
+			th
+			{
+				padding-bottom: 5px;
+				font-weight: normal;
+			}
+		}
+
+		td
+		{
+			padding: 2px;
+			text-align: center;
+			color: grey;
+			background-color: @grey005;
+
+			&.ui-datepicker-current-day
+			{
+				font-weight: bold;
+				color: black;
+				background-color: @grey0025;
+			}
+
+			&:hover
+			{
+				&:hover{ background-color: lighten(@grey005, 2.5%); }
+			}
+
+			a
+			{
+				color: inherit;
+				text-decoration: none;
+			}
+		}
+	}
+
+	.ui-timepicker-div
+	{
+		margin-top: 7.5px;
+
+		dt
+		{
+			float: left;
+			clear:left;
+		}
+
+		dd
+		{
+			padding-top: 4px;
+			margin: 10px 5px 10px 55px;
+		}
+
+		.ui_tpicker_time_label,
+		.ui_tpicker_time,
+		.ui_tpicker_unit_hide
+		{
+			display: none;
+		}
+
+		.ui-slider
+		{
+			position: relative;
+			width: 100%;
+			height: 2px;
+			background-color: @grey0125;
+		}
+
+		.ui-slider-handle
+		{
+			position: absolute;
+			margin-left: -5px;
+			margin-top: -4px;
+			width: 10px;
+			height: 10px;
+			background-color: grey;
+			border-radius: 5px;
+		}
+	}
+}

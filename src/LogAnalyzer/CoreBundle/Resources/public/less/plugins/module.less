@@ -1,0 +1,115 @@
+@import '../variables.less';
+
+.moduleContainer
+{
+	position: relative;
+	float: left;
+	padding: 35px;
+	margin: 0px 35px 35px 0px;
+	background-color: @grey0025;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+	overflow: hidden;
+	transition: all @transitionDuration;
+
+	&.full{ width: ~"calc(100% - 70px)"; }
+	&.half{ width: ~"calc(50% - 70px)"; }
+	&.third{ width: ~"calc(33.33% - 70px)"; }
+	&.fourth{ width: ~"calc(25% - 70px)"; }
+
+	&.noPadding
+	{
+		padding: 0px;
+
+		&.full{ width: 100%; }
+		&.half{ width: 50%; }
+		&.third{ width: 33.33%; }
+		&.fourth{ width: 25%; }
+	}
+
+	.titleContainer,
+	.subTitleContainer
+	{
+		display: block;
+		width: 100%;
+	}
+
+	.titleContainer
+	{
+		margin-top: -15px;
+		margin-left: -15px;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+
+	.subTitleContainer
+	{
+		margin-top: -5px;
+		margin-left: -15px;
+		margin-bottom: 10px;
+		font-size: 10px;
+		color: grey;
+	}
+
+	.contentContainer
+	{
+		opacity: 1.0;
+		transition: all @transitionDuration;
+	}
+
+	.resizeContainer
+	{
+		height: 15px;
+		padding: 10px;
+		margin-bottom: -35px;
+		color: grey;
+		text-align: center;
+		cursor: pointer;
+		transition: all @transitionDuration;
+
+		&:hover
+		{
+			padding: 7.5px 10px 12.5px 10px;
+		}
+	}
+
+	.pendingMessageContainer
+	{
+		display: none;
+		position: absolute;
+		height: 25px;
+		width: 25px;
+		top: 50%;
+		left: 50%;
+		padding: 10px;
+		margin: -22.5px 22.5px 22.5px -22.5px;
+		font-size: 24px;
+		text-align: center;
+		transition: all @transitionDuration;
+	}
+
+	&.pending
+	{
+		.contentContainer{opacity: 0.333;}
+
+		.pendingMessageContainer{display: block;}
+	}
+
+	&.toggled
+	{
+		padding: 0px 35px 0px 35px;
+
+		.titleContainer,
+		.subTitleContainer,
+		.contentContainer,
+		.pendingMessageContainer
+		{
+			display: none;
+		}
+
+		.resizeContainer
+		{
+			margin-bottom: 0px;
+			transform: rotate(180deg);
+		}
+	}
+}

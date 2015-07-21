@@ -1,0 +1,39 @@
+@import '../variables.less';
+
+@dataPlotterFont: 'helvetica';
+@dataPlotterColor: #000000;
+
+.moduleContainer
+{
+	.dataPlotterOptionsContainer
+	{
+		width: 100%;
+		border-collapse: collapse;
+
+		font-family: @dataPlotterFont;
+		color: @dataPlotterColor;
+
+		*
+		{
+			transition: all @transitionDuration;
+		}
+
+		tr
+		{
+			td
+			{
+				width: 33%;
+				height: 15px;
+				padding: 7.5px;
+				text-align: center;
+			}
+		}
+	}
+
+	.dataPlotterPlotContainer
+	{
+		margin-left: -1px;
+		margin-right: -1px;
+		margin-bottom: -1px;
+	}
+}

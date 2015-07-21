@@ -1,0 +1,59 @@
+/* ** Main variables ** */
+
+@import '../variables.less';
+
+/* ** Login variables ** */
+
+@contentContainerWidth: 500px;
+@contentContainerHeight: 230px;
+
+@bodyBackgroundColor: @grey01;
+
+/* *** Styles definitions *** */
+
+*
+{
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+}
+
+body
+{
+	background-color: @bodyBackgroundColor;
+
+	font-family: @font;
+	font-size: 12px;
+
+	transition: all 250ms;
+
+	&.green
+	{
+		background-color: @green;
+	}
+
+	&.red
+	{
+		background-color: @red;
+	}
+}
+
+/* ** Content container ** */
+
+#contentContainer
+{
+	position: absolute;
+	width: @contentContainerWidth;
+	height: @contentContainerHeight;
+	top: 50%;
+	left: 50%;
+	margin: -@contentContainerHeight/2 @contentContainerWidth/2 @contentContainerHeight/2px -@contentContainerWidth/2;
+
+	transition: all @transitionDuration;
+
+	#content
+	{
+		margin: 35px;
+		height: ~"calc(100% - 70px)";
+	}
+}

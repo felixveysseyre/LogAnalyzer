@@ -1,0 +1,228 @@
+/* ** Main variables ** */
+
+@import '../variables.less';
+
+/* ** Dashboard variables ** */
+
+@navigationContainerWidth: 230px;
+@smallNavigationContainerWidth: 35px;
+
+@navigationContainerBackgroundColor: #212429;
+@contentContainerBackgroundColor: transparent;
+
+@bodyBackgroundColor: @grey01;
+
+/* *** Styles definitions *** */
+
+*
+{
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+}
+
+body
+{
+	background-color: @bodyBackgroundColor;
+
+	font-family: @font;
+	font-size: 12px;
+}
+
+/* ** Navigation container ** */
+
+#navigationContainer
+{
+	position: absolute;
+	height: 100%;
+	width: @navigationContainerWidth;
+	left: 0px;
+
+	background-color: @navigationContainerBackgroundColor;
+	box-shadow: -2px 0px 2px 0px rgba(0, 0, 0, 0.15) inset;
+
+	transition: all @transitionDuration;
+	overflow: hidden;
+	z-index: 1;
+
+	#menuContainer,
+	#signOutContainer
+	{
+		list-style: none;
+
+		i
+		{
+			width: 15px;
+			text-align: center;
+		}
+
+		.section,
+		.subSection
+		{
+			list-style: none;
+
+			.container
+			{
+				display: block;
+				width: @navigationContainerWidth;
+				padding: 7.5px 25px 7.5px 25px;
+
+				line-height: 20px;
+
+				transition: all @transitionDuration;
+
+				&:not(.disabled)
+				{
+					cursor: pointer;
+
+					&:not(.active):hover
+					{
+						background-color: darken(@navigationContainerBackgroundColor, 10%);
+					}
+				}
+
+				&.active
+				{
+					color: #ffffff;
+					background-color: @blue2;
+				}
+
+				.name
+				{
+					margin-left: 15px;
+					overflow: hidden;
+				}
+			}
+		}
+
+		.section .container
+		{
+			color: white;
+		}
+
+		.subSection .container
+		{
+			color: grey;
+			text-indent: 10px;
+		}
+	}
+
+	#signOutContainer
+	{
+		box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+
+		.section .container
+		{
+			background-color: @green;
+
+			&:hover,
+			&:not(.disabled):not(.active):hover
+			{
+				color: white;
+				background-color: @red;
+			}
+		}
+	}
+
+	&.small
+	{
+		width: @smallNavigationContainerWidth;
+
+		#menuContainer,
+		#signOutContainer
+		{
+			.section,
+			.subSection
+			{
+				.container
+				{
+					padding: 7.5px 0px 7.5px 10px;
+				}
+			}
+
+			.subSection .container
+			{
+				text-indent: 0px;
+			}
+
+			.name
+			{
+				display: none;
+			}
+		}
+	}
+}
+
+/* ** Navigation header container ** */
+
+#navigationHeaderContainer
+{
+	position: absolute;
+	height: 15px;
+	left: @navigationContainerWidth;
+	right: 0px;
+	top: 0px;
+
+	padding: 10px;
+	color: @grey03;
+
+	background-color: @grey0025;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+
+	transition: all @transitionDuration;
+	z-index: 3;
+
+	&.large
+	{
+		left: @smallNavigationContainerWidth;
+	}
+
+	span
+	{
+		padding: 0px 10px 0px 10px;
+		font-weight: bold;
+
+		&:first-child
+		{
+			padding-left: 4px;
+		}
+
+		&.section
+		{
+			color: lighten(#000000, 0%);
+		}
+
+		&.subSection
+		{
+			color: lighten(#000000, 50%);
+		}
+	}
+}
+
+/* ** Content container ** */
+
+#contentContainer
+{
+	position: absolute;
+	left: @navigationContainerWidth;
+	right: 0px;
+	top: 30px;
+	bottom: 0px;
+
+	background-color: @contentContainerBackgroundColor;
+
+	transition: all @transitionDuration;
+	overflow-y: scroll;
+	z-index: 2;
+
+	#content
+	{
+		margin: 35px;
+		height: ~"calc(100% - 70px)";
+	}
+
+	&.large
+	{
+		left: @smallNavigationContainerWidth;
+	}
+}
