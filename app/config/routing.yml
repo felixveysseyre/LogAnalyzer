@@ -1,3 +1,7 @@
+log_analyzer_core:
+    resource: "@LogAnalyzerCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

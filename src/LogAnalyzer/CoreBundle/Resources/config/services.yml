@@ -1,0 +1,4 @@
+services:
+#    log_analyzer_core.example:
+#        class: LogAnalyzer\CoreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
