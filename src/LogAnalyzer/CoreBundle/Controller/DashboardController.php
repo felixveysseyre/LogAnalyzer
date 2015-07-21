@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DashboardController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('LogAnalyzerCoreBundle:Dashboard:dashboard.html.twig', array(
+	public function indexAction()
+	{
+		return $this -> render('LogAnalyzerCoreBundle:Dashboard:index.html.twig', array(
 			'title' => 'Dashboard',
 			'cssFiles' => array(
 				'internal' => array(
@@ -60,5 +60,5 @@ class DashboardController extends Controller
 				'userName' => 8
 			)
 		));
-    }
+	}
 }
