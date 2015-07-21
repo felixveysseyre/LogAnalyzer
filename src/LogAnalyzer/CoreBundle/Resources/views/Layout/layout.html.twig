@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<!-- Title -->
+
+		<title>
+			LogAnalyzer
+			{% if title is defined %}
+				- {{ title }}
+			{% endif %}
+		</title>
+
+		<!-- CSS files -->
+
+		{% if cssFiles is defined %}
+
+			{% if cssFiles['external'] is defined %}
+				{% for cssFile in cssFiles['external'] %}
+					<link rel="stylesheet" type="text/css" href="{{ cssFile }}">
+				{% endfor %}
+			{%  endif %}
+
+			{% if cssFiles['internal'] is defined %}
+				{% for cssFile in cssFiles['internal'] %}
+					<link rel="stylesheet" type="text/css" href="./assets/css/{{ cssFile }}">
+				{% endfor %}
+			{%  endif %}
+		{% endif %}
+
+		<!-- LESS files -->
+
+		{% if lessFiles is defined %}
+
+			{% if lessFiles['external'] is defined %}
+				{% for lessFile in lessFiles['external'] %}
+					<link rel="stylesheet/less" type="text/css" href="{{ lessFile }}">
+				{% endfor %}
+			{%  endif %}
+
+			{% if lessFiles['internal'] is defined %}
+				{% for lessFile in lessFiles['internal'] %}
+					<link rel="stylesheet/less" type="text/css" href="./assets/less/{{ lessFile }}">
+				{% endfor %}
+			{%  endif %}
+		{% endif %}
+
+		<!-- JS variables -->
+
+		{% if jsVariables is defined %}
+
+			<script type="text/javascript">
+				{% for key, jsVariable in jsVariables %}
+					var {{ key }} = {{ jsVariable | json_encode() | raw }};
+				{% endfor %}
+			</script>
+
+		{% endif %}
+
+		<!-- JS files -->
+
+		{% if jsFiles is defined %}
+
+			{% if jsFiles['external'] is defined %}
+				{% for jsFile in jsFiles['external'] %}
+					<script type="text/javascript" src="{{ jsFile }}"></script>
+				{% endfor %}
+			{%  endif %}
+
+			{% if jsFiles['internal'] is defined %}
+				{% for jsFile in jsFiles['internal'] %}
+					<script type="text/javascript" src="./assets/js/{{ jsFile }}"></script>
+				{% endfor %}
+			{%  endif %}
+		{% endif %}
+
+	</head>
+
+	<body>
+
+		{% block body %}
+
+		{% endblock %}
+
+	</body>
+
+</html>
