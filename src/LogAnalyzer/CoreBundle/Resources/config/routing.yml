@@ -1,7 +1,7 @@
 # Dashboard #
 
 LogAnalyzer_Dashboard_index:
-    path:     /
+    path:     /dashboard/
     defaults: { _controller: LogAnalyzerCoreBundle:Dashboard:index }
 
 # Login #
