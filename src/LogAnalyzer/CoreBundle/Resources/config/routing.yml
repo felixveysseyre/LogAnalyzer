@@ -3,3 +3,21 @@
 LogAnalyzer_Dashboard_index:
     path:     /
     defaults: { _controller: LogAnalyzerCoreBundle:Dashboard:index }
+
+# OrganizationAdministration #
+
+LogAnalyzer_OrganizationAdministration_getUserAPI:
+    path:     /organizationAdministration/getUserAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:OrganizationAdministration:getUserAPI }
+
+LogAnalyzer_OrganizationAdministration_createUserAPI:
+    path:     /organizationAdministration/createUserAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:OrganizationAdministration:createUserAPI }
+
+LogAnalyzer_OrganizationAdministration_deleteUserAPI:
+    path:     /organizationAdministration/deleteUserAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:OrganizationAdministration:deleteUserAPI }
+
+LogAnalyzer_OrganizationAdministration_getRoleAPI:
+    path:     /organizationAdministration/getRoleAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:OrganizationAdministration:getRoleAPI }
