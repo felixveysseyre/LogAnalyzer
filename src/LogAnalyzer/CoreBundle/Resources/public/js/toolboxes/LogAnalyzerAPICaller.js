@@ -10,78 +10,76 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 {
 	logAnalyzer.toolbox.LogAnalyzerAPICaller.API =
 	{
-		projectLogs:
+		/*projectLogs:
 		{
-			getProjectLog: 'projectLogs/getProjectLogAPI',
-			getAlertLog: 'projectLogs/getAlertLogAPI'
+			getProjectLog: '/projectLogs/getProjectLogAPI',
+			getAlertLog: '/projectLogs/getAlertLogAPI'
 		},
 		projectConfiguration:
 		{
-			getInitializationProjectStatus: 'projectConfiguration/getInitializationProjectStatusAPI',
-			initializeProject: 'projectConfiguration/initializeProjectAPI',
-			resetProject: 'projectConfiguration/resetProjectAPI',
-			getConstant: 'projectConfiguration/getConstantAPI',
-			updateConstant: 'projectConfiguration/updateConstantAPI'
-		},
+			getInitializationProjectStatus: '/projectConfiguration/getInitializationProjectStatusAPI',
+			initializeProject: '/projectConfiguration/initializeProjectAPI',
+			resetProject: '/projectConfiguration/resetProjectAPI',
+			getConstant: '/projectConfiguration/getConstantAPI',
+			updateConstant: '/projectConfiguration/updateConstantAPI'
+		},*/
 		organizationAdministration:
 		{
-			getRole: 'organizationAdministration/getRoleAPI',
-			createRole: 'organizationAdministration/createRoleAPI',
-			deleteRole: 'organizationAdministration/deleteRoleAPI',
-			getUser: 'organizationAdministration/getUserAPI',
-			createUser: 'organizationAdministration/createUserAPI',
-			deleteUser: 'organizationAdministration/deleteUserAPI'
+			getRole: '/organizationAdministration/getRoleAPI/',
+			getUser: '/organizationAdministration/getUserAPI/',
+			createUser: '/organizationAdministration/createUserAPI/',
+			deleteUser: '/organizationAdministration/deleteUserAPI/'
 		},
-		platformAdministration:
+		/*platformAdministration:
 		{
-			getHost: 'platformAdministration/getHostAPI',
-			createHost: 'platformAdministration/createHostAPI',
-			deleteHost: 'platformAdministration/deleteHostAPI',
-			getService: 'platformAdministration/getServiceAPI',
-			createService: 'platformAdministration/createServiceAPI',
-			deleteService: 'platformAdministration/deleteServiceAPI',
-			getCollector: 'platformAdministration/getCollectorAPI',
-			createCollector: 'platformAdministration/createCollectorAPI',
-			deleteCollector: 'platformAdministration/deleteCollectorAPI'
+			getHost: '/platformAdministration/getHostAPI',
+			createHost: '/platformAdministration/createHostAPI',
+			deleteHost: '/platformAdministration/deleteHostAPI',
+			getService: '/platformAdministration/getServiceAPI',
+			createService: '/platformAdministration/createServiceAPI',
+			deleteService: '/platformAdministration/deleteServiceAPI',
+			getCollector: '/platformAdministration/getCollectorAPI',
+			createCollector: '/platformAdministration/createCollectorAPI',
+			deleteCollector: '/platformAdministration/deleteCollectorAPI'
 		},
 		databaseAdministration:
 		{
-			getLogAccessor: 'databaseAdministration/getLogAccessorAPI',
-			createLogAccessor: 'databaseAdministration/createLogAccessorAPI',
-			deleteLogAccessor: 'databaseAdministration/deleteLogAccessorAPI',
-			getLogTable: 'databaseAdministration/getLogTableAPI',
-			createLogTable: 'databaseAdministration/createLogTableAPI',
-			deleteLogTable: 'databaseAdministration/deleteLogTableAPI'
+			getLogAccessor: '/databaseAdministration/getLogAccessorAPI',
+			createLogAccessor: '/databaseAdministration/createLogAccessorAPI',
+			deleteLogAccessor: '/databaseAdministration/deleteLogAccessorAPI',
+			getLogTable: '/databaseAdministration/getLogTableAPI',
+			createLogTable: '/databaseAdministration/createLogTableAPI',
+			deleteLogTable: '/databaseAdministration/deleteLogTableAPI'
 		},
 		analysisAdministration:
 		{
-			getLiveGraph: 'analysisAdministration/getLiveGraphAPI',
-			createLiveGraph: 'analysisAdministration/createLiveGraphAPI',
-			deleteLiveGraph: 'analysisAdministration/deleteLiveGraphAPI',
-			getAlert: 'analysisAdministration/getAlertAPI',
-			createAlert: 'analysisAdministration/createAlertAPI',
-			deleteAlert: 'analysisAdministration/deleteAlertAPI',
-			getParser: 'analysisAdministration/getParserAPI',
-			createParser: 'analysisAdministration/createParserAPI',
-			deleteParser: 'analysisAdministration/deleteParserAPI'
+			getLiveGraph: '/analysisAdministration/getLiveGraphAPI',
+			createLiveGraph: '/analysisAdministration/createLiveGraphAPI',
+			deleteLiveGraph: '/analysisAdministration/deleteLiveGraphAPI',
+			getAlert: '/analysisAdministration/getAlertAPI',
+			createAlert: '/analysisAdministration/createAlertAPI',
+			deleteAlert: '/analysisAdministration/deleteAlertAPI',
+			getParser: '/analysisAdministration/getParserAPI',
+			createParser: '/analysisAdministration/createParserAPI',
+			deleteParser: '/analysisAdministration/deleteParserAPI'
 		},
 		platformStatus:
 		{
-			getAlertNotification: 'platformStatus/getAlertNotificationAPI',
-			deleteAlertNotification: 'platformStatus/deleteAlertNotificationAPI',
-			clearAlertNotification: 'platformStatus/clearAlertNotificationAPI'
+			getAlertNotification: '/platformStatus/getAlertNotificationAPI',
+			deleteAlertNotification: '/platformStatus/deleteAlertNotificationAPI',
+			clearAlertNotification: '/platformStatus/clearAlertNotificationAPI'
 		},
 		dataAccess:
 		{
-			getLog: 'dataAccess/getLogAPI',
-			getLogBackup: 'dataAccess/getLogBackupAPI',
-			getLiveGraphCount: 'dataAccess/getLiveGraphCountAPI'
-		},
+			getLog: '/dataAccess/getLogAPI',
+			getLogBackup: '/dataAccess/getLogBackupAPI',
+			getLiveGraphCount: '/dataAccess/getLiveGraphCountAPI'
+		},*/
 
 		login:
 		{
-			signIn: 'login/signInAPI',
-			signOut: 'login/signOutAPI'
+			signIn: '/login/signInAPI/',
+			signOut: '/login/signOutAPI/'
 		}
 	};
 
@@ -96,7 +94,9 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			method: null,
 			postData: null,
 			successCallback: null,
-			errorCallback: function(xhr, status, error){console.error(xhr.status + ' - ' + xhr.statusText);}
+			errorCallback: function(xhr, status, error){
+				console.error(xhr.status + ' - ' + xhr.statusText);
+			}
 		};
 
 		parameters = $.extend(defaultParameters, parameters);
