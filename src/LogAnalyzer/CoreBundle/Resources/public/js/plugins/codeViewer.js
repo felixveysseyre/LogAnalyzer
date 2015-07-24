@@ -199,10 +199,9 @@ $(function($){
 					type: 'POST',
 					url: codeURL,
 					data: postData,
-					success: function(answer){
-						if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(answer);
+					success: function(requestAnswer){
+						if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(requestAnswer);
 
-						var requestAnswer = JSON.parse(answer);
 						var code = (codeTransformFunction) ? codeTransformFunction(requestAnswer) : requestAnswer;
 
 						self.setOption('code', code);

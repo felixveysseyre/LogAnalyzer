@@ -355,10 +355,8 @@ $(function($){
 					type: 'POST',
 					url: dataURL,
 					data: postData,
-					success: function(answer){
-						if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(answer);
-
-						var requestAnswer = JSON.parse(answer);
+					success: function(requestAnswer){
+						if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(requestAnswer);
 
 						var data = (dataTransformFunction) ? dataTransformFunction(requestAnswer) : requestAnswer;
 

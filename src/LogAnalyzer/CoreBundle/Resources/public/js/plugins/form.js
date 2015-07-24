@@ -597,10 +597,8 @@ $(function($){
 				type: 'POST',
 				url: field.choicesURL,
 				data: field.postData || {},
-				success: function(answer) {
-					if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(answer);
-
-					var requestAnswer = JSON.parse(answer);
+				success: function(requestAnswer) {
+					if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(requestAnswer);
 
 					var choicesRaw = (field.choicesTransformFunction) ? field.choicesTransformFunction(requestAnswer) : requestAnswer;
 

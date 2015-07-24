@@ -95,7 +95,6 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			controller: null,
 			method: null,
 			postData: null,
-			convertToRequestAnswer: true,
 			successCallback: null,
 			errorCallback: function(xhr, status, error){console.error(xhr.status + ' - ' + xhr.statusText);}
 		};
@@ -117,10 +116,7 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 					if(typeof(debugMode) !== 'undefined' && debugMode)
 						console.debug(contentURL);
 
-					if(parameters.convertToRequestAnswer)
-						return JSON.parse(contentURL);
-					else
-						return contentURL;
+					return contentURL;
 				};
 
 				$.ajax({
