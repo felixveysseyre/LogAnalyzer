@@ -4,6 +4,20 @@ LogAnalyzer_Dashboard_index:
     path:     /
     defaults: { _controller: LogAnalyzerCoreBundle:Dashboard:index }
 
+# Login #
+
+LogAnalyzer_Login_index:
+    path:     /
+    defaults: { _controller: LogAnalyzerCoreBundle:Login:index }
+
+LogAnalyzer_Login_signInAPI:
+    path:     /login/signInAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:Login:signInAPI }
+
+LogAnalyzer_Login_signOutAPI:
+    path:     /login/signOutAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:Login:signOutAPI }
+
 # OrganizationAdministration #
 
 LogAnalyzer_OrganizationAdministration_getUserAPI:
