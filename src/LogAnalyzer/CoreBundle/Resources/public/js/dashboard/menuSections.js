@@ -6,7 +6,7 @@ logAnalyzer.dashboard.menuSections = logAnalyzer.dashboard.menuSections || {};
 
 /* Variables definitions */
 
-logAnalyzer.dashboard.menuSections.platformStatus =
+/*logAnalyzer.dashboard.menuSections.platformStatus =
 {
 	name: 'Platform status',
 	id: 'platformStatusSection',
@@ -62,7 +62,7 @@ logAnalyzer.dashboard.menuSections.databaseAdministration =
 		{name: 'Manage logAccessors', id: 'manageLogAccessorSubSection', icon: 'fa-archive', onActivation: logAnalyzer.dashboard.databaseAdministration.manageLogAccessor},
 		{name: 'Manage logTables', id: 'manageLogTableSubSection', icon: 'fa-file', onActivation: logAnalyzer.dashboard.databaseAdministration.manageLogTable}
 	]
-};
+};*/
 
 logAnalyzer.dashboard.menuSections.organizationAdministration =
 {
@@ -74,7 +74,7 @@ logAnalyzer.dashboard.menuSections.organizationAdministration =
 	]
 };
 
-logAnalyzer.dashboard.menuSections.projectConfiguration =
+/*logAnalyzer.dashboard.menuSections.projectConfiguration =
 {
 	name: 'Project configuration',
 	id: 'projectConfigurationSection',
@@ -93,4 +93,4 @@ logAnalyzer.dashboard.menuSections.projectLogs =
 		{name: 'Project logs', id: 'projectLogsSubSection', icon: 'fa-file-text', onActivation: logAnalyzer.dashboard.projectLogs.projectLogs},
 		{name: 'Alert logs', id: 'alertLogsSubSection', icon: 'fa-file-text', onActivation: logAnalyzer.dashboard.projectLogs.alertLogs}
 	]
-};
+};*/
