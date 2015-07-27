@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DashboardController extends Controller
 {
+	/* Public */
+
 	public function indexAction(Request $request)
 	{
 		$currentUser = $request -> getSession() -> get('currentUser');
@@ -55,6 +57,7 @@ class DashboardController extends Controller
 						'toolboxes/date.js',
 						'toolboxes/log.js',
 
+						'dashboard/projectConfiguration/manageProject.js',
 						'dashboard/organizationAdministration/manageUser.js',
 
 						'dashboard/menuSections.js',
@@ -66,7 +69,7 @@ class DashboardController extends Controller
 					)
 				),
 				'jsVariables' => array(
-					'debugMode' => true,
+					'debugMode' => $this -> getConstantRepository() -> getConstantValue('debugMode'),
 					'baseURL' => $this
 						-> get('router')
 						-> getContext()
@@ -79,5 +82,17 @@ class DashboardController extends Controller
 		{
 			return $this -> redirect($this -> generateUrl('LogAnalyzer_Login_index'));
 		}
+	}
+
+	/* Private */
+
+	/* Special */
+
+	private function getConstantRepository()
+	{
+		return $this
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Constant');
 	}
 }
