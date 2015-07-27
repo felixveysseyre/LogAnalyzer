@@ -18,6 +18,20 @@ LogAnalyzer_Login_signOutAPI:
     path:     /login/signOutAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:Login:signOutAPI }
 
+# ProjectConfiguration #
+
+LogAnalyzer_ProjectConfiguration_getInitializationProjectStatusAPI:
+    path:     /projectConfiguration/getInitializationProjectStatusAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:ProjectConfiguration:getInitializationProjectStatusAPI }
+
+LogAnalyzer_ProjectConfiguration_getConstantAPI:
+    path:     /projectConfiguration/getConstantAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:ProjectConfiguration:getConstantAPI }
+
+LogAnalyzer_ProjectConfiguration_updateConstantAPI:
+    path:     /projectConfiguration/updateConstantAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:ProjectConfiguration:updateConstantAPI }
+
 # OrganizationAdministration #
 
 LogAnalyzer_OrganizationAdministration_getUserAPI:
