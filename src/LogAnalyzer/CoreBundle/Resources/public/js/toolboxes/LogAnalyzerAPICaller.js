@@ -14,15 +14,13 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 		{
 			getProjectLog: '/projectLogs/getProjectLogAPI',
 			getAlertLog: '/projectLogs/getAlertLogAPI'
-		},
+		},*/
 		projectConfiguration:
 		{
-			getInitializationProjectStatus: '/projectConfiguration/getInitializationProjectStatusAPI',
-			initializeProject: '/projectConfiguration/initializeProjectAPI',
-			resetProject: '/projectConfiguration/resetProjectAPI',
-			getConstant: '/projectConfiguration/getConstantAPI',
-			updateConstant: '/projectConfiguration/updateConstantAPI'
-		},*/
+			getInitializationProjectStatus: '/projectConfiguration/getInitializationProjectStatusAPI/',
+			getConstant: '/projectConfiguration/getConstantAPI/',
+			updateConstant: '/projectConfiguration/updateConstantAPI/'
+		},
 		organizationAdministration:
 		{
 			getRole: '/organizationAdministration/getRoleAPI/',

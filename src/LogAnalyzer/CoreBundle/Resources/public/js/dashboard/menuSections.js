@@ -74,7 +74,7 @@ logAnalyzer.dashboard.menuSections.organizationAdministration =
 	]
 };
 
-/*logAnalyzer.dashboard.menuSections.projectConfiguration =
+logAnalyzer.dashboard.menuSections.projectConfiguration =
 {
 	name: 'Project configuration',
 	id: 'projectConfigurationSection',
@@ -84,7 +84,7 @@ logAnalyzer.dashboard.menuSections.organizationAdministration =
 	]
 };
 
-logAnalyzer.dashboard.menuSections.projectLogs =
+/*logAnalyzer.dashboard.menuSections.projectLogs =
 {
 	name: 'Project logs',
 	id: 'projectLogsSection',
