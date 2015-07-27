@@ -1,19 +1,40 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
+    # MongoDB #
 
-    # A secret key that's used to generate certain security-related tokens
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    mongoDBDatabaseName: LogAnalyzer
+
+    # Mailer #
+
+    mailerTransport: smtp
+    mailerHost: 127.0.0.1
+    mailerUser: null
+    mailerPassword: null
+
+    # Collector #
+
+    collectorConnexionTimeOut: 5 #sec
+
+    # Log #
+
+    retentionLog: 7 #day
+    maxLogReturn: 50000
+
+    # LiveGraph #
+
+    retentionLiveGraph: 7 #day
+    aggregationTimeLiveGraph: 5 #min
+    offsetTimeLiveGraph: 5 #min
+
+    # Default user #
+
+    projectAdministratorFirstName: Project
+    projectAdministratorLastName: Administrator
+    projectAdministratorEmail: project.administrator@orange.com
+    projectAdministratorPassword: PassW0rd!
+
+    # Special #
+
+    debugMode: false
+    secret: a1cdb7cfa1c88eed87a639059a18afb8405a2730cdf04a0dc636d8ba75f87b12
+    passwordSalt: 47432fba63d64f5ba53fad9da9b5cdd76142792c43f3426bb3f4750a582b4921
