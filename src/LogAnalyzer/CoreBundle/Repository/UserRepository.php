@@ -220,9 +220,11 @@ class UserRepository extends DocumentRepository
 
 		/* Return */
 
-		return $query
+		$query
 			-> getQuery()
 			-> execute();
+
+		return true;
 	}
 
 	public function checkUser($userId, $rawPassword, $salt)

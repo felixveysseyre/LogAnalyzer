@@ -168,8 +168,10 @@ class RoleRepository extends DocumentRepository
 
 		/* Return */
 
-		return $query
+		$query
 			-> getQuery()
 			-> execute();
+
+		return true;
 	}
 }

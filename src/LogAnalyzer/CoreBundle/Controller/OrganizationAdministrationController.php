@@ -17,7 +17,7 @@ class OrganizationAdministrationController extends Controller
 		/* Get parameters */
 
 		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'id',
+			'userId',
 			'firstName',
 			'lastName',
 			'email'

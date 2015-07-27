@@ -54,6 +54,8 @@ class Role implements JsonSerializable
 		return $this -> roleHuman;
 	}
 
+	/* Special */
+
 	public function jsonSerialize()
 	{
 		return array(

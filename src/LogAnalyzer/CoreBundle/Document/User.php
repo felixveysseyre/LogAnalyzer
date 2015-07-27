@@ -98,16 +98,6 @@ class User implements JsonSerializable
 	}
 
 	/**
-	 * Get fullName
-	 *
-	 * @return string $fullName
-	 */
-	public function getFullName()
-	{
-		return $this -> firstName . ' ' . $this -> lastName;
-	}
-
-	/**
 	 * Set email
 	 *
 	 * @param string $email
@@ -176,13 +166,25 @@ class User implements JsonSerializable
 		return $this -> roleHuman;
 	}
 
+	/* Special */
+
+	/**
+	 * Get fullName
+	 *
+	 * @return string $fullName
+	 */
+	public function getFullName()
+	{
+		return $this -> firstName . ' ' . $this -> lastName;
+	}
+
 	public function jsonSerialize()
 	{
 		return array(
 			'userId' => $this -> userId,
 			'firstName' => $this -> firstName,
 			'lastName' => $this -> lastName,
-			'fullName' => $this -> firstName . ' ' . $this -> lastName,
+			'fullName' => $this -> getFullName(),
 			'email' => $this -> email,
 			'roleHuman' => $this -> roleHuman
 		);
