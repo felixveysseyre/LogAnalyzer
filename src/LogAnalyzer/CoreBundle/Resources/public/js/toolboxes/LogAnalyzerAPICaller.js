@@ -28,19 +28,15 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			createUser: '/organizationAdministration/createUserAPI/',
 			deleteUser: '/organizationAdministration/deleteUserAPI/'
 		},
-		/*platformAdministration:
+		platformAdministration:
 		{
-			getHost: '/platformAdministration/getHostAPI',
-			createHost: '/platformAdministration/createHostAPI',
-			deleteHost: '/platformAdministration/deleteHostAPI',
-			getService: '/platformAdministration/getServiceAPI',
-			createService: '/platformAdministration/createServiceAPI',
-			deleteService: '/platformAdministration/deleteServiceAPI',
-			getCollector: '/platformAdministration/getCollectorAPI',
+			getHost: '/platformAdministration/getHostAPI/',
+			getService: '/platformAdministration/getServiceAPI/',
+			/*getCollector: '/platformAdministration/getCollectorAPI',
 			createCollector: '/platformAdministration/createCollectorAPI',
-			deleteCollector: '/platformAdministration/deleteCollectorAPI'
+			deleteCollector: '/platformAdministration/deleteCollectorAPI'*/
 		},
-		databaseAdministration:
+		/*databaseAdministration:
 		{
 			getLogAccessor: '/databaseAdministration/getLogAccessorAPI',
 			createLogAccessor: '/databaseAdministration/createLogAccessorAPI',
@@ -162,7 +158,7 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			}
 			else
 			{
-				console.warn('Can not find requested controller or method.');
+				console.warn('Can not find requested controller or method.', parameters.controller, parameters.method);
 
 				return false;
 			}

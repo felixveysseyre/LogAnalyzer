@@ -49,3 +49,13 @@ LogAnalyzer_OrganizationAdministration_deleteUserAPI:
 LogAnalyzer_OrganizationAdministration_getRoleAPI:
     path:     /organizationAdministration/getRoleAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:OrganizationAdministration:getRoleAPI }
+
+# PlatformAdministration #
+
+LogAnalyzer_PlatformAdministration_getHostAPI:
+    path:     /platformAdministration/getHostAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:getHostAPI }
+
+LogAnalyzer_PlatformAdministration_getServiceAPI:
+    path:     /platformAdministration/getServiceAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:getServiceAPI }
