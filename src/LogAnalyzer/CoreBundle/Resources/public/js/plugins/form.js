@@ -604,13 +604,28 @@ $(function($){
 
 					var choices = [];
 
-					for(var i = 0; i < choicesRaw.length; i++)
+					if(typeof(field.nameKey) === 'undefined')
 					{
-						choices.push({
-							name: choicesRaw[i][field.nameKey],
-							value: (field.valueKey) ? choicesRaw[i][field.valueKey] : JSON.stringify(choicesRaw[i]).replace(/"/g, '\'')
-						});
+						for(var i = 0; i < choicesRaw.length; i++)
+						{
+							choices.push({
+								name: choicesRaw[i],
+								value: choicesRaw[i]
+							});
+						}
 					}
+					else
+					{
+						for(var i = 0; i < choicesRaw.length; i++)
+						{
+							choices.push({
+								name: choicesRaw[i][field.nameKey],
+								value: (field.valueKey) ? choicesRaw[i][field.valueKey] : JSON.stringify(choicesRaw[i]).replace(/"/g, '\'')
+							});
+						}
+					}
+
+
 
 					field.choices = choices;
 					self.update();
