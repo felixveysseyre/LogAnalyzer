@@ -1,3 +1,5 @@
 services:
     Helpers:
         class: LogAnalyzer\CoreBundle\Service\Helpers
+    PermissionGranter:
+        class: LogAnalyzer\CoreBundle\Service\PermissionGranter
