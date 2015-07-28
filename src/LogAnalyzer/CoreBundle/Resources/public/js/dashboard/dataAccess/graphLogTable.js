@@ -64,23 +64,20 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 
 			/* Create clauses */
 
-			var postData = {
-				logTableClauses: {},
-				logClauses: {}
-			};
+			var postData = {};
 
 			/** LogTable clauses **/
 
-			if(formValues.hostIdActivation) postData.logTableClauses.hostId = formValues.hostId;
-			if(formValues.hostLikeActivation) postData.logTableClauses.hostLike = formValues.hostLike;
-			if(formValues.serviceIdActivation) postData.logTableClauses.serviceId = formValues.serviceId;
+			if(formValues.hostActivation) postData.host = formValues.host;
+			if(formValues.hostLikeActivation) postData.hostLike = formValues.hostLike;
+			if(formValues.serviceActivation) postData.service = formValues.service;
 
 			/** Log clauses **/
 
-			if(formValues.reportedTimeActivation) postData.logClauses.reportedTime = {inf: formValues.reportedTimeInf, sup: formValues.reportedTimeSup};
+			if(formValues.reportedTimeActivation) postData.reportedTime = {inf: formValues.reportedTimeInf, sup: formValues.reportedTimeSup};
 
-			if(formValues.syslogTagActivation) postData.logClauses.syslogTag = formValues.syslogTag;
-			if(formValues.messageActivation) postData.logClauses.message = formValues.message;
+			if(formValues.syslogTagActivation) postData.syslogTag = formValues.syslogTag;
+			if(formValues.messageActivation) postData.message = formValues.message;
 
 			/** Options **/
 
@@ -179,7 +176,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 			fields: [
 				{
 					name: 'Host',
-					id: 'hostId',
+					id: 'host',
 					help: 'Host which generated the logs',
 					activation: null,
 					type: 'select',
@@ -190,9 +187,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					}),
 					choicesTransformFunction: function(requestAnswer){
 						return (requestAnswer.resultCode === 1) ? requestAnswer.info.hosts : false;
-					},
-					nameKey: 'hostHuman',
-					valueKey: 'hostId'
+					}
 				},
 				{
 					name: 'Group Host',
@@ -205,7 +200,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 
 				{
 					name: 'Service',
-					id: 'serviceId',
+					id: 'service',
 					help: 'Service which generated the logs',
 					activation: null,
 					type: 'select',
@@ -217,9 +212,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					}),
 					choicesTransformFunction: function(requestAnswer){
 						return (requestAnswer.resultCode === 1) ? requestAnswer.info.services : false;
-					},
-					nameKey: 'serviceHuman',
-					valueKey: 'serviceId'
+					}
 				},
 
 				{

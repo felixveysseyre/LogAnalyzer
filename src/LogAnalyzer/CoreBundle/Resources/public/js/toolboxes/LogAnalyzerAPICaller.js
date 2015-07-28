@@ -62,13 +62,12 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			getAlertNotification: '/platformStatus/getAlertNotificationAPI',
 			deleteAlertNotification: '/platformStatus/deleteAlertNotificationAPI',
 			clearAlertNotification: '/platformStatus/clearAlertNotificationAPI'
-		},
+		},*/
 		dataAccess:
 		{
-			getLog: '/dataAccess/getLogAPI',
-			getLogBackup: '/dataAccess/getLogBackupAPI',
-			getLiveGraphCount: '/dataAccess/getLiveGraphCountAPI'
-		},*/
+			getLog: '/dataAccess/getLogAPI/',
+			//getLiveGraphCount: '/dataAccess/getLiveGraphCountAPI'
+		},
 
 		login:
 		{

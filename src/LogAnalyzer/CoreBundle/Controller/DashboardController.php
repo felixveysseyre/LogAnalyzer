@@ -60,9 +60,13 @@ class DashboardController extends Controller
 						'dashboard/projectConfiguration/manageProject.js',
 						'dashboard/organizationAdministration/manageUser.js',
 
+						'dashboard/dataAccess/browseLogTable.js',
+						'dashboard/dataAccess/graphLogTable.js',
+						'dashboard/dataAccess/seeLiveGraph.js',
+
+						'dashboard/dashboard.js',
 						'dashboard/menuSections.js',
-						'dashboard/menuTemp.js',
-						'dashboard/dashboard.js'
+						'dashboard/menuTemp.js'
 					),
 					'external' => array(
 						'https://www.gstatic.com/charts/loader.js'

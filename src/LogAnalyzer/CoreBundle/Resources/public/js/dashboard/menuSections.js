@@ -14,7 +14,7 @@ logAnalyzer.dashboard.menuSections = logAnalyzer.dashboard.menuSections || {};
 	subSections: [
 		{name: 'Alert notifications', id: 'alertNotificationSubSection', icon: 'fa-bullhorn', onActivation: logAnalyzer.dashboard.platformStatus.alertNotification}
 	]
-};
+};*/
 
 logAnalyzer.dashboard.menuSections.dataAccess =
 {
@@ -23,13 +23,12 @@ logAnalyzer.dashboard.menuSections.dataAccess =
 	icon: 'fa-archive',
 	subSections: [
 		{name: 'Browse', id: 'browseSubSection', icon: 'fa-bars', onActivation: logAnalyzer.dashboard.dataAccess.browseLogTable},
-		{name: 'Browse backup', id: 'browseBackupSubSection', icon: 'fa-bars', onActivation: logAnalyzer.dashboard.dataAccess.browseLogBackupTable},
 		{name: 'Graph', id: 'graphSubSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.dataAccess.graphLogTable},
-		{name: 'See liveGraph', id: 'liveGraphSubSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.dataAccess.seeLiveGraph}
+		//{name: 'See liveGraph', id: 'liveGraphSubSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.dataAccess.seeLiveGraph}
 	]
 };
 
-logAnalyzer.dashboard.menuSections.analysisAdministration =
+/*logAnalyzer.dashboard.menuSections.analysisAdministration =
 {
 	name: 'Analysis administration',
 	id: 'analysisAdministrationSection',
