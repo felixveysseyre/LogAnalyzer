@@ -59,3 +59,9 @@ LogAnalyzer_PlatformAdministration_getHostAPI:
 LogAnalyzer_PlatformAdministration_getServiceAPI:
     path:     /platformAdministration/getServiceAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:getServiceAPI }
+
+# DataAccess #
+
+LogAnalyzer_DataAccess_getLogAPI:
+    path:     /dataAccess/getLogAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:DataAccess:getLogAPI }

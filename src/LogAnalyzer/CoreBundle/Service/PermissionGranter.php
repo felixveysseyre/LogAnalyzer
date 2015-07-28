@@ -50,7 +50,7 @@ class PermissionGranter
 					'Project Administrator',
 					'Platform Administrator'
 				)
-			),/*
+			),
 			'platformAdministration' => array(
 				'getHostAPI' => array(
 					'Project Administrator',
@@ -62,7 +62,7 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				),
-				'getCollectorAPI' => array(
+				/*'getCollectorAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
@@ -74,8 +74,9 @@ class PermissionGranter
 				'deleteCollectorAPI' => array(
 					'Project Administrator',
 					'Platform Administrator'
-				)
+				)*/
 			),
+			/*
 			'analysisAdministration' => array(
 				'getLiveGraphAPI' => array(
 					'Project Administrator',
@@ -122,20 +123,20 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				)
-			),
+			),*/
 			'dataAccess' => array(
 				'getLogAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
 				),
-				'getLiveGraphCountAPI' => array(
+				/*'getLiveGraphCountAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
-				),
+				),*/
 			),
-			'platformStatus' => array(
+			/*'platformStatus' => array(
 				'getAlertNotificationAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
