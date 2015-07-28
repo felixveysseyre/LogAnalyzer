@@ -65,26 +65,37 @@ class LoginController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'userId',
-			'password',
-		));
-
-		/* Test conditions */
-
-		$condition = isset($parameters['userId'], $parameters['password']);
-
 		/* Get return value */
 
-		$returnValue = ($condition) ? $this -> signIn($request, $parameters['userId'], $parameters['password']) : null;
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'userId',
+				'password',
+			));
+
+			$condition = isset($parameters['userId'], $parameters['password']);
+
+			$returnValue = ($condition) ? $this -> signIn($request, $parameters['userId'], $parameters['password']) : null;
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if($returnValue)
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif($returnValue)
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -119,19 +130,32 @@ class LoginController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array());
-
 		/* Get return value */
 
-		$returnValue = $this -> signOut($request);
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request);
+
+			$returnValue = $this -> signOut($request);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if($returnValue)
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif($returnValue)
 		{
 			$data = array(
 				'resultCode' => 1,

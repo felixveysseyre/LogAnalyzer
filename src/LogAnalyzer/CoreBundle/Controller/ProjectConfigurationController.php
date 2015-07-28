@@ -14,19 +14,32 @@ class ProjectConfigurationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request);
-
 		/* Get return value */
 
-		$returnValue = $this -> getInitializationProjectStatusAction();
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request);
+
+			$returnValue = $this -> getInitializationProjectStatusAction();
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if($returnValue)
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif($returnValue)
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -52,24 +65,37 @@ class ProjectConfigurationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'constantId',
-			'name',
-			'type',
-			'value'
-		));
-
 		/* Get return value */
 
-		$returnValue = $this -> getConstantAction($parameters);
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'constantId',
+				'name',
+				'type',
+				'value'
+			));
+
+			$returnValue = $this -> getConstantAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if(is_array($returnValue) && sizeof($returnValue) !== 0)
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue) && sizeof($returnValue) !== 0)
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -96,19 +122,32 @@ class ProjectConfigurationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request);
-
 		/* Get return value */
 
-		$returnValue = $this -> updateConstantAction($parameters);
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request);
+
+			$returnValue = $this -> updateConstantAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if(is_numeric($returnValue))
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_numeric($returnValue))
 		{
 			$data = array(
 				'resultCode' => 1,

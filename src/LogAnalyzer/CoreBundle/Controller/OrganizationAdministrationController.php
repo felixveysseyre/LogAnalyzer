@@ -14,24 +14,37 @@ class OrganizationAdministrationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'userId',
-			'firstName',
-			'lastName',
-			'email'
-		));
-
 		/* Get return value */
 
-		$returnValue = $this -> getUserAction($parameters);
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'userId',
+				'firstName',
+				'lastName',
+				'email'
+			));
+
+			$returnValue = $this -> getUserAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if(is_array($returnValue))
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue))
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -58,29 +71,40 @@ class OrganizationAdministrationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'firstName',
-			'lastName',
-			'email',
-			'password',
-			'roleId'
-		));
-
-		/* Test conditions */
-
-		$condition = isset($parameters['firstName'], $parameters['lastName'], $parameters['email'], $parameters['password'], $parameters['roleId']);
-
 		/* Get return value */
 
-		$returnValue = ($condition) ? $this -> createUserAction($parameters['firstName'], $parameters['lastName'], $parameters['email'], $parameters['password'], $parameters['roleId']) : null;
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'firstName',
+				'lastName',
+				'email',
+				'password',
+				'roleId'
+			));
+
+			$condition = isset($parameters['firstName'], $parameters['lastName'], $parameters['email'], $parameters['password'], $parameters['roleId']);
+
+			$returnValue = ($condition) ? $this -> createUserAction($parameters['firstName'], $parameters['lastName'], $parameters['email'], $parameters['password'], $parameters['roleId']) : null;
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if($returnValue === true)
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif($returnValue === true)
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -114,24 +138,37 @@ class OrganizationAdministrationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'userId',
-			'firstName',
-			'lastName',
-			'email'
-		));
-
 		/* Get return value */
 
-		$returnValue = $this -> deleteUserAction($parameters);
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'userId',
+				'firstName',
+				'lastName',
+				'email'
+			));
+
+			$returnValue = $this -> deleteUserAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if(is_array($returnValue) && sizeof($returnValue) !== 0)
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue) && sizeof($returnValue) !== 0)
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -158,22 +195,35 @@ class OrganizationAdministrationController extends Controller
 	{
 		$startTime = microtime(true);
 
-		/* Get parameters */
-
-		$parameters = $this -> get('Helpers') -> getParameters($request, array(
-			'roleId',
-			'roleHuman',
-		));
-
 		/* Get return value */
 
-		$returnValue = $this -> getRoleAction($parameters);
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'roleId',
+				'roleHuman',
+			));
+
+			$returnValue = $this -> getRoleAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
 
 		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
 
 		/* Prepare API response data */
 
-		if(is_array($returnValue))
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue))
 		{
 			$data = array(
 				'resultCode' => 1,
@@ -245,5 +295,4 @@ class OrganizationAdministrationController extends Controller
 			-> getManager()
 			-> getRepository('LogAnalyzerCoreBundle:Role');
 	}
-
 }
