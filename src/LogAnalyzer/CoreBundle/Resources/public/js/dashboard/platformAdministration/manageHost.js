@@ -38,25 +38,6 @@ logAnalyzer.dashboard.platformAdministration = logAnalyzer.dashboard.platformAdm
 				.requestViewer('update');
 		};
 
-		var createHostAction = function(formValues)
-		{
-			createHostForm.form('setPendingState', true);
-			manageHostRequestViewer.requestViewer('setPendingState', true);
-
-			var postData = {};
-
-			if(formValues.hostHumanActivation) postData.hostHuman = formValues.hostHuman;
-
-			logAnalyzer.toolbox.LogAnalyzerAPICaller.callAPI({
-				baseURL: baseURL,
-				controller: 'platformAdministration',
-				method: 'createHost',
-				postData: postData,
-				successCallback: addAnswerToRequestViewer,
-				errorCallback: addErrorNotificationToRequestViewer
-			});
-		};
-
 		/* Create modules */
 
 		var contentContainer = logAnalyzer.dashboard.getContentContainer();
