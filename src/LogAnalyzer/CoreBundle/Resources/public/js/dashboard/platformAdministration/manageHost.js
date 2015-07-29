@@ -18,21 +18,15 @@ logAnalyzer.dashboard.platformAdministration = logAnalyzer.dashboard.platformAdm
 
 		var addAnswerToRequestViewer = function(requestAnswer)
 		{
-			createHostForm.form('setPendingState', false);
-
 			manageHostRequestViewer
 				.requestViewer('addRequest', requestAnswer)
 				.requestViewer('update');
 
 			hostTableViewer.tableViewer('updateData');
-
-			deleteHostForm.form('updateData');
 		};
 
 		var addErrorNotificationToRequestViewer = function()
 		{
-			createHostForm.form('setPendingState', false);
-
 			manageHostRequestViewer
 				.requestViewer('addRequest', {resultCode: -1, message: 'An error occurred'})
 				.requestViewer('update');
