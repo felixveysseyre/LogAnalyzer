@@ -38,7 +38,7 @@ logAnalyzer.dashboard.menuSections.dataAccess =
 		{name: 'Manage alerts', id: 'manageAlertSection', icon: 'fa-bell', onActivation: logAnalyzer.dashboard.analysisAdministration.manageAlert},
 		{name: 'Manage parsers', id: 'manageParserSection', icon: 'fa-tag', onActivation: logAnalyzer.dashboard.analysisAdministration.manageParser}
 	]
-};
+};*/
 
 logAnalyzer.dashboard.menuSections.platformAdministration =
 {
@@ -52,7 +52,7 @@ logAnalyzer.dashboard.menuSections.platformAdministration =
 	]
 };
 
-logAnalyzer.dashboard.menuSections.databaseAdministration =
+/*logAnalyzer.dashboard.menuSections.databaseAdministration =
 {
 	name: 'Database administration',
 	id: 'databaseAdministrationSection',

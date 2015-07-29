@@ -32,9 +32,9 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 		{
 			getHost: '/platformAdministration/getHostAPI/',
 			getService: '/platformAdministration/getServiceAPI/',
-			/*getCollector: '/platformAdministration/getCollectorAPI',
-			createCollector: '/platformAdministration/createCollectorAPI',
-			deleteCollector: '/platformAdministration/deleteCollectorAPI'*/
+			getCollector: '/platformAdministration/getCollectorAPI/',
+			createCollector: '/platformAdministration/createCollectorAPI/',
+			deleteCollector: '/platformAdministration/deleteCollectorAPI/'
 		},
 		/*databaseAdministration:
 		{
