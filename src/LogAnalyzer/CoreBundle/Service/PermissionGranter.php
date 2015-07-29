@@ -76,9 +76,8 @@ class PermissionGranter
 					'Platform Administrator'
 				)
 			),
-			/*
 			'analysisAdministration' => array(
-				'getLiveGraphAPI' => array(
+				/*'getLiveGraphAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
@@ -107,7 +106,7 @@ class PermissionGranter
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
-				),
+				),*/
 				'getParserAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
@@ -123,7 +122,7 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				)
-			),*/
+			),
 			'dataAccess' => array(
 				'getLogAPI' => array(
 					'Project Administrator',

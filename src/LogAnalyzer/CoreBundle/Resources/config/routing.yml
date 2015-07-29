@@ -72,6 +72,20 @@ LogAnalyzer_PlatformAdministration_deleteCollectorAPI:
     path:     /platformAdministration/deleteCollectorAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:deleteCollectorAPI }
 
+# AnalysisAdministration #
+
+LogAnalyzer_AnalysisAdministration_getParserAPI:
+    path:     /analysisAdministration/getParserAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:getParserAPI }
+
+LogAnalyzer_AnalysisAdministration_createParserAPI:
+    path:     /analysisAdministration/createParserAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:createParserAPI }
+
+LogAnalyzer_AnalysisAdministration_deleteParserAPI:
+    path:     /analysisAdministration/deleteParserAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:deleteParserAPI }
+
 # DataAccess #
 
 LogAnalyzer_DataAccess_getLogAPI:
