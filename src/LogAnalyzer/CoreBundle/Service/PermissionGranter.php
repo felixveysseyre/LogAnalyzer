@@ -77,7 +77,7 @@ class PermissionGranter
 				)
 			),
 			'analysisAdministration' => array(
-				/*'getLiveGraphAPI' => array(
+				'getLiveGraphAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
@@ -92,7 +92,7 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				),
-				'getAlertAPI' => array(
+				/*'getAlertAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'

@@ -189,6 +189,182 @@ class AnalysisAdministrationController extends Controller
 		return new JsonResponse($data);
 	}
 
+	public function getLiveGraphAPIAction(Request $request)
+	{
+		$startTime = microtime(true);
+
+		/* Get return value */
+
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'liveGraphId',
+				'liveGraphHuman',
+				'filter'
+			));
+
+			$returnValue = $this -> getLiveGraphAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
+
+		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
+
+		/* Prepare API response data */
+
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue))
+		{
+			$data = array(
+				'resultCode' => 1,
+				'executionTime' => $executionTime,
+				'message' => sizeof($returnValue) . ' liveGraphs have been found.',
+				'info' => array('liveGraphs' => $returnValue)
+			);
+		}
+		else
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Failed to get liveGraphs.'
+			);
+		}
+
+		/* Return API response */
+
+		return new JsonResponse($data);
+	}
+
+	public function createLiveGraphAPIAction(Request $request)
+	{
+		$startTime = microtime(true);
+
+		/* Get return value */
+
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'liveGraphHuman',
+				'filter'
+			));
+
+			$condition = isset($parameters['liveGraphHuman'], $parameters['filter']);
+
+			$returnValue = ($condition) ? $this -> createLiveGraphAction($parameters['liveGraphHuman'], $parameters['filter']) : null;
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
+
+		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
+
+		/* Prepare API response data */
+
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif($returnValue === true)
+		{
+			$data = array(
+				'resultCode' => 1,
+				'executionTime' => $executionTime,
+				'message' => "LiveGraph '{$parameters['liveGraphHuman']}' has been created.",
+			);
+		}
+		elseif($returnValue === null)
+		{
+			$data = array(
+				'resultCode' => 0,
+				'executionTime' => $executionTime,
+				'message' => 'Failed to create liveGraph. Not enough parameters.'
+			);
+		}
+		else
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Failed to create liveGraph. LiveGraph already exists.'
+			);
+		}
+
+		/* Return API response */
+
+		return new JsonResponse($data);
+	}
+
+	public function deleteLiveGraphAPIAction(Request $request)
+	{
+		$startTime = microtime(true);
+
+		/* Get return value */
+
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'liveGraphId',
+				'liveGraphHuman',
+				'filter'
+			));
+
+			$returnValue = $this -> deleteLiveGraphAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
+
+		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
+
+		/* Prepare API response data */
+
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue) && sizeof($returnValue) !== 0)
+		{
+			$data = array(
+				'resultCode' => 1,
+				'executionTime' => $executionTime,
+				'message' => sizeof($returnValue) . ' liveGraphs have been deleted.',
+				'info' => array('deletedLiveGraphs' => $returnValue)
+			);
+		}
+		else
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Parameters do not match any existing liveGraph.',
+			);
+		}
+
+		/* Return API response */
+
+		return new JsonResponse($data);
+	}
+
 	/* Private */
 
 	private function getParserAction($clauses = null)
@@ -212,6 +388,27 @@ class AnalysisAdministrationController extends Controller
 			-> deleteParserAndContext($clauses);
 	}
 
+	private function getLiveGraphAction($clauses = null)
+	{
+		return $this
+			-> getLiveGraphRepository()
+			-> getLiveGraph($clauses);
+	}
+
+	private function createLiveGraphAction($parserHuman, $filter)
+	{
+		return $this
+			-> getLiveGraphRepository()
+			-> createLiveGraph($parserHuman, $filter);
+	}
+
+	private function deleteLiveGraphAction($clauses = null)
+	{
+		return $this
+			-> getLiveGraphRepository()
+			-> deleteLiveGraphAndContext($clauses);
+	}
+
 	/* Special */
 
 	private function getParserRepository()
@@ -220,5 +417,13 @@ class AnalysisAdministrationController extends Controller
 			-> get('doctrine_mongodb')
 			-> getManager()
 			-> getRepository('LogAnalyzerCoreBundle:Parser');
+	}
+
+	private function getLiveGraphRepository()
+	{
+		return $this
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraph');
 	}
 }
