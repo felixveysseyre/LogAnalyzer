@@ -60,6 +60,18 @@ LogAnalyzer_PlatformAdministration_getServiceAPI:
     path:     /platformAdministration/getServiceAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:getServiceAPI }
 
+LogAnalyzer_PlatformAdministration_getCollectorAPI:
+    path:     /platformAdministration/getCollectorAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:getCollectorAPI }
+
+LogAnalyzer_PlatformAdministration_createCollectorAPI:
+    path:     /platformAdministration/createCollectorAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:createCollectorAPI }
+
+LogAnalyzer_PlatformAdministration_deleteCollectorAPI:
+    path:     /platformAdministration/deleteCollectorAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformAdministration:deleteCollectorAPI }
+
 # DataAccess #
 
 LogAnalyzer_DataAccess_getLogAPI:

@@ -62,7 +62,7 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				),
-				/*'getCollectorAPI' => array(
+				'getCollectorAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
@@ -74,7 +74,7 @@ class PermissionGranter
 				'deleteCollectorAPI' => array(
 					'Project Administrator',
 					'Platform Administrator'
-				)*/
+				)
 			),
 			/*
 			'analysisAdministration' => array(
