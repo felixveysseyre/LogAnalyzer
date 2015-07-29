@@ -62,6 +62,7 @@ class DashboardController extends Controller
 						'dashboard/platformAdministration/manageHost.js',
 						'dashboard/platformAdministration/manageService.js',
 						'dashboard/platformAdministration/manageCollector.js',
+						'dashboard/analysisAdministration/manageParser.js',
 
 						'dashboard/dataAccess/browseLogTable.js',
 						'dashboard/dataAccess/graphLogTable.js',

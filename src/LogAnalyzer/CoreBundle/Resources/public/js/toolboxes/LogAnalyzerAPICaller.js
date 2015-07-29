@@ -36,28 +36,19 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			createCollector: '/platformAdministration/createCollectorAPI/',
 			deleteCollector: '/platformAdministration/deleteCollectorAPI/'
 		},
-		/*databaseAdministration:
-		{
-			getLogAccessor: '/databaseAdministration/getLogAccessorAPI',
-			createLogAccessor: '/databaseAdministration/createLogAccessorAPI',
-			deleteLogAccessor: '/databaseAdministration/deleteLogAccessorAPI',
-			getLogTable: '/databaseAdministration/getLogTableAPI',
-			createLogTable: '/databaseAdministration/createLogTableAPI',
-			deleteLogTable: '/databaseAdministration/deleteLogTableAPI'
-		},
 		analysisAdministration:
 		{
-			getLiveGraph: '/analysisAdministration/getLiveGraphAPI',
-			createLiveGraph: '/analysisAdministration/createLiveGraphAPI',
-			deleteLiveGraph: '/analysisAdministration/deleteLiveGraphAPI',
-			getAlert: '/analysisAdministration/getAlertAPI',
-			createAlert: '/analysisAdministration/createAlertAPI',
-			deleteAlert: '/analysisAdministration/deleteAlertAPI',
-			getParser: '/analysisAdministration/getParserAPI',
-			createParser: '/analysisAdministration/createParserAPI',
-			deleteParser: '/analysisAdministration/deleteParserAPI'
+			//getLiveGraph: '/analysisAdministration/getLiveGraphAPI',
+			//createLiveGraph: '/analysisAdministration/createLiveGraphAPI',
+			//deleteLiveGraph: '/analysisAdministration/deleteLiveGraphAPI',
+			//getAlert: '/analysisAdministration/getAlertAPI',
+			//createAlert: '/analysisAdministration/createAlertAPI',
+			//deleteAlert: '/analysisAdministration/deleteAlertAPI',
+			getParser: '/analysisAdministration/getParserAPI/',
+			createParser: '/analysisAdministration/createParserAPI/',
+			deleteParser: '/analysisAdministration/deleteParserAPI/'
 		},
-		platformStatus:
+		/*platformStatus:
 		{
 			getAlertNotification: '/platformStatus/getAlertNotificationAPI',
 			deleteAlertNotification: '/platformStatus/deleteAlertNotificationAPI',
