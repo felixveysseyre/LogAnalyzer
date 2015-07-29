@@ -34,7 +34,7 @@ logAnalyzer.dashboard.menuSections.analysisAdministration =
 	id: 'analysisAdministrationSection',
 	icon: 'fa-binoculars',
 	subSections: [
-		//{name: 'Manage liveGraphs', id: 'manageLiveGraphSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.analysisAdministration.manageLiveGraph},
+		{name: 'Manage liveGraphs', id: 'manageLiveGraphSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.analysisAdministration.manageLiveGraph},
 		//{name: 'Manage alerts', id: 'manageAlertSection', icon: 'fa-bell', onActivation: logAnalyzer.dashboard.analysisAdministration.manageAlert},
 		{name: 'Manage parsers', id: 'manageParserSection', icon: 'fa-tag', onActivation: logAnalyzer.dashboard.analysisAdministration.manageParser}
 	]
