@@ -195,7 +195,9 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					}),
 					choicesTransformFunction: function(requestAnswer){
 						return (requestAnswer.resultCode === 1) ? requestAnswer.info.hosts : false;
-					}
+					},
+					nameKey: 'hostHuman',
+					valueKey: 'hostHuman'
 				},
 				{
 					name: 'Group Host',
@@ -219,7 +221,9 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					}),
 					choicesTransformFunction: function(requestAnswer){
 						return (requestAnswer.resultCode === 1) ? requestAnswer.info.services : false;
-					}
+					},
+					nameKey: 'serviceHuman',
+					valueKey: 'serviceHuman'
 				},
 
 				{

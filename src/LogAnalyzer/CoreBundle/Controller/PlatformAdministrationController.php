@@ -118,16 +118,31 @@ class PlatformAdministrationController extends Controller
 
 	private function getHostAction()
 	{
-		return $this
+		$hosts = $this
 			-> getLogRepository()
 			-> getHost();
+
+		foreach($hosts as $key => $value)
+		{
+			$hosts[$key] = array('hostHuman' => $value);
+		}
+
+		return $hosts;
 	}
 
 	private function getServiceAction()
 	{
-		return $this
+		$services =  $this
 			-> getLogRepository()
 			-> getService();
+
+		foreach($services as $key => $value)
+		{
+			$services[$key] = array('serviceHuman' => $value);
+		}
+
+		return $services;
+	}
 	}
 
 	/* Special */
