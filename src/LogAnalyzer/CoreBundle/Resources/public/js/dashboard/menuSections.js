@@ -6,7 +6,7 @@ logAnalyzer.dashboard.menuSections = logAnalyzer.dashboard.menuSections || {};
 
 /* Variables definitions */
 
-/*logAnalyzer.dashboard.menuSections.platformStatus =
+logAnalyzer.dashboard.menuSections.platformStatus =
 {
 	name: 'Platform status',
 	id: 'platformStatusSection',
@@ -14,7 +14,7 @@ logAnalyzer.dashboard.menuSections = logAnalyzer.dashboard.menuSections || {};
 	subSections: [
 		{name: 'Alert notifications', id: 'alertNotificationSubSection', icon: 'fa-bullhorn', onActivation: logAnalyzer.dashboard.platformStatus.alertNotification}
 	]
-};*/
+};
 
 logAnalyzer.dashboard.menuSections.dataAccess =
 {

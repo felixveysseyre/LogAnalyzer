@@ -65,7 +65,7 @@ class DashboardController extends Controller
 						'dashboard/analysisAdministration/manageLiveGraph.js',
 						'dashboard/analysisAdministration/manageAlert.js',
 						'dashboard/analysisAdministration/manageParser.js',
-
+						'dashboard/platformStatus/alertNotification.js',
 						'dashboard/dataAccess/browseLogTable.js',
 						'dashboard/dataAccess/graphLogTable.js',
 						'dashboard/dataAccess/seeLiveGraph.js',

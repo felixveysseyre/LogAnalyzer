@@ -48,12 +48,11 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			createParser: '/analysisAdministration/createParserAPI/',
 			deleteParser: '/analysisAdministration/deleteParserAPI/'
 		},
-		/*platformStatus:
+		platformStatus:
 		{
-			getAlertNotification: '/platformStatus/getAlertNotificationAPI',
-			deleteAlertNotification: '/platformStatus/deleteAlertNotificationAPI',
-			clearAlertNotification: '/platformStatus/clearAlertNotificationAPI'
-		},*/
+			getAlertNotification: '/platformStatus/getAlertNotificationAPI/',
+			clearAlertNotification: '/platformStatus/clearAlertNotificationAPI/'
+		},
 		dataAccess:
 		{
 			getLog: '/dataAccess/getLogAPI/',
