@@ -129,11 +129,11 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				),
-				/*'getLiveGraphCountAPI' => array(
+				'getLiveGraphCountAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
-				),*/
+				),
 			),
 			'platformStatus' => array(
 				'getAlertNotificationAPI' => array(

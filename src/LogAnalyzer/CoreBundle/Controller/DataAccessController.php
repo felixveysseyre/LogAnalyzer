@@ -86,6 +86,63 @@ class DataAccessController extends Controller
 		return new JsonResponse($data);
 	}
 
+	public function getLiveGraphCountAPIAction(Request $request)
+	{
+		$startTime = microtime(true);
+
+		/* Get return value */
+
+		if($this -> get('PermissionGranter') -> isGranted($request))
+		{
+			$parameters = $this -> get('Helpers') -> getParameters($request, array(
+				'liveGraphCountId',
+				'liveGraphHuman',
+				'reportedTime',
+				'count',
+			));
+
+			$returnValue = $this -> getLiveGraphCountAction($parameters);
+		}
+		else
+		{
+			$returnValue = 'accessDenied';
+		}
+
+		$executionTime = $this -> get('Helpers') -> getExecutionTime($startTime, microtime(true));
+
+		/* Prepare API response data */
+
+		if($returnValue === 'accessDenied')
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Access denied.'
+			);
+		}
+		elseif(is_array($returnValue))
+		{
+			$data = array(
+				'resultCode' => 1,
+				'executionTime' => $executionTime,
+				'message' => sizeof($returnValue) . ' liveGraphCounts have been found.',
+				'info' => array('liveGraphCounts' => $returnValue)
+			);
+		}
+		else
+		{
+			$data = array(
+				'resultCode' => -1,
+				'executionTime' => $executionTime,
+				'message' => 'Failed to get liveGraphCounts.'
+			);
+		}
+
+		/* Return API response */
+
+		return new JsonResponse($data);
+	}
+
 	/* Private */
 
 	private function getLogAction($clauses = null, $forceReturn = false)
@@ -111,7 +168,22 @@ class DataAccessController extends Controller
 			-> getLog($clauses);
 	}
 
+	private function getLiveGraphCountAction($clauses = null)
+	{
+		return $this
+			-> getLiveGraphCountRepository()
+			-> getLiveGraphCount($clauses);
+	}
+
 	/* Special */
+
+	private function getConstantRepository()
+	{
+		return $this
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Constant');
+	}
 
 	private function getLogRepository()
 	{
@@ -121,11 +193,11 @@ class DataAccessController extends Controller
 			-> getRepository('LogAnalyzerCoreBundle:Log');
 	}
 
-	private function getConstantRepository()
+	private function getLiveGraphCountRepository()
 	{
 		return $this
 			-> get('doctrine_mongodb')
 			-> getManager()
-			-> getRepository('LogAnalyzerCoreBundle:Constant');
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraphCount');
 	}
 }

@@ -115,6 +115,11 @@ LogAnalyzer_AnalysisAdministration_deleteAlertAPI:
 LogAnalyzer_DataAccess_getLogAPI:
     path:     /dataAccess/getLogAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:DataAccess:getLogAPI }
+
+LogAnalyzer_DataAccess_getLiveGraphCountAPI:
+    path:     /dataAccess/getLiveGraphCountAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:DataAccess:getLiveGraphCountAPI }
+
 # PlatformStatus #
 
 LogAnalyzer_PlatformStatus_getAlertNotificationAPI:
