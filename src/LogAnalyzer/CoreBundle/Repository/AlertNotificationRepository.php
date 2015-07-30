@@ -145,10 +145,16 @@ class AlertNotificationRepository extends DocumentRepository
 				$query -> field('active') -> equals($clauses['active']);
 
 			if(isset($clauses['startTime']))
-				$query -> field('startTime') -> equals($clauses['startTime']);
+				if(is_array($clauses['startTime']))
+					$query -> field('startTime') -> range($clauses['startTime']['inf'], $clauses['startTime']['sup']);
+				else
+					$query -> field('startTime') -> equals($clauses['startTime']);
 
 			if(isset($clauses['endTime']))
-				$query -> field('endTime') -> equals($clauses['endTime']);
+				if(is_array($clauses['endTime']))
+					$query -> field('endTime') -> range($clauses['endTime']['inf'], $clauses['endTime']['sup']);
+				else
+					$query -> field('endTime') -> equals($clauses['endTime']);
 		}
 
 		/* Return */

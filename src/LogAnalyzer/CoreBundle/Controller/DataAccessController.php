@@ -88,7 +88,7 @@ class DataAccessController extends Controller
 
 	/* Private */
 
-	private function getLogAction($clauses, $forceReturn = false)
+	private function getLogAction($clauses = null, $forceReturn = false)
 	{
 		if(! $forceReturn)
 		{
