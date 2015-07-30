@@ -135,13 +135,8 @@ class PermissionGranter
 					'Platform User'
 				),*/
 			),
-			/*'platformStatus' => array(
+			'platformStatus' => array(
 				'getAlertNotificationAPI' => array(
-					'Project Administrator',
-					'Platform Administrator',
-					'Platform User'
-				),
-				'deleteAlertNotificationAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
@@ -151,7 +146,7 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				),
-			),*/
+			),
 			'login' => array(
 				'signInAPI' => true,
 				'signOutAPI' => true,

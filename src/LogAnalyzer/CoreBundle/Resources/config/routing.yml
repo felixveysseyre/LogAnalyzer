@@ -115,3 +115,12 @@ LogAnalyzer_AnalysisAdministration_deleteAlertAPI:
 LogAnalyzer_DataAccess_getLogAPI:
     path:     /dataAccess/getLogAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:DataAccess:getLogAPI }
+# PlatformStatus #
+
+LogAnalyzer_PlatformStatus_getAlertNotificationAPI:
+    path:     /platformStatus/getAlertNotificationAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformStatus:getAlertNotificationAPI }
+
+LogAnalyzer_PlatformStatus_clearAlertNotificationAPI:
+    path:     /platformStatus/clearAlertNotificationAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:PlatformStatus:clearAlertNotificationAPI }
