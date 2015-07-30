@@ -41,9 +41,9 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			getLiveGraph: '/analysisAdministration/getLiveGraphAPI/',
 			createLiveGraph: '/analysisAdministration/createLiveGraphAPI/',
 			deleteLiveGraph: '/analysisAdministration/deleteLiveGraphAPI/',
-			//getAlert: '/analysisAdministration/getAlertAPI',
-			//createAlert: '/analysisAdministration/createAlertAPI',
-			//deleteAlert: '/analysisAdministration/deleteAlertAPI',
+			getAlert: '/analysisAdministration/getAlertAPI/',
+			createAlert: '/analysisAdministration/createAlertAPI/',
+			deleteAlert: '/analysisAdministration/deleteAlertAPI/',
 			getParser: '/analysisAdministration/getParserAPI/',
 			createParser: '/analysisAdministration/createParserAPI/',
 			deleteParser: '/analysisAdministration/deleteParserAPI/'
