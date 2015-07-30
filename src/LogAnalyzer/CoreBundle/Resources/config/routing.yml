@@ -98,6 +98,18 @@ LogAnalyzer_AnalysisAdministration_deleteLiveGraphAPI:
     path:     /analysisAdministration/deleteLiveGraphAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:deleteLiveGraphAPI }
 
+LogAnalyzer_AnalysisAdministration_getAlertAPI:
+    path:     /analysisAdministration/getAlertAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:getAlertAPI }
+
+LogAnalyzer_AnalysisAdministration_createAlertAPI:
+    path:     /analysisAdministration/createAlertAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:createAlertAPI }
+
+LogAnalyzer_AnalysisAdministration_deleteAlertAPI:
+    path:     /analysisAdministration/deleteAlertAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:AnalysisAdministration:deleteAlertAPI }
+
 # DataAccess #
 
 LogAnalyzer_DataAccess_getLogAPI:

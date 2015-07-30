@@ -92,7 +92,7 @@ class PermissionGranter
 					'Platform Administrator',
 					'Platform User'
 				),
-				/*'getAlertAPI' => array(
+				'getAlertAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
@@ -106,7 +106,7 @@ class PermissionGranter
 					'Project Administrator',
 					'Platform Administrator',
 					'Platform User'
-				),*/
+				),
 				'getParserAPI' => array(
 					'Project Administrator',
 					'Platform Administrator',
