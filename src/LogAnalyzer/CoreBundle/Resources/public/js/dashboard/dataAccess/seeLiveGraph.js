@@ -64,7 +64,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 
 			var postData = {};
 
-			if(formValues.liveGraphIdActivation) postData.liveGraphId = formValues.liveGraphId;
+			if(formValues.liveGraphHumanActivation) postData.liveGraphHuman = formValues.liveGraphHuman;
 
 			if(formValues.reportedTimeActivation) postData.reportedTime = {inf: formValues.reportedTimeInf, sup: formValues.reportedTimeSup};
 
@@ -118,7 +118,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 			fields: [
 				{
 					name: 'LiveGraph',
-					id: 'liveGraphId',
+					id: 'liveGraphHuman',
 					help: 'LiveGraph to use',
 					activation: true,
 					separator: true,
@@ -132,7 +132,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 						return (requestAnswer.resultCode === 1) ? requestAnswer.info.liveGraphs : false;
 					},
 					nameKey: 'liveGraphHuman',
-					valueKey: 'liveGraphId'
+					valueKey: 'liveGraphHuman'
 				},
 
 				{

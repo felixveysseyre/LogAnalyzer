@@ -24,7 +24,7 @@ logAnalyzer.dashboard.menuSections.dataAccess =
 	subSections: [
 		{name: 'Browse', id: 'browseSubSection', icon: 'fa-bars', onActivation: logAnalyzer.dashboard.dataAccess.browseLogTable},
 		{name: 'Graph', id: 'graphSubSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.dataAccess.graphLogTable},
-		//{name: 'See liveGraph', id: 'liveGraphSubSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.dataAccess.seeLiveGraph}
+		{name: 'See liveGraph', id: 'liveGraphSubSection', icon: 'fa-area-chart', onActivation: logAnalyzer.dashboard.dataAccess.seeLiveGraph}
 	]
 };
 

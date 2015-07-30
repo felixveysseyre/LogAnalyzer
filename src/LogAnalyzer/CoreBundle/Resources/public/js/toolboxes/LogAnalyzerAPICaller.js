@@ -56,7 +56,7 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 		dataAccess:
 		{
 			getLog: '/dataAccess/getLogAPI/',
-			//getLiveGraphCount: '/dataAccess/getLiveGraphCountAPI'
+			getLiveGraphCount: '/dataAccess/getLiveGraphCountAPI/'
 		},
 
 		login:
