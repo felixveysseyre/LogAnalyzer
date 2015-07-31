@@ -213,7 +213,6 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					help: 'Service which generated the logs',
 					activation: null,
 					type: 'select',
-					separator: true,
 					choicesURL: logAnalyzer.toolbox.LogAnalyzerAPICaller.getAPIURL({
 						baseURL: baseURL,
 						controller: 'platformAdministration',

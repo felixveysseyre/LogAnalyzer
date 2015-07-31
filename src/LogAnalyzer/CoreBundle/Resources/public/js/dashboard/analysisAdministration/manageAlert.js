@@ -181,7 +181,6 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 					id: 'cycleRaise',
 					help: 'Number of consecutive time cycles during which condition has to be true to know if the alert has to be raised or not',
 					activation: true,
-					separator: true,
 					type: 'number',
 					value: 1,
 					min: 1

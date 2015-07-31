@@ -163,7 +163,6 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 					help: 'Service which generated the logs',
 					activation: null,
 					type: 'select',
-					separator: true,
 					choicesURL: logAnalyzer.toolbox.LogAnalyzerAPICaller.getAPIURL({
 						baseURL: baseURL,
 						controller: 'platformAdministration',
@@ -212,7 +211,6 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 					help: 'LiveGraph to delete',
 					activation: true,
 					type: 'select',
-					separator: true,
 					choicesURL: logAnalyzer.toolbox.LogAnalyzerAPICaller.getAPIURL({
 						baseURL: baseURL,
 						controller: 'analysisAdministration',

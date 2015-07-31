@@ -144,7 +144,6 @@ logAnalyzer.dashboard.organizationAdministration = logAnalyzer.dashboard.organiz
 					help: 'Role of the user',
 					activation: true,
 					type: 'select',
-					separator: true,
 					choicesURL: logAnalyzer.toolbox.LogAnalyzerAPICaller.getAPIURL({
 						baseURL: baseURL,
 						controller: 'organizationAdministration',
