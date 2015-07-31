@@ -8,15 +8,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CleanLogCommand extends ContainerAwareCommand
+class CleanLiveGraphCommand extends ContainerAwareCommand
 {
 	/* Protected */
 
 	protected function configure()
 	{
 		$this
-			-> setName('logAnalyzer:dataManipulation:cleanLog')
-			-> setDescription('Clean log older than the retention set')
+			-> setName('logAnalyzer:dataManipulation:cleanLiveGraph')
+			-> setDescription('Clean liveGraphCount older than the retention set')
 			-> addArgument('cleaningDate', InputArgument::OPTIONAL, 'Date of cleaning');
 	}
 
@@ -41,7 +41,7 @@ class CleanLogCommand extends ContainerAwareCommand
 			$data = array(
 				'resultCode' => 1,
 				'executionTime' => $executionTime,
-				'message' => 'Log have bean cleaned.'
+				'message' => 'LiveGraphs have bean cleaned.'
 			);
 		}
 		else
@@ -49,7 +49,7 @@ class CleanLogCommand extends ContainerAwareCommand
 			$data = array(
 				'resultCode' => -1,
 				'executionTime' => $executionTime,
-				'message' => 'Log cleaning has failed.'
+				'message' => 'LiveGraphs cleaning has failed.'
 			);
 		}
 
@@ -69,14 +69,14 @@ class CleanLogCommand extends ContainerAwareCommand
 		}
 		else
 		{
-			$retentionLog = $this
+			$retentionLiveGraph = $this
 				-> getConstantRepository()
-				-> getConstantValue('retentionLog');
+				-> getConstantValue('retentionLiveGraph');
 
 			$removeAfterDate = $this
 				-> getContainer()
 				-> get('Helpers')
-				-> getDateString(- ($retentionLog + 1)) . ' 23:59:59';
+				-> getDateString(- ($retentionLiveGraph + 1)) . ' 23:59:59';
 		}
 
 		$deletionClauses = array(
@@ -87,8 +87,8 @@ class CleanLogCommand extends ContainerAwareCommand
 		);
 
 		return $this
-			-> getLogRepository()
-			-> deleteLog($deletionClauses);
+			-> getLiveGraphCountRepository()
+			-> deleteLiveGraphCount($deletionClauses);
 	}
 
 	/* Special */
@@ -102,12 +102,12 @@ class CleanLogCommand extends ContainerAwareCommand
 			-> getRepository('LogAnalyzerCoreBundle:Constant');
 	}
 
-	private function getLogRepository()
+	private function getLiveGraphCountRepository()
 	{
 		return $this
 			-> getContainer()
 			-> get('doctrine_mongodb')
 			-> getManager()
-			-> getRepository('LogAnalyzerCoreBundle:Log');
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraphCount');
 	}
 }
