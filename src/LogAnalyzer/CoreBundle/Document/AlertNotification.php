@@ -110,9 +110,16 @@ class AlertNotification implements JsonSerializable
 	 *
 	 * @return date $startTime
 	 */
-	public function getStartTime()
+	public function getStartTime($asString = false)
 	{
-		return $this -> startTime;
+		if($asString === true)
+		{
+			return $this -> formatDateTime($this -> startTime);
+		}
+		else
+		{
+			return $this -> startTime;
+		}
 	}
 
 	/**
@@ -133,9 +140,21 @@ class AlertNotification implements JsonSerializable
 	 *
 	 * @return date $endTime
 	 */
-	public function getEndTime()
+	public function getEndTime($asString = false)
 	{
-		return $this -> endTime;
+		if($asString === true)
+		{
+			return $this -> formatDateTime($this -> endTime);
+		}
+		else
+		{
+			return $this -> endTime;
+		}
+	}
+
+	private function formatDateTime($dateTime)
+	{
+		return ($dateTime) ? $dateTime -> format('Y-m-d H:i:s') : '';
 	}
 
 	/* Special */
@@ -146,8 +165,8 @@ class AlertNotification implements JsonSerializable
 			'alertNotificationId' => $this -> alertNotificationId,
 			'alertHuman' => $this -> alertHuman,
 			'active' => $this -> active,
-			'startTime' => $this -> startTime -> format('Y-m-d H:i:s'),
-			'endTime' => $this -> endTime -> format('Y-m-d H:i:s'),
+			'startTime' => $this -> getStartTime(true),
+			'endTime' => $this -> getEndTime(true)
 		);
 	}
 }
