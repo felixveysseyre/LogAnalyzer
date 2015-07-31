@@ -352,11 +352,12 @@ $(function($){
 			if(dataURL)
 			{
 				$.ajax({
-					type: 'POST',
+					type: 'post',
 					url: dataURL,
 					data: postData,
 					success: function(requestAnswer){
-						if(typeof(debugMode) !== 'undefined' && debugMode) console.debug(requestAnswer);
+						if(typeof(debugMode) !== 'undefined' && debugMode)
+							console.debug(requestAnswer);
 
 						var data = (dataTransformFunction) ? dataTransformFunction(requestAnswer) : requestAnswer;
 
