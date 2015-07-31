@@ -52,17 +52,6 @@ logAnalyzer.dashboard.menuSections.platformAdministration =
 	]
 };
 
-/*logAnalyzer.dashboard.menuSections.databaseAdministration =
-{
-	name: 'Database administration',
-	id: 'databaseAdministrationSection',
-	icon: 'fa-database',
-	subSections: [
-		{name: 'Manage logAccessors', id: 'manageLogAccessorSubSection', icon: 'fa-archive', onActivation: logAnalyzer.dashboard.databaseAdministration.manageLogAccessor},
-		{name: 'Manage logTables', id: 'manageLogTableSubSection', icon: 'fa-file', onActivation: logAnalyzer.dashboard.databaseAdministration.manageLogTable}
-	]
-};*/
-
 logAnalyzer.dashboard.menuSections.organizationAdministration =
 {
 	name: 'Organization administration',

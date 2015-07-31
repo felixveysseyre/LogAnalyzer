@@ -13,11 +13,7 @@ class PermissionGranter
 	public function __construct()
 	{
 		$this -> permissions = array(
-			/*'dataManipulation' => array(
-				'cleanLiveGraphCountAPI' => false,
-				'computeLiveGraphCountAPI' => false,
-			),
-			'projectLogs' => array(
+			/*'projectLogs' => array(
 				'getProjectLogAPI' => array(
 					'Project Administrator'
 				),
