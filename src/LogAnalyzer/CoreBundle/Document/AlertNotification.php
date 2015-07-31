@@ -152,6 +152,8 @@ class AlertNotification implements JsonSerializable
 		}
 	}
 
+	/* Private */
+
 	private function formatDateTime($dateTime)
 	{
 		return ($dateTime) ? $dateTime -> format('Y-m-d H:i:s') : '';

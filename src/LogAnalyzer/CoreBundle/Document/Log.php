@@ -84,9 +84,16 @@ class Log implements JsonSerializable
 	 *
 	 * @return date $receptionTime
 	 */
-	public function getReceptionTime()
+	public function getReceptionTime($asString = false)
 	{
-		return $this -> receptionTime;
+		if($asString === true)
+		{
+			return $this -> formatDateTime($this -> receptionTime);
+		}
+		else
+		{
+			return $this -> receptionTime;
+		}
 	}
 
 	/**
@@ -107,9 +114,16 @@ class Log implements JsonSerializable
 	 *
 	 * @return date $reportedTime
 	 */
-	public function getReportedTime()
+	public function getReportedTime($asString = false)
 	{
-		return $this -> reportedTime;
+		if($asString === true)
+		{
+			return $this -> formatDateTime($this -> reportedTime);
+		}
+		else
+		{
+			return $this -> reportedTime;
+		}
 	}
 
 	/**
@@ -250,14 +264,21 @@ class Log implements JsonSerializable
 		return $this -> syslogTag;
 	}
 
+	/* Private */
+
+	private function formatDateTime($dateTime)
+	{
+		return ($dateTime) ? $dateTime -> format('Y-m-d H:i:s') : '';
+	}
+
 	/* Special */
 
 	public function jsonSerialize()
 	{
 		return array(
 			'logId' => $this -> logId,
-			'receptionTime' => $this -> receptionTime -> format('Y-m-d H:i:s'),
-			'reportedTime' => $this -> reportedTime -> format('Y-m-d H:i:s'),
+			'receptionTime' => $this -> getReceptionTime(true),
+			'reportedTime' => $this -> getReportedTime(true),
 			'priority' => $this -> priority,
 			'facility' => $this -> facility,
 			'host' => $this -> host,

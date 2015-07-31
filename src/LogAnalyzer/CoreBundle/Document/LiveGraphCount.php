@@ -82,9 +82,16 @@ class LiveGraphCount implements JsonSerializable
 	 *
 	 * @return date $reportedTime
 	 */
-	public function getReportedTime()
+	public function getReportedTime($asString = false)
 	{
-		return $this -> reportedTime;
+		if($asString === true)
+		{
+			return $this -> formatDateTime($this -> reportedTime);
+		}
+		else
+		{
+			return $this -> reportedTime;
+		}
 	}
 
 	/**
@@ -110,6 +117,13 @@ class LiveGraphCount implements JsonSerializable
 		return $this -> count;
 	}
 
+	/* Private */
+
+	private function formatDateTime($dateTime)
+	{
+		return ($dateTime) ? $dateTime -> format('Y-m-d H:i:s') : '';
+	}
+
 	/* Special */
 
 	public function jsonSerialize()
@@ -117,7 +131,7 @@ class LiveGraphCount implements JsonSerializable
 		return array(
 			'liveGraphCountId' => $this -> liveGraphCountId,
 			'liveGraphHuman' => $this -> liveGraphHuman,
-			'reportedTime' => $this -> reportedTime -> format('Y-m-d H:i:s'),
+			'reportedTime' => $this -> getReportedTime(true),
 			'count' => $this -> count,
 		);
 	}
