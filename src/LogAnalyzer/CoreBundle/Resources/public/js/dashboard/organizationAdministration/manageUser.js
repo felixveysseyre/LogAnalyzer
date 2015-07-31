@@ -98,9 +98,6 @@ logAnalyzer.dashboard.organizationAdministration = logAnalyzer.dashboard.organiz
 				controller: 'organizationAdministration',
 				method: 'getUser'
 			}),
-			postData: {
-				joined: true
-			},
 			dataTransformFunction: function(requestAnswer){
 				return (requestAnswer.resultCode === 1) ? requestAnswer.info.users : false;
 			},
