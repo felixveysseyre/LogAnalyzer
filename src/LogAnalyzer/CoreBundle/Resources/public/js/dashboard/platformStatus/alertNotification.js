@@ -52,7 +52,7 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 
 			var postData = {};
 
-			if(formValues.clearDateActivation) postData.clearDate = formValues.clearDate;
+			if(formValues.clearingDateActivation) postData.clearingDate = formValues.clearingDate;
 
 			/* Request */
 
@@ -84,7 +84,7 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 				method: 'getAlertNotification'
 			}),
 			postData: {
-				active: true
+				active: 'yes'
 			},
 			dataTransformFunction: function(requestAnswer){
 				return (requestAnswer.resultCode === 1) ? requestAnswer.info.alertNotifications : false;
@@ -98,7 +98,7 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 			showHeader: true,
 			showLineNumbers: false,
 			lineClassDeterminationFunction: function(line){
-				return (line.active === 'true') ? 'red' : '';
+				return (line.active === 'yes') ? 'red' : '';
 			}
 		});
 
@@ -109,7 +109,7 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 				method: 'getAlertNotification'
 			}),
 			postData: {
-				active: false
+				active: 'no'
 			},dataTransformFunction: function(requestAnswer){
 				return (requestAnswer.resultCode === 1) ? requestAnswer.info.alertNotifications : false;
 			},
@@ -122,7 +122,7 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 			showHeader: true,
 			showLineNumbers: false,
 			lineClassDeterminationFunction: function(line){
-				return (line.active === 'false') ? 'orange' : '';
+				return (line.active === 'no') ? 'orange' : '';
 			}
 		});
 
@@ -130,12 +130,12 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 			confirmationRequired: true,
 			fields: [
 				{
-					name: 'Clear Date',
-					id: 'clearDate',
+					name: 'Clearing Date',
+					id: 'clearingDate',
 					help: 'Date for which alert notification will be cleared',
 					activation: true,
-					type: 'date',
-					value: logAnalyzer.toolbox.date.getDateNow()
+					type: 'dateTime',
+					value: logAnalyzer.toolbox.date.getDateTimeNow()
 				}
 			],
 			buttons: [

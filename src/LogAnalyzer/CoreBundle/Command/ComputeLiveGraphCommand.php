@@ -109,8 +109,6 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 
 			$filter['reportedTime'] = $reportedTimeClauses;
 
-			var_dump($filter);
-
 			$count = $this
 				-> getLogRepository()
 				-> countLog($filter);
@@ -119,24 +117,159 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 
 			$this
 				-> getLiveGraphCountRepository()
-				-> createLiveGraphCount($liveGraph -> getLiveGraphHuman(), $reportedTimeInf, $count);
+				-> createLiveGraphCount($liveGraph -> getLiveGraphHuman(), $computingDate, $count);
 
 			/* Check alerts */
 
-			$this -> checkAlert($liveGraph, $count, $reportedTimeInf);
-
-			var_dump('Rch!');
+			$this -> checkAlert($liveGraph, $count, $computingDate);
 		}
 
 		return true;
-
 	}
 
 	/* Private */
 
-	private function checkAlert($liveGraph, $count, $reportedTime)
+	private function checkAlert($liveGraph, $count, $timeOfNotification)
 	{
+		$alerts = $this
+			-> getAlertRepository()
+			-> getAlert(array('liveGraphHuman' => $liveGraph -> getLiveGraphHuman()));
 
+		foreach($alerts as $alert)
+		{
+			$result = false;
+
+			$trigger = $alert -> getTrigger();
+
+			if($trigger['comparisonOperator'] === '<=')
+			{
+				if($count <= $trigger['value'])
+				{
+					$result = true;
+				}
+			}
+			elseif($trigger['comparisonOperator'] === '==')
+			{
+				if($count == $trigger['value'])
+				{
+					$result = true;
+				}
+			}
+			elseif($trigger['comparisonOperator'] === '>=')
+			{
+				if($count >= $trigger['value'])
+				{
+					$result = true;
+				}
+			}
+			elseif($trigger['comparisonOperator'] === '!=')
+			{
+				if($count != $trigger['value'])
+				{
+					$result = true;
+				}
+			}
+
+			$this -> updateAlertStatus($alert, $result, $timeOfNotification);
+		}
+	}
+
+	private function updateAlertStatus($alert, $result, $timeOfNotification)
+	{
+		$trigger = $alert -> getTrigger();
+		$status = $alert -> getStatus();
+
+		$active = $status['active'];
+		$countRaise = $status['countRaise'];
+		$countUnRaise = $status['countUnRaise'];
+
+		$cycleRaise = $trigger['cycleRaise'];
+		$cycleUnRaise = $trigger['cycleUnRaise'];
+
+		/* Compute new status */
+
+		if($result)
+		{
+			$countUnRaise = 0;
+
+			if($active === true)
+			{
+				// Alert is already raised.
+			}
+			else
+			{
+				$countRaise++;
+
+				if($countRaise === $cycleRaise)
+				{
+					$active = true;
+					$countRaise = 0;
+
+					$this -> sendAlertNotification($alert, true, $timeOfNotification);
+				}
+			}
+		}
+		else
+		{
+			$countRaise = 0;
+
+			if($active === false)
+			{
+				// Alert is not raised.
+			}
+			else
+			{
+				$countUnRaise++;
+
+				if($countUnRaise === $cycleUnRaise)
+				{
+					$active = false;
+					$countUnRaise = 0;
+
+					$this -> sendAlertNotification($alert, false, $timeOfNotification);
+				}
+			}
+		}
+
+		/* Update alert status */
+
+		$status = array(
+			'active' => $active,
+			'countRaise' => $countRaise,
+			'countUnRaise' => $countUnRaise
+		);
+
+		$this
+			-> getAlertRepository()
+			-> updateAlert($alert -> getAlertId(), array('status' => json_encode($status)));
+	}
+
+	private function sendAlertNotification($alert, $type, $timeOfNotification)
+	{
+		if($type)
+		{
+			$this
+				-> getAlertNotificationRepository()
+				-> createAlertNotification($alert -> getAlertHuman(), 'yes', $timeOfNotification, null);
+		}
+		else
+		{
+			$clause = array(
+				'alertHuman' => $alert -> getAlertHuman(),
+				'active' => 'yes'
+			);
+
+			$alertNotifications = $this
+				-> getAlertNotificationRepository()
+				-> getAlertNotification($clause);
+
+			foreach($alertNotifications as $alertNotification)
+			{
+				$this
+					-> getAlertNotificationRepository()
+					-> endAlertNotification($alertNotification -> getAlertNotificationId(), $timeOfNotification);
+			}
+		}
 	}
 
 	/* Special */
@@ -175,5 +308,23 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 			-> get('doctrine_mongodb')
 			-> getManager()
 			-> getRepository('LogAnalyzerCoreBundle:LiveGraphCount');
+	}
+
+	private function getAlertRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Alert');
+	}
+
+	private function getAlertNotificationRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:AlertNotification');
 	}
 }

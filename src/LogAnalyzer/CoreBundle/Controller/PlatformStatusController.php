@@ -110,7 +110,7 @@ class PlatformStatusController extends Controller
 		elseif($returnValue === null)
 		{
 			$data = array(
-				'resultCode' => 1,
+				'resultCode' => 0,
 				'executionTime' => $executionTime,
 				'message' => 'AlertNotifications clearing failed. Not enough parameters.'
 			);

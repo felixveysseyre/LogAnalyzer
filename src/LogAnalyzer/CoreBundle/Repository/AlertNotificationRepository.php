@@ -228,7 +228,7 @@ class AlertNotificationRepository extends DocumentRepository
 	{
 		return $this
 			-> updateAlertNotification($alertNotificationId, array(
-				'active' => 'false',
+				'active' => 'no',
 				'endTime' => $endTime
 			));
 	}
@@ -243,7 +243,7 @@ class AlertNotificationRepository extends DocumentRepository
 
 		/* Add clauses */
 
-		$query -> field('active') -> equals('false');
+		$query -> field('active') -> equals('no');
 		$query -> field('endTime') -> range('0000-00-00 00:00:00', $clearingDate);
 
 		/* Update fields */
