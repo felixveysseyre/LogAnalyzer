@@ -216,11 +216,11 @@ class AlertRepository extends DocumentRepository
 			if(isset($fields['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> set($fields['liveGraphHuman']);
 
-			if(isset($clauses['status']))
-				$query -> field('status') -> set($clauses['status']);
+			if(isset($fields['status']))
+				$query -> field('status') -> set($fields['status']);
 
-			if(isset($clauses['notification']))
-				$query -> field('notification') -> set($clauses['notification']);
+			if(isset($fields['notification']))
+				$query -> field('notification') -> set($fields['notification']);
 		}
 
 		/* Return */
