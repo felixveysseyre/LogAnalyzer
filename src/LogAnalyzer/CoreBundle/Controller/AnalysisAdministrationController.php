@@ -459,19 +459,22 @@ class AnalysisAdministrationController extends Controller
 			$condition1 = isset($alertHuman, $liveGraphId);
 			$condition2 = isset($comparisonOperator, $value, $cycleRaise, $cycleUnRaise);
 
-			$trigger = $this -> get('Helpers') -> filterArray($parameters, array(
-				'comparisonOperator',
-				'value',
-				'cycleRaise',
-				'cycleUnRaise',
-			));
+			$trigger = array(
+				'comparisonOperator' => $comparisonOperator,
+				'value' => $value,
+				'cycleRaise' => $cycleRaise,
+				'cycleUnRaise' => $cycleUnRaise,
+			);
 
 			$notification = array(
 				'messageRaise' => $messageRaise,
 				'messageUnRaise' => $messageUnRaise,
-				'emails' => array($email),
-				'collectorsHuman' => array($collectorHuman),
+				'emails' => array(),
+				'collectorsHuman' => array(),
 			);
+
+			if($email) array_push($notification['emails'], $email);
+			if($collectorHuman) array_push($notification['collectorsHuman'], $collectorHuman);
 
 			$returnValue = ($condition1 && $condition2) ? $this -> createAlertAction($alertHuman, $liveGraphId, $trigger, $notification) : null;
 		}
