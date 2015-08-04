@@ -150,7 +150,7 @@ class PermissionGranter
 		);
 	}
 
-	public function isGranted($request)
+	public function isGranted(Request $request)
 	{
 		$currentUser = $this -> getCurrentUser($request);
 		$controllerAndAction = $this -> getControllerAndAction($request);
@@ -186,7 +186,7 @@ class PermissionGranter
 
 	/* Private */
 
-	private function getControllerAndAction($request)
+	private function getControllerAndAction(Request $request)
 	{
 		$fullPath = $request -> attributes -> get('_controller');
 
@@ -202,7 +202,7 @@ class PermissionGranter
 		);
 	}
 
-	private function getCurrentUser($request)
+	private function getCurrentUser(Request $request)
 	{
 		return $request
 			-> getSession()
