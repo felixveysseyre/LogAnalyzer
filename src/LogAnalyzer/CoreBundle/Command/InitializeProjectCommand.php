@@ -73,7 +73,6 @@ class InitializeProjectCommand extends ContainerAwareCommand
 			$this -> createConstantFromParameter('retentionLiveGraph', 'retentionLiveGraph');
 			$this -> createConstantFromParameter('aggregationTimeLiveGraph', 'aggregationTimeLiveGraph');
 			$this -> createConstantFromParameter('offsetTimeLiveGraph', 'offsetTimeLiveGraph');
-			$this -> createConstantFromParameter('collectorConnexionTimeOut', 'collectorConnexionTimeOut');
 
 			/* Create roles */
 

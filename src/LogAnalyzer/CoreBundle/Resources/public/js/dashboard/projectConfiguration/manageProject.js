@@ -88,15 +88,6 @@ logAnalyzer.dashboard.projectConfiguration = logAnalyzer.dashboard.projectConfig
 							type: 'number',
 							min: 1,
 							value: constants.retentionLiveGraph
-						},
-						{
-							name: 'Collector Connexion TimeOut',
-							id: 'collectorConnexionTimeOut',
-							help: 'Set Collector connexion timeout (sec)',
-							activation: null,
-							type: 'number',
-							min: 1,
-							value: constants.collectorConnexionTimeOut
 						}
 					],
 				buttons: [
@@ -143,7 +134,6 @@ logAnalyzer.dashboard.projectConfiguration = logAnalyzer.dashboard.projectConfig
 			if(formValues.aggregationTimeLiveGraphActivation) postData.push({name: 'aggregationTimeLiveGraph', value: formValues.aggregationTimeLiveGraph});
 			if(formValues.offsetTimeLiveGraphActivation) postData.push({name: 'offsetTimeLiveGraph', value: formValues.offsetTimeLiveGraph});
 			if(formValues.retentionLiveGraphActivation) postData.push({name: 'retentionLiveGraph', value: formValues.retentionLiveGraph});
-			if(formValues.collectorConnexionTimeOutActivation) postData.push({name: 'collectorConnexionTimeOut', value: formValues.collectorConnexionTimeOut});
 
 			logAnalyzer.toolbox.LogAnalyzerAPICaller.callAPI({
 				baseURL: baseURL,
