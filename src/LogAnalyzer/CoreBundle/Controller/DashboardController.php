@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
 		if($currentUser)
 		{
-			return $this -> render('LogAnalyzerCoreBundle:Dashboard:index.html.twig', array(
+			$dataHeader = array(
 				'title' => 'Dashboard',
 				'cssFiles' => array(
 					'internal' => array(
@@ -71,8 +71,7 @@ class DashboardController extends Controller
 						'dashboard/dataAccess/seeLiveGraph.js',
 
 						'dashboard/dashboard.js',
-						'dashboard/menuSections.js',
-						'dashboard/menuTemp.js'
+						'dashboard/menuSections.js'
 					),
 					'external' => array(
 						'https://www.gstatic.com/charts/loader.js'
@@ -86,7 +85,26 @@ class DashboardController extends Controller
 						-> getBaseUrl(),
 					'userName' => $currentUser-> getFullName()
 				)
-			));
+			);
+
+			if($currentUser -> getRoleHuman() === 'Project Administrator')
+			{
+				array_push($dataHeader['jsFiles']['internal'], 'dashboard/menuProjectAdministrator.js');
+			}
+			elseif($currentUser -> getRoleHuman() === 'Platform Administrator')
+			{
+				array_push($dataHeader['jsFiles']['internal'], 'dashboard/menuPlatformAdministrator.js');
+			}
+			elseif($currentUser -> getRoleHuman() === 'Platform User')
+			{
+				array_push($dataHeader['jsFiles']['internal'], 'dashboard/menuPlatformUser.js');
+			}
+			else
+			{
+				return $this -> redirect($this -> generateUrl('LogAnalyzer_Login_index'));
+			}
+
+			return $this -> render('LogAnalyzerCoreBundle:Dashboard:index.html.twig', $dataHeader);
 		}
 		else
 		{
