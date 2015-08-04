@@ -6,3 +6,6 @@ services:
     EmailNotifier:
             class: LogAnalyzer\CoreBundle\Service\EmailNotifier
             arguments: [@mailer, %logAnalyzerEmailAddress%]
+    CollectorNotifier:
+        class: LogAnalyzer\CoreBundle\Service\CollectorNotifier
+        arguments: [%collectorConnexionTimeOut%]
