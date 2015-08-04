@@ -8,8 +8,10 @@ parameters:
 
     mailerTransport: smtp
     mailerHost: 127.0.0.1
+    mailerPort: 25
     mailerUser: null
     mailerPassword: null
+    logAnalyzerEmailAddress: log.analyzer@orange.com
 
     # Collector #
 

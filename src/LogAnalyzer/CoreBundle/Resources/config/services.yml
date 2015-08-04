@@ -3,3 +3,6 @@ services:
         class: LogAnalyzer\CoreBundle\Service\Helpers
     PermissionGranter:
         class: LogAnalyzer\CoreBundle\Service\PermissionGranter
+    EmailNotifier:
+            class: LogAnalyzer\CoreBundle\Service\EmailNotifier
+            arguments: [@mailer, %logAnalyzerEmailAddress%]

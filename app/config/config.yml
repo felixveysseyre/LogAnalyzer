@@ -86,6 +86,7 @@ doctrine_mongodb:
 swiftmailer:
     transport: "%mailerTransport%"
     host:      "%mailerHost%"
+    port:      "%mailerPort%"
     username:  "%mailerUser%"
     password:  "%mailerPassword%"
     spool:     { type: memory }
