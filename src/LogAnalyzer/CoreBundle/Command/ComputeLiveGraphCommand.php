@@ -205,7 +205,7 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 					$active = true;
 					$countRaise = 0;
 
-					$this -> sendAlertNotification($alert, true, $timeOfNotification);
+					$this -> createAlertNotification($alert, true, $timeOfNotification);
 				}
 			}
 		}
@@ -226,7 +226,7 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 					$active = false;
 					$countUnRaise = 0;
 
-					$this -> sendAlertNotification($alert, false, $timeOfNotification);
+					$this -> createAlertNotification($alert, false, $timeOfNotification);
 				}
 			}
 		}
@@ -244,7 +244,18 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 			-> updateAlert($alert -> getAlertId(), array('status' => json_encode($status)));
 	}
 
-	private function sendAlertNotification($alert, $type, $timeOfNotification)
+	private function createAlertNotification($alert, $type, $timeOfNotification)
+	{
+		/* Internal notifications */
+
+		$this -> createInternalNotification($alert, $type, $timeOfNotification);
+
+		/* External notifications */
+
+		$this -> createExternalNotification($alert, $type, $timeOfNotification);
+	}
+
+	private function createInternalNotification($alert, $type, $timeOfNotification)
 	{
 		if($type)
 		{
@@ -268,6 +279,66 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 				$this
 					-> getAlertNotificationRepository()
 					-> endAlertNotification($alertNotification -> getAlertNotificationId(), $timeOfNotification);
+			}
+		}
+	}
+
+	private function createExternalNotification($alert, $type, $timeOfNotification)
+	{
+		$notification = $alert -> getNotification();
+
+		if($notification)
+		{
+			$condition1 = isset($notification['emails']) && sizeof($notification['emails']) != 0;
+			$condition2 = isset($notification['collectorsHuman']) && sizeof($notification['collectorsHuman']) != 0;
+
+			if($condition1 || $condition2)
+			{
+				/* Create message and subject */
+
+				if($type)
+				{
+					/* Start notification */
+
+					$subject = 'Alert \'' . $alert -> getAlertHuman() . '\' raised at ' . $timeOfNotification . '.';
+					$message = (isset($notification['messageRaise'])) ? $notification['messageRaise'] : $subject;
+				}
+				else
+				{
+					/* End notification */
+
+					$subject = 'Alert \'' . $alert -> getAlertHuman() . '\' un-raised at ' . $timeOfNotification . '.';
+					$message = (isset($notification['messageUnRaise'])) ? $notification['messageUnRaise'] : $subject;
+				}
+
+				$message = str_replace('{dateTime}', $timeOfNotification, $message);
+				$message = str_replace('{name}', $alert -> getAlertHuman(), $message);
+
+				/* Create notificationToSend objects */
+
+				if($condition1)
+				{
+					/* Emails */
+
+					$this
+						-> getNotificationToSendRepository()
+						-> createNotificationToSend('email', $notification['emails'], array(
+							'subject' => $subject,
+							'message' => $message
+						));
+				}
+
+				if($condition2)
+				{
+					/* Collector */
+
+					$this
+						-> getNotificationToSendRepository()
+						-> createNotificationToSend('collector', $notification['collectorsHuman'], array(
+							'subject' => $subject,
+							'message' => $message
+						));
+				}
 			}
 		}
 	}
@@ -326,5 +397,14 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 			-> get('doctrine_mongodb')
 			-> getManager()
 			-> getRepository('LogAnalyzerCoreBundle:AlertNotification');
+	}
+
+	private function getNotificationToSendRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:NotificationToSend');
 	}
 }
