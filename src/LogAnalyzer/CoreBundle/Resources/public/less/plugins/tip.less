@@ -1,0 +1,38 @@
+@import '../variables.less';
+
+@tipCodeFont: 'consolas', 'monospace';
+@tipFont: @font;
+
+#tipContainer
+{
+	position: absolute;
+	display: none;
+	width: auto;
+	height: auto;
+	font-family: @tipFont;
+	z-index: 5;
+
+	&.code
+	{
+		font-family: @tipCodeFont;
+		font-size: 11px;
+	}
+
+	.content
+	{
+		padding: 7.5px;
+		color: #ffffff;
+		background-color: @tipContainerColor;
+	}
+
+	.arrow
+	{
+		width: 0px;
+		height: 0px;
+		margin: auto;
+
+		border-top: 7.5px solid @tipContainerColor;
+		border-left: 7.5px solid transparent;
+		border-right: 7.5px solid transparent;
+	}
+}
