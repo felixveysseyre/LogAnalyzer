@@ -23,12 +23,12 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 				.dataPlotter('update');
 		};
 
-		var addAnswerToRequestViewer = function(requestAnswer, parameters)
+		var addAnswerToRequestViewer = function(requestAnswer, postData, parameters)
 		{
 			liveGraphForm.form('setPendingState', false);
 
 			liveGraphRequestsViewer
-				.requestViewer('addRequest', requestAnswer)
+				.requestViewer('addRequest', requestAnswer, postData)
 				.requestViewer('update');
 
 			dataPlotter
@@ -80,7 +80,7 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					parameters.reportedTimeSup = formValues.reportedTimeSup;
 				}
 
-				addAnswerToRequestViewer(requestAnswer, parameters);
+				addAnswerToRequestViewer(requestAnswer, postData, parameters);
 			};
 
 			var seeLiveGraphTemp = function()

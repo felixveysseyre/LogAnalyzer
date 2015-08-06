@@ -27,12 +27,8 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 		{
 			graphDataForm.form('setPendingState', false);
 
-			var information = JSON
-				.stringify(postData)
-				.replace(/"/g, '');
-
 			graphDataRequestsViewer
-				.requestViewer('addRequest', requestAnswer, information)
+				.requestViewer('addRequest', requestAnswer, postData)
 				.requestViewer('update');
 
 			dataPlotter

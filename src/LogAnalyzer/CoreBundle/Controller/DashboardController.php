@@ -33,6 +33,7 @@ class DashboardController extends Controller
 						'plugins/requestViewer.less',
 						'plugins/exporter.less',
 						'plugins/dataPlotter.less',
+						'plugins/tip.less',
 					)
 				),
 				'jsFiles' => array(
@@ -51,6 +52,7 @@ class DashboardController extends Controller
 						'plugins/dataPlotter.js',
 						'plugins/requestViewer.js',
 						'plugins/exporter.js',
+						'plugins/tip.js',
 
 						'toolboxes/LogAnalyzerAPICaller.js',
 						'toolboxes/array.js',

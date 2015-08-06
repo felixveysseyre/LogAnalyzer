@@ -33,7 +33,8 @@ class LoginController extends Controller
 						'login/login.less',
 
 						'plugins/module.less',
-						'plugins/form.less'
+						'plugins/form.less',
+						'plugins/tip.less'
 					)
 				),
 				'jsFiles' => array(
@@ -44,6 +45,7 @@ class LoginController extends Controller
 
 						'plugins/module.js',
 						'plugins/form.js',
+						'plugins/tip.js',
 
 						'toolboxes/LogAnalyzerAPICaller.js',
 						'toolboxes/array.js',

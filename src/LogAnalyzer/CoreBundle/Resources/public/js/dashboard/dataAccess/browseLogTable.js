@@ -34,12 +34,8 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 			if(requestAnswer.resultCode === 1)
 				logAnalyzer.toolbox.array.sortArray(requestAnswer.info.logs, logAnalyzer.toolbox.array.compareLogsByReportedTime, 'asc');
 
-			var information = JSON
-				.stringify(postData)
-				.replace(/"/g, '');
-
 			browseDataRequestsViewer
-				.requestViewer('addRequest', requestAnswer, information)
+				.requestViewer('addRequest', requestAnswer, postData)
 				.requestViewer('update');
 
 			useRequest(requestAnswer);
