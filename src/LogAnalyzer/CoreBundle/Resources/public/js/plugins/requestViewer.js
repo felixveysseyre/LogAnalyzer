@@ -66,7 +66,6 @@ $(function($){
 					'<td class="requestExecutionTime">#requestExecutionTime#</td>' +
 					'<td class="requestResultCode">#requestResultCode#</td>' +
 					'<td class="requestMessage">#requestMessage#</td>' +
-					'<td class="requestInformation">#requestInformation#</td>' +
 				'</tr>';
 
 			/* Clean old structure*/
@@ -95,9 +94,6 @@ $(function($){
 
 					var options = (i === requests.length - 1) ? 'active' : '';
 
-					var requestInformationStructure = '<i title="#title#" class="fa fa-info-circle"></i>';
-					var requestInformation = (requests[i].information) ? requestInformationStructure.replace(/#title#/, requests[i].information) : '';
-
 					var self = this.element;
 
 					requestViewerContainer.append(
@@ -110,8 +106,16 @@ $(function($){
 							.replace(/#requestExecutionTime#/, requests[i].request.executionTime || '')
 							.replace(/#requestResultCode#/, requests[i].request.resultCode)
 							.replace(/#requestMessage#/, requests[i].request.message || '')
-							.replace(/#requestInformation#/, requestInformation)
 					);
+
+					if(requests[i].information)
+					{
+						requestViewerContainer
+							.find('#' + id)
+							.addClass('tip')
+							.data('tip', requests[i].information);
+					}
+
 
 					if(onActivation)
 					{
@@ -131,6 +135,8 @@ $(function($){
 						})();
 					}
 				}
+
+				this.element.find('.tip').tip();
 			}
 			else
 			{
