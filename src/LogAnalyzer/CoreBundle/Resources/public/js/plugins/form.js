@@ -189,6 +189,10 @@ $(function($){
 						});
 				}
 			}
+
+			/* Tips */
+
+			this.element.find('.tip').tip();
 		},
 
 		_addActivationStructure: function(field, fieldContainerId)
@@ -570,16 +574,16 @@ $(function($){
 
 			if(field.help)
 			{
-				var helpStructure = '<i title="#help#" class="help fa fa-question-circle"></i>';
+				var helpStructure = '<i data-tip="#tip#" class="help tip fa fa-question-circle"></i>';
 
-				informationStructure += helpStructure.replace(/#help#/, field.help);
+				informationStructure += helpStructure.replace(/#tip#/, field.help);
 			}
 
 			if(field.warning)
 			{
-				var warningStructure = '<i title="#warning#" class="warning fa fa-exclamation-triangle"></i>';
+				var warningStructure = '<i data-tip="#tip#" class="warning tip fa fa-exclamation-triangle"></i>';
 
-				informationStructure += warningStructure.replace(/#warning#/, field.warning);
+				informationStructure += warningStructure.replace(/#tip#/, field.warning);
 			}
 
 			/* Append */
