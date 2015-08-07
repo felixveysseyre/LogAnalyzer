@@ -7,7 +7,6 @@ $(function($){
 
 		_tableViewerContainer: null,
 		_tableViewerTableContainer: null,
-		_tableViewerNavigationContainer: null,
 		_tableViewerNavigationContainerPrevious: null,
 		_tableViewerNavigationContainerNext: null,
 
@@ -70,22 +69,24 @@ $(function($){
 			var tableViewerTableContainerStructure = '<table class="tableViewerTableContainer"></table>';
 			var tableViewerNavigationContainerStructure = '<table class="tableViewerNavigationContainer #class#"></table>';
 
+			var tableViewerContainerElement = $(tableViewerContainerStructure);
+			this.element.append(tableViewerContainerElement);
+			this._tableViewerContainer = tableViewerContainerElement;
 
-			this.element.append(tableViewerContainerStructure);
-			this._tableViewerContainer = this.element.find('.tableViewerContainer');
-
-			this._tableViewerContainer.append(tableViewerTableContainerStructure);
-			this._tableViewerTableContainer = this.element.find('.tableViewerTableContainer');
+			var tableViewerTableContainerElement = $(tableViewerTableContainerStructure);
+			this._tableViewerContainer.append(tableViewerTableContainerElement);
+			this._tableViewerTableContainer = tableViewerTableContainerElement;
 
 			if(this.getOption('pagination'))
 			{
-				this._tableViewerContainer.prepend(tableViewerNavigationContainerStructure.replace(/#class#/, 'previous'));
-				this._tableViewerContainer.append(tableViewerNavigationContainerStructure.replace(/#class#/, 'next'));
+				var tableViewerNavigationContainerPrevious = $(tableViewerNavigationContainerStructure.replace(/#class#/, 'previous'));
+				var tableViewerNavigationContainerNext = $(tableViewerNavigationContainerStructure.replace(/#class#/, 'next'));
 
-				this._tableViewerNavigationContainer = this.element.find('.tableViewerNavigationContainer');
+				this._tableViewerContainer.prepend(tableViewerNavigationContainerPrevious);
+				this._tableViewerContainer.append(tableViewerNavigationContainerNext);
 
-				this._tableViewerNavigationContainerPrevious = this.element.find('.tableViewerNavigationContainer.previous');
-				this._tableViewerNavigationContainerNext = this.element.find('.tableViewerNavigationContainer.next');
+				this._tableViewerNavigationContainerPrevious = tableViewerNavigationContainerPrevious;
+				this._tableViewerNavigationContainerNext = tableViewerNavigationContainerNext;
 			}
 		},
 		
@@ -103,108 +104,108 @@ $(function($){
 
 			if(pagination)
 			{
-				var selectStructure =
-					'<select id="#id#" name="#id#">' +
-						'#optionStructures#' +
-					'</select>';
+				var numberOfLinesPerPagePossibility = this.getOption('numberOfLinesPerPagePossibility');
+
+				var navigationStructure =
+					'<tr>' +
+						'<td class="numberOfLinesPerPage"></td>' +
+						'<td class="navigation"></td>' +
+						'<td class="currentPage"></td>' +
+					'</tr>';
+
+				var selectStructure = '<select id="#id#" name="#id#"></select>';
 
 				var optionStructure = '<option value="#value#" #options#>#text#</option>';
-
-				var optionStructures;
+				var optionElement;
 
 				/* Clear */
 
-				this._tableViewerNavigationContainer.empty();
+				this._tableViewerNavigationContainerPrevious.empty();
+				this._tableViewerNavigationContainerNext.empty();
+
+				/* Structure */
+
+				var navigationElement = $(navigationStructure);
 
 				/* Number of line per page selector */
 
-				optionStructures = '';
-
-				var numberOfLinesPerPagePossibility = this.getOption('numberOfLinesPerPagePossibility');
+				var numberOfLinesPerPageField = $(selectStructure.replace(/#id#/g, 'numberOfLinesPerPage'));
 
 				for(var i = 0; i < numberOfLinesPerPagePossibility.length; i++)
 				{
-					optionStructures += optionStructure
+					optionElement = $(optionStructure
 						.replace(/#value#/, numberOfLinesPerPagePossibility[i])
 						.replace(/#options#/, (numberOfLinesPerPagePossibility[i] == numberOfLinesPerPage) ? 'selected' : '')
-						.replace(/#text#/, numberOfLinesPerPagePossibility[i]);
+						.replace(/#text#/, numberOfLinesPerPagePossibility[i])
+					);
+
+					numberOfLinesPerPageField.append(optionElement);
 				}
 
-				var numberOfLinesPerPageField = selectStructure
-					.replace(/#id#/g, 'numberOfLinesPerPage')
-					.replace(/#optionStructures#/, optionStructures);
+				numberOfLinesPerPageField.change(function(){
+					self.setOption('numberOfLinesPerPage', $(this).val());
+					self.setCurrentPage(1);
+					self.update();
+				});
+
+				navigationElement
+					.find('.numberOfLinesPerPage')
+					.append(numberOfLinesPerPageField);
 
 				/* Current page selector */
 
-				optionStructures = '';
+				var currentPageStructureField = $(selectStructure.replace(/#id#/g, 'currentPage'));
 
 				var numberOfPage = (data) ? Math.ceil(data.length / numberOfLinesPerPage) : 0;
 
 				for(var i = 1; i <= numberOfPage; i++)
 				{
-					optionStructures += optionStructure
+					optionElement = $(optionStructure
 						.replace(/#value#/, i)
 						.replace(/#options#/, (i == currentPage) ? 'selected' : '')
-						.replace(/#text#/, i + '/' + numberOfPage);
+						.replace(/#text#/, i + '/' + numberOfPage)
+					);
+
+					currentPageStructureField.append(optionElement);
 				}
 
-				var currentPageStructureField = selectStructure
-					.replace(/#id#/g, 'currentPage')
-					.replace(/#optionStructures#/, optionStructures);
+				currentPageStructureField.change(function(){
+					self.setCurrentPage($(this).val());
+					self.update();
+				});
 
-				/* Structure */
+				navigationElement
+					.find('.currentPage')
+					.append(currentPageStructureField);
 
-				var navigationStructure =
-					'<tr>' +
-						'<td class="numberOfLinesPerPage">#numberOfLinesPerPage#</td>' +
-						'<td class="navigation">#navigationText#</td>' +
-						'<td class="currentPage">#currentPage#</td>' +
-					'</tr>';
+				/* Navigation previous */
 
-				this._tableViewerNavigationContainerPrevious
-					.append(navigationStructure
-						.replace(/#numberOfLinesPerPage#/, numberOfLinesPerPageField)
-						.replace(/#navigationText#/, this.getOption('previousText'))
-						.replace(/#currentPage#/, currentPageStructureField)
-				);
+				var navigationPreviousElement = navigationElement.clone(true, true);
 
-				this._tableViewerNavigationContainerNext
-					.append(navigationStructure
-						.replace(/#numberOfLinesPerPage#/, numberOfLinesPerPageField)
-						.replace(/#navigationText#/, this.getOption('nextText'))
-						.replace(/#currentPage#/, currentPageStructureField)
-				);
-
-				/* Logic */
-
-				this._tableViewerNavigationContainerPrevious
+				navigationPreviousElement
 					.find('.navigation')
+					.append(this.getOption('previousText'))
 					.click(function(){
 						self.changeCurrentPage(-1);
 						self.update();
 					});
 
-				this._tableViewerNavigationContainerNext
+				/* Navigation next */
+
+				var navigationNextElement = navigationElement.clone(true, true);
+
+				navigationNextElement
 					.find('.navigation')
+					.append(this.getOption('nextText'))
 					.click(function(){
 						self.changeCurrentPage(+1);
 						self.update();
 					});
 
-				this._tableViewerNavigationContainer
-					.find('.numberOfLinesPerPage #numberOfLinesPerPage')
-					.change(function(){
-						self.setOption('numberOfLinesPerPage', $(this).val());
-						self.setCurrentPage(1);
-						self.update();
-					});
+				/* Append */
 
-				this._tableViewerNavigationContainer
-					.find('.currentPage #currentPage')
-					.change(function(){
-						self.setCurrentPage($(this).val());
-						self.update();
-					});
+				this._tableViewerNavigationContainerPrevious.append(navigationPreviousElement);
+				this._tableViewerNavigationContainerNext.append(navigationNextElement);
 			}
 
 			/* Data */
@@ -219,10 +220,10 @@ $(function($){
 				var showLineNumbers = this.getOption('showLineNumbers');
 
 				var lineStructure = '<tr class="#class#"></tr>';
+				var lineElement;
+
 				var cellStructure = '<td class="#class#">#cellContent#</td>\n';
 				var headerCellStructure = '<th class="#class#" style="width: #width#;">#headerCellContent#</th>';
-
-				var lineElement;
 				var cellElement;
 
 				/* Columns object */
@@ -248,8 +249,6 @@ $(function($){
 				{
 					lineElement = $(lineStructure.replace(/#class#/, ''));
 
-					this._tableViewerTableContainer.append(lineElement);
-
 					if(showLineNumbers)
 					{
 						cellElement = $(headerCellStructure
@@ -271,6 +270,8 @@ $(function($){
 
 						lineElement.append(cellElement);
 					}
+
+					this._tableViewerTableContainer.append(lineElement);
 				}
 
 				/* Select lines */
@@ -285,8 +286,6 @@ $(function($){
 					var color = (lineClassDeterminationFunction) ? lineClassDeterminationFunction(data[i]) : '';
 
 					lineElement = $(lineStructure.replace(/#class#/, color));
-
-					this._tableViewerTableContainer.append(lineElement);
 
 					if(showLineNumbers)
 					{
@@ -323,6 +322,8 @@ $(function($){
 
 						lineElement.append(cellElement);
 					}
+
+					this._tableViewerTableContainer.append(lineElement);
 				}
 			}
 		},
