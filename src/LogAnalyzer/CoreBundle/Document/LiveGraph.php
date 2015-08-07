@@ -89,7 +89,7 @@ class LiveGraph implements JsonSerializable
 		return array(
 			'liveGraphId' => $this -> liveGraphId,
 			'liveGraphHuman' => $this -> liveGraphHuman,
-			'filter' => $this -> filter
+			'filter' => $this -> getFilter()
 		);
 	}
 }

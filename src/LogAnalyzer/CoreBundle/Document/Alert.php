@@ -174,9 +174,9 @@ class Alert implements JsonSerializable
 			'alertId' => $this -> alertId,
 			'alertHuman' => $this -> alertHuman,
 			'liveGraphHuman' => $this -> liveGraphHuman,
-			'trigger' => $this -> trigger,
+			'trigger' => $this -> getTrigger(),
 			//'status' => $this -> status,
-			'notification' => $this -> notification
+			'notification' => $this -> getNotification()
 		);
 	}
 }
