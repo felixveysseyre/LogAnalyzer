@@ -189,10 +189,6 @@ $(function($){
 						});
 				}
 			}
-
-			/* Tips */
-
-			this.element.find('.tip').tip();
 		},
 
 		_addActivationStructure: function(field, fieldContainerId)
@@ -570,27 +566,32 @@ $(function($){
 
 		_addInformationStructure : function(field, fieldContainerId)
 		{
-			var informationStructure = '';
+			var informationContainer = this.element
+				.find('#' + fieldContainerId + ' .informationContainer');
+
+			var informationElement;
 
 			if(field.help)
 			{
-				var helpStructure = '<i data-tip="#tip#" class="help tip fa fa-question-circle"></i>';
+				informationElement = $('<i data-tip="#tip#" class="help fa fa-question-circle"></i>'
+					.replace(/#tip#/, field.help)
+				);
 
-				informationStructure += helpStructure.replace(/#tip#/, field.help);
+				informationElement.tip();
+
+				informationContainer.append(informationElement);
 			}
 
 			if(field.warning)
 			{
-				var warningStructure = '<i data-tip="#tip#" class="warning tip fa fa-exclamation-triangle"></i>';
+				informationElement =  $('<i data-tip="#tip#" class="warning fa fa-exclamation-triangle"></i>'
+					.replace(/#tip#/, field.warning)
+				);
 
-				informationStructure += warningStructure.replace(/#tip#/, field.warning);
+				informationContainer.append(informationElement);
+
+				informationElement.tip();
 			}
-
-			/* Append */
-
-			this.element
-				.find('#' + fieldContainerId + ' .informationContainer')
-				.append(informationStructure);
 		},
 
 		_updateFieldData : function(field)
