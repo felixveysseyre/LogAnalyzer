@@ -218,12 +218,12 @@ $(function($){
 				var showHeader = this.getOption('showHeader');
 				var showLineNumbers = this.getOption('showLineNumbers');
 
-				var tableViewerTableStructure = '';
-				var lineContentTemp = '';
-
-				var lineStructure = '<tr class="#class#">#lineContent#</tr>';
+				var lineStructure = '<tr class="#class#"></tr>';
 				var cellStructure = '<td class="#class#">#cellContent#</td>\n';
 				var headerCellStructure = '<th class="#class#" style="width: #width#;">#headerCellContent#</th>';
+
+				var lineElement;
+				var cellElement;
 
 				/* Columns object */
 
@@ -246,25 +246,31 @@ $(function($){
 
 				if(showHeader)
 				{
+					lineElement = $(lineStructure.replace(/#class#/, ''));
+
+					this._tableViewerTableContainer.append(lineElement);
+
 					if(showLineNumbers)
 					{
-						lineContentTemp += headerCellStructure
+						cellElement = $(headerCellStructure
 							.replace(/#class#/, 'lineNumber')
 							.replace(/#width#/, '')
-							.replace(/#headerCellContent#/, '#');
+							.replace(/#headerCellContent#/, '#')
+						);
+
+						lineElement.append(cellElement);
 					}
 
 					for(var i = 0; i < columns.length; i++)
 					{
-						lineContentTemp += headerCellStructure
+						cellElement = $(headerCellStructure
 							.replace(/#class#/, '')
 							.replace(/#width#/, columns[i].width || '')
-							.replace(/#headerCellContent#/, columns[i].name || '');
-					}
+							.replace(/#headerCellContent#/, columns[i].name || '')
+						);
 
-					tableViewerTableStructure += lineStructure
-						.replace(/#class#/, '')
-						.replace(/#lineContent#/, lineContentTemp);
+						lineElement.append(cellElement);
+					}
 				}
 
 				/* Select lines */
@@ -276,34 +282,48 @@ $(function($){
 
 				for(var i = iMin; i <= iMax; i++)
 				{
-					lineContentTemp = '';
+					var color = (lineClassDeterminationFunction) ? lineClassDeterminationFunction(data[i]) : '';
+
+					lineElement = $(lineStructure.replace(/#class#/, color));
+
+					this._tableViewerTableContainer.append(lineElement);
 
 					if(showLineNumbers)
 					{
-						lineContentTemp += cellStructure
+						cellElement = $(cellStructure
 							.replace(/#class#/, 'lineNumber')
-							.replace(/#cellContent#/, i + 1);
+							.replace(/#cellContent#/, i + 1)
+						);
+
+						lineElement.append(cellElement);
 					}
 
 					for(var j = 0; j < columns.length; j++)
 					{
 						var cellContent = data[i][columns[j].key];
+						var cellClass = '';
 
-						cellContent = (columns[j].highlight) ? cellContent.replace(new RegExp(columns[j].highlight, 'gi'), '<span class="highlighted">' + columns[j].highlight +'</span>') : cellContent;
+						if(typeof(cellContent) === 'object')
+						{
+							cellContent = '<i class="fa fa-cube"></i>';
+							cellClass = 'object';
+						}
+						else
+						{
+							cellContent = (columns[j].highlight) ? cellContent.replace(new RegExp(columns[j].highlight, 'gi'), '<span class="highlighted">' + columns[j].highlight +'</span>') : cellContent;
+						}
 
-						lineContentTemp += cellStructure
-							.replace(/#class#/, '')
-							.replace(/#cellContent#/, cellContent);
+						cellElement = $(cellStructure
+							.replace(/#class#/, cellClass)
+							.replace(/#cellContent#/, cellContent)
+						);
+
+						cellElement.find('i').data('tip', data[i][columns[j].key]);
+						cellElement.find('i').tip();
+
+						lineElement.append(cellElement);
 					}
-
-					var color = (lineClassDeterminationFunction) ? lineClassDeterminationFunction(data[i]) : '';
-
-					tableViewerTableStructure += lineStructure
-						.replace(/#class#/, color)
-						.replace(/#lineContent#/, lineContentTemp);
 				}
-
-				this._tableViewerTableContainer.append(tableViewerTableStructure);
 			}
 		},
 
