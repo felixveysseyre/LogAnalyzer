@@ -9,10 +9,6 @@ $(function($){
 
 		_wait: null,
 
-		_formContainer: null,
-		_fieldsContainer: null,
-		_buttonsContainer: null,
-
 		/** Public **/
 
 		options: {
@@ -46,7 +42,7 @@ $(function($){
 		{
 			var self = this;
 
-			/* Structure */
+			/* Clear */
 
 			this.element.empty();
 
@@ -54,10 +50,9 @@ $(function($){
 
 			var formContainerStructure = '<form id="#id#" class="formContainer"></form>';
 
-			formContainerStructure = formContainerStructure.replace(/#id#/, this.getOption('id'));
+			var formContainerElement = $(formContainerStructure.replace(/#id#/, this.getOption('id')));
 
-			this.element.append(formContainerStructure);
-			this._formContainer = this.element.find('#' + this.getOption('id'));
+			this.element.append(formContainerElement);
 
 			/** Fields **/
 
@@ -65,38 +60,51 @@ $(function($){
 
 			if(fields)
 			{
-				var fieldsContainerStructure = '<table class="fieldsContainer"></table>';
+				var fieldsContainerElement = $('<table class="fieldsContainer"></table>');
 
-				this._formContainer.append(fieldsContainerStructure);
-				this._fieldsContainer = this.element.find('.fieldsContainer');
+				formContainerElement.append(fieldsContainerElement);
 
 				var fieldContainerStructure =
 					'<tr id="#id#" class="#class#">' +
-						'<td class="labelContainer">#label#</td>' +
+						'<td class="labelContainer"></td>' +
 						'<td class="informationContainer"></td>' +
 						'<td class="activationContainer"></td>' +
 						'<td class="fieldContainer"></td>' +
 					'</tr>';
 
-				var labelStructure = '<label for="#id#">#name#</label>';
+				var fieldContainerElement;
 
 				for(var i = 0; i < fields.length; i++)
 				{
 					var id = fields[i].id + 'Container';
-					var labelContainer = labelStructure
-						.replace(/#id#/, fields[i].id + 'Activation')
-						.replace(/#name#/, fields[i].name);
 
-					var fieldContainerStructureTemp = fieldContainerStructure
+					/* Field container structure */
+
+					fieldContainerElement = $(fieldContainerStructure
 						.replace(/#id#/, id)
-						.replace(/#title#/, fields[i].help || '')
 						.replace(/#class#/, (fields[i].separator === true) ? 'separator' : '')
-						.replace(/#label#/, labelContainer);
+					);
 
-					this._fieldsContainer.append(fieldContainerStructureTemp);
+					/* Label */
 
-					this.element
-						.find('#' + id + ' .fieldContainer')
+					this._addLabelStructure(fields[i], fieldContainerElement);
+
+					/* Information */
+
+					this._addInformationStructure(fields[i], fieldContainerElement);
+
+					/* Activation */
+
+					this._addActivationStructure(fields[i], fieldContainerElement);
+
+					/* Field */
+
+					this._addFieldStructure(fields[i], fieldContainerElement);
+
+					/* Other */
+
+					fieldContainerElement
+						.find('.fieldContainer')
 						.click(function(){
 							$(this)
 								.parent()
@@ -104,9 +112,9 @@ $(function($){
 								.prop('checked', true);
 						});
 
-					this._addInformationStructure(fields[i], id);
-					this._addActivationStructure(fields[i], id);
-					this._addFieldStructure(fields[i], id);
+					/* Append */
+
+					fieldsContainerElement.append(fieldContainerElement);
 				}
 			}
 
@@ -117,12 +125,10 @@ $(function($){
 
 			if(buttons)
 			{
-				var buttonsContainerStructure = '<div class="buttonsContainer"></div>';
-
-				this._formContainer.append(buttonsContainerStructure);
-				this._buttonsContainer = this.element.find('.buttonsContainer');
+				var buttonsContainerElement = $('<div class="buttonsContainer"></div>');
 
 				var buttonContainerStructure = '<button id="#id#" class="#class#" type="button" #options#>#name#</button>';
+				var buttonContainerElement;
 
 				var options = (confirmationRequired) ? 'disabled' : '';
 
@@ -130,13 +136,12 @@ $(function($){
 				{
 					/* Structure */
 
-					var buttonContainerStructureTemp = buttonContainerStructure
+					buttonContainerElement = $(buttonContainerStructure
 						.replace(/#id#/, buttons[i].id)
 						.replace(/#class#/, '')
 						.replace(/#options#/, options)
-						.replace(/#name#/, buttons[i].name);
-
-					this._buttonsContainer.append(buttonContainerStructureTemp);
+						.replace(/#name#/, buttons[i].name)
+					);
 
 					/* Logic */
 
@@ -148,50 +153,97 @@ $(function($){
 
 							if(confirmationRequired)
 							{
-								self.element
-									.find('#' + buttons[i].id)
-									.click(function(){
-										self._buttonsContainer
-											.find('button')
-											.not('.confirmForm')
-											.attr('disabled', true);
-										callbackTemp(self.getValues());
-									});
+								buttonContainerElement.click(function(){
+									buttonsContainerElement
+										.find('button')
+										.not('.confirmForm')
+										.attr('disabled', true);
+									callbackTemp(self.getValues());
+								});
 							}
 							else
 							{
-								self.element
-									.find('#' + buttons[i].id)
-									.click(function(){
-										callbackTemp(self.getValues());
-									});
+								buttonContainerElement.click(function(){
+									callbackTemp(self.getValues());
+								});
 							}
 						})();
 					}
+
+					buttonsContainerElement.append(buttonContainerElement);
 				}
 
 				/** Confirmation **/
 
 				if(confirmationRequired)
 				{
-					var buttonContainerStructureTemp = buttonContainerStructure
+					buttonContainerElement = $(buttonContainerStructure
 						.replace(/#id#/, '')
 						.replace(/#class#/, 'confirmForm')
 						.replace(/#options#/, '')
-						.replace(/#name#/, 'Confirm');
+						.replace(/#name#/, 'Confirm')
+					);
 
-					this._buttonsContainer.append(buttonContainerStructureTemp);
+					buttonContainerElement.click(function(){
+						buttonsContainerElement.find('button:disabled').removeAttr('disabled');
+					});
 
-					this._buttonsContainer
-						.find('.confirmForm')
-						.click(function(){
-							self._buttonsContainer.find('button:disabled').removeAttr('disabled');
-						});
+					buttonsContainerElement.append(buttonContainerElement);
 				}
+
+				formContainerElement.append(buttonsContainerElement);
 			}
 		},
 
-		_addActivationStructure: function(field, fieldContainerId)
+		_addLabelStructure: function(field, fieldContainerElement)
+		{
+			var labelStructure = '<label for="#id#">#name#</label>';
+
+			var labelContainerElement = $(labelStructure
+					.replace(/#id#/, field.id + 'Activation')
+					.replace(/#name#/, field.name)
+			);
+
+			fieldContainerElement
+				.find('.labelContainer')
+				.append(labelContainerElement);
+		},
+
+		_addInformationStructure : function(field, fieldContainerElement)
+		{
+			var informationContainer = fieldContainerElement.find('.informationContainer');
+
+			var informationStructure = '<i data-tip="#tip#" class="#type# fa #icon#"></i>';
+			var informationElement;
+
+			if(field.help)
+			{
+				informationElement = $(informationStructure
+					.replace(/#tip#/, field.help)
+					.replace(/#type#/, 'help')
+					.replace(/#icon#/, 'fa-question-circle')
+				);
+
+				informationElement.tip();
+
+				informationContainer.append(informationElement);
+			}
+
+			if(field.warning)
+			{
+				informationElement = $(informationStructure
+					.replace(/#tip#/, field.help)
+					.replace(/#type#/, 'warning')
+					.replace(/#icon#/, 'fa-exclamation-triangle')
+				);
+
+				informationContainer.append(informationElement);
+
+				informationElement.tip();
+			}
+		},
+
+		_addActivationStructure: function(field, fieldContainerElement)
 		{
 			var defaultActivation = this.getOption('defaultActivation');
 			var activation = field.activation;
@@ -201,72 +253,68 @@ $(function($){
 
 			var options;
 
-			activationStructure = activationStructure
-				.replace(/#id#/g, activationElementId)
-				.replace(/#value#/, activationElementId);
-
 			if(activation === false) options = 'disabled';
 			else if(activation === true) options = 'checked disabled';
 			else options = (defaultActivation) ? 'checked' : '';
 
-			activationStructure = activationStructure.replace(/#options#/, options);
+			activationStructure = activationStructure
+				.replace(/#id#/g, activationElementId)
+				.replace(/#value#/, activationElementId)
+				.replace(/#options#/, options);
 
 			this._ids.push({
 				id: activationElementId,
 				type: 'checkbox'
 			});
 
-			this.element
-				.find('#' + fieldContainerId +' .activationContainer')
+			fieldContainerElement
+				.find('.activationContainer')
 				.append(activationStructure);
 		},
 
-		_addFieldStructure : function(field, fieldContainerId)
+		_addFieldStructure : function(field, fieldContainerElement)
 		{
 			if(field.type === 'multiple')
-				this._addMultipleFieldStructure(field, fieldContainerId);
+				this._addMultipleFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'text')
-				this._addTextFieldStructure(field, fieldContainerId);
+				this._addTextFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'password')
-				this._addPasswordFieldStructure(field, fieldContainerId);
+				this._addPasswordFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'radio')
-				this._addRadioFieldStructure(field, fieldContainerId);
+				this._addRadioFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'checkbox')
-				this._addCheckboxFieldStructure(field, fieldContainerId);
+				this._addCheckboxFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'number')
-				this._addNumberFieldStructure(field, fieldContainerId);
+				this._addNumberFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'date' || field.type === 'dateTime')
-				this._addDateFieldStructure(field, fieldContainerId);
+				this._addDateFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'select')
-				this._addSelectFieldStructure(field, fieldContainerId);
+				this._addSelectFieldStructure(field, fieldContainerElement);
 			else if(field.type === 'textarea')
-				this._addTextareaFieldStructure(field, fieldContainerId);
+				this._addTextAreaFieldStructure(field, fieldContainerElement);
 			else
 				console.warn('Field type not supported: ', field);
 		},
 
-		_addMultipleFieldStructure: function(field, fieldContainerId)
+		_addMultipleFieldStructure: function(field, fieldContainerElement)
 		{
 			for(var i = 0; i < field.fields.length; i++)
 			{
-				this._addFieldStructure(field.fields[i], fieldContainerId);
+				this._addFieldStructure(field.fields[i], fieldContainerElement);
 			}
 		},
 
-		_addTextFieldStructure: function(field, fieldContainerId)
+		_addTextFieldStructure: function(field, fieldContainerElement)
 		{
 			var fieldStructure = '<input type="text" id="#id#" name="#id#" value="#value#" #options#>';
 
 			/* Create the structure */
 
-			var options = '';
-
-			if(field.activation === false) options += 'disabled';
-
-			fieldStructure = fieldStructure
+			var fieldElement = $(fieldStructure
 				.replace(/#id#/g, field.id)
 				.replace(/#value#/, field.value || '')
-				.replace(/#options#/, options);
+				.replace(/#options#/, (field.activation === false) ? 'disabled' : '')
+			);
 
 			/* Add ids to the list of ids created */
 
@@ -277,25 +325,22 @@ $(function($){
 
 			/* Append */
 
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure);
+			fieldContainerElement
+				.find('.fieldContainer')
+				.append(fieldElement);
 		},
 
-		_addPasswordFieldStructure: function(field, fieldContainerId)
+		_addPasswordFieldStructure: function(field, fieldContainerElement)
 		{
 			var fieldStructure = '<input type="password" id="#id#" name="#id#" value="#value#" #options#>';
 
 			/* Create the structure */
 
-			var options = '';
-
-			if(field.activation === false) options += 'disabled';
-
-			fieldStructure = fieldStructure
+			var fieldElement = $(fieldStructure
 				.replace(/#id#/g, field.id)
 				.replace(/#value#/, field.value || '')
-				.replace(/#options#/, options);
+				.replace(/#options#/, (field.activation === false) ? 'disabled' : '')
+			);
 
 			/* Add ids to the list of ids created */
 
@@ -306,18 +351,18 @@ $(function($){
 
 			/* Append */
 
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure);
+			fieldContainerElement
+				.find('.fieldContainer')
+				.append(fieldElement);
 		},
 
-		_addRadioFieldStructure: function(field, fieldContainerId)
+		_addRadioFieldStructure: function(field, fieldContainerElement)
 		{
-			var fieldStructure = '';
-
 			var radioStructure =
 				'<input type="radio" id="#id#" name="#name#" value="#value#" #options#>' +
 				'<label for="#id#">#text#</label>';
+
+			var radioElement;
 
 			/* Create the structure */
 
@@ -328,14 +373,19 @@ $(function($){
 				if(field.activation === false) options += ' disabled';
 				if(field.choices[i].selected === true) options += ' checked';
 
-				var radioStructureTemp = radioStructure
+				radioElement = $(radioStructure
 					.replace(/#id#/g, field.id + field.choices[i].value)
 					.replace(/#name#/, field.id)
 					.replace(/#value#/, field.choices[i].value)
 					.replace(/#text#/, field.choices[i].name)
-					.replace(/#options#/, options);
+					.replace(/#options#/, options)
+				);
 
-				fieldStructure += radioStructureTemp;
+				/* Append */
+
+				fieldContainerElement
+					.find('.fieldContainer')
+					.append(radioElement);
 			}
 
 			/* Add ids to the list of ids created */
@@ -344,21 +394,15 @@ $(function($){
 				id: field.id,
 				type: 'radio'
 			});
-
-			/* Append */
-
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure);
 		},
 
-		_addCheckboxFieldStructure: function(field, fieldContainerId)
+		_addCheckboxFieldStructure: function(field, fieldContainerElement)
 		{
-			var fieldStructure = '';
-
 			var checkboxStructure =
 				'<input type="checkbox" id="#id#" name="#name#" value="#value#" #options#>' +
 				'<label for="#id#">#text#</label>';
+
+			var checkboxElement;
 
 			for(var i = 0; i < field.choices.length; i++)
 			{
@@ -369,14 +413,13 @@ $(function($){
 				if(field.activation === false) options += ' disabled';
 				if(field.choices[i].selected === true) options += ' checked';
 
-				var checkboxStructureTemp = checkboxStructure
+				checkboxElement = $(checkboxStructure
 					.replace(/#id#/g, field.id + field.choices[i].value)
 					.replace(/#name#/, field.id)
 					.replace(/#value#/, field.choices[i].value)
 					.replace(/#text#/, field.choices[i].name)
-					.replace(/#options#/, options);
-
-				fieldStructure += checkboxStructureTemp;
+					.replace(/#options#/, options)
+				);
 
 				/* Add ids to the list of ids created */
 
@@ -384,37 +427,27 @@ $(function($){
 					id: field.id + field.choices[i].value,
 					type: 'checkbox'
 				});
+
+				/* Append */
+
+				fieldContainerElement
+					.find('.fieldContainer')
+					.append(checkboxElement);
 			}
-
-			/* Append */
-
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure);
 		},
 
-		_addNumberFieldStructure: function(field, fieldContainerId)
+		_addNumberFieldStructure: function(field, fieldContainerElement)
 		{
-			/* Options */
-
-			var options = '';
-
-			if(field.activation === false) options += ' disabled';
-
 			/* Structure */
 
 			var fieldStructure = '<input type="number" id="#id#" name="#id#" value="#value#" min="#min#" max="#max#" #options#>';
 
-			/* Append the structure */
-
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure
-					.replace(/#id#/g, field.id)
-					.replace(/#value#/g, field.value || '')
-					.replace(/#min#/g, field.min || '')
-					.replace(/#max#/g, field.max || '')
-					.replace(/#options#/g, options)
+			var fieldStructureElement = $(fieldStructure
+				.replace(/#id#/g, field.id)
+				.replace(/#value#/, field.value || '')
+				.replace(/#min#/, field.min || '')
+				.replace(/#max#/, field.max || '')
+				.replace(/#options#/, (field.activation === false) ? 'disabled' : '')
 			);
 
 			/* Add ids to the list of ids created */
@@ -423,17 +456,19 @@ $(function($){
 				id: field.id,
 				type: 'number'
 			});
+
+			/* Append the structure */
+
+			fieldContainerElement
+				.find('.fieldContainer')
+				.append(fieldStructureElement);
 		},
 		
-		_addDateFieldStructure: function(field, fieldContainerId)
+		_addDateFieldStructure: function(field, fieldContainerElement)
 		{
 			var usePicker = this.getOption('usePicker');
 
 			/* Options */
-
-			var options = '';
-
-			if(field.activation === false) options += ' disabled';
 
 			var datePickerOptions = {
 				dateFormat: 'yy-mm-dd',
@@ -454,15 +489,25 @@ $(function($){
 
 			var fieldStructure = '<input type="text" id="#id#" name="#id#" value="#value#" #options#>';
 
-			/* Append the structure */
-
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure
-					.replace(/#id#/g, field.id)
-					.replace(/#value#/, field.value || '')
-					.replace(/#options#/, options)
+			var fieldElement = $(fieldStructure
+				.replace(/#id#/g, field.id)
+				.replace(/#value#/, field.value || '')
+				.replace(/#options#/, (field.activation === false) ? 'disabled' : '')
 			);
+
+			/* Add dateTime picker */
+
+			if(usePicker)
+			{
+				if(field.type === 'dateTime')
+				{
+					fieldElement.datetimepicker(dateTimePickerOptions);
+				}
+				else
+				{
+					fieldElement.datepicker(datePickerOptions);
+				}
+			}
 
 			/* Add ids to the list of ids created */
 
@@ -471,55 +516,40 @@ $(function($){
 				type: 'text'
 			});
 
-			/* Add dateTime picker */
+			/* Append the structure */
 
-			if(usePicker)
-			{
-				if(field.type === 'dateTime')
-				{
-					$('#' + field.id).datetimepicker(dateTimePickerOptions);
-				}
-				else
-				{
-					$('#' + field.id).datepicker(datePickerOptions);
-				}
-			}
+			fieldContainerElement
+				.find('.fieldContainer')
+				.append(fieldElement);
 		},
 		
-		_addSelectFieldStructure: function(field, fieldContainerId)
+		_addSelectFieldStructure: function(field, fieldContainerElement)
 		{
-			var fieldStructure =
-				'<select id="#id#" name="#id#" #options#>' +
-					'#optionStructures#' +
-				'</select>';
+			/* Create the structure */
+
+			var fieldStructure = '<select id="#id#" name="#id#" #options#></select>';
+
+			var fieldElement = $(fieldStructure
+				.replace(/#id#/g, field.id)
+				.replace(/#options#/, (field.activation === false) ? 'disabled' : '')
+			);
 
 			var optionStructure = '<option value="#value#" #options#>#text#</option>';
-
-			var optionStructures = '';
-
-			/* Create the structure */
+			var optionElement;
 
 			if(field.choices)
 			{
-				var options;
-
 				for(var i = 0; i < field.choices.length; i++)
 				{
-					var optionStructureTemp = optionStructure
+					optionElement = $(optionStructure
 						.replace(/#value#/, field.choices[i].value)
 						.replace(/#text#/, field.choices[i].name)
-						.replace(/#options#/, (field.choices[i].selected === true) ? 'selected' : '');
+						.replace(/#options#/, (field.choices[i].selected === true) ? 'selected' : '')
+					);
 
-					optionStructures += optionStructureTemp;
+					fieldElement.append(optionElement);
 				}
 			}
-
-			if(field.activation === false) options = 'disabled';
-
-			fieldStructure = fieldStructure
-				.replace(/#id#/g, field.id)
-				.replace(/#optionStructures#/, optionStructures)
-				.replace(/#options#/, options);
 
 			/* Add ids to the list of ids created */
 
@@ -530,25 +560,21 @@ $(function($){
 
 			/* Append */
 
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure);
+			fieldContainerElement
+				.find('.fieldContainer')
+				.append(fieldElement);
 		},
 
-		_addTextareaFieldStructure: function(field, fieldContainerId)
+		_addTextAreaFieldStructure: function(field, fieldContainerElement)
 		{
 			var fieldStructure = '<textarea id="#id#" name="#id#" #options#>#value#</textarea>';
 
 			/* Create the structure */
 
-			var options = '';
-
-			if(field.activation === false) options += 'disabled';
-
-			fieldStructure = fieldStructure
+			var fieldElement = fieldStructure
 				.replace(/#id#/g, field.id)
 				.replace(/#value#/, field.value || '')
-				.replace(/#options#/, options);
+				.replace(/#options#/, (field.activation === false) ? 'disabled' : '');
 
 			/* Add ids to the list of ids created */
 
@@ -559,39 +585,9 @@ $(function($){
 
 			/* Append */
 
-			this.element
-				.find('#' + fieldContainerId + ' .fieldContainer')
-				.append(fieldStructure);
-		},
-
-		_addInformationStructure : function(field, fieldContainerId)
-		{
-			var informationContainer = this.element
-				.find('#' + fieldContainerId + ' .informationContainer');
-
-			var informationElement;
-
-			if(field.help)
-			{
-				informationElement = $('<i data-tip="#tip#" class="help fa fa-question-circle"></i>'
-					.replace(/#tip#/, field.help)
-				);
-
-				informationElement.tip();
-
-				informationContainer.append(informationElement);
-			}
-
-			if(field.warning)
-			{
-				informationElement =  $('<i data-tip="#tip#" class="warning fa fa-exclamation-triangle"></i>'
-					.replace(/#tip#/, field.warning)
-				);
-
-				informationContainer.append(informationElement);
-
-				informationElement.tip();
-			}
+			fieldContainerElement
+				.find('.fieldContainer')
+				.append(fieldElement);
 		},
 
 		_updateFieldData : function(field)
@@ -629,8 +625,6 @@ $(function($){
 							});
 						}
 					}
-
-
 
 					field.choices = choices;
 					self.update();
