@@ -21,6 +21,10 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 			getConstant: '/projectConfiguration/getConstantAPI/',
 			updateConstant: '/projectConfiguration/updateConstantAPI/'
 		},
+		notificationAdministration:
+		{
+			getNotificationToSend: '/notificationAdministration/getNotificationToSendAPI/'
+		},
 		organizationAdministration:
 		{
 			getRole: '/organizationAdministration/getRoleAPI/',
