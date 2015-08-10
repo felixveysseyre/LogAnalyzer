@@ -55,10 +55,10 @@ $(function($){
 
 			/* Code viewer container */
 
-			var codeViewerContainerStructure = '<table class="codeViewerContainer"></table>';
+			var codeViewerContainerElement = $('<table class="codeViewerContainer"></table>');
 
-			this.element.append(codeViewerContainerStructure);
-			this._codeViewerContainer = this.element.find('.codeViewerContainer');
+			this.element.append(codeViewerContainerElement);
+			this._codeViewerContainer = codeViewerContainerElement;
 		},
 
 		_addStructure: function()
@@ -68,6 +68,7 @@ $(function($){
 			var numberOfLines = this.getOption('numberOfLines');
 			var displayFromEnd = this.getOption('displayFromEnd');
 			var order = this.getOption('order');
+			var showLineNumbers = this.getOption('showLineNumbers');
 
 			/* Clean old structure */
 
@@ -102,38 +103,29 @@ $(function($){
 
 				/* Structure creation */
 
-				if(this.getOption('showLineNumbers'))
-				{
-					var codeLineStructureWithLineNumber =
-						'<tr>' +
-							'<td class="lineNumber">#lineNumber#</td>' +
-							'<td class="codeLine">#line#</td>' +
-						'</tr>';
+				var lineStructure = '<tr></tr>';
+				var lineElement;
 
-					for(var i = iMin; i !== iMax; i += increment)
-					{
-						this._codeViewerContainer.append(
-							codeLineStructureWithLineNumber
-								.replace(/#lineNumber#/, i + 1)
-								.replace(/#line#/, codeLines[i])
-						);
-					}
-				}
-				else
-				{
-					var codeLineStructureWithoutLineNumber =
-						'<tr>' +
-							'<td>#line#</td>' +
-						'</tr>';
+				var cellStructure = '<td class="#class#">#content#</td>';
 
-					for(var i = iMin; i !== iMax; i += increment)
+				for(var i = iMin; i !== iMax; i += increment)
+				{
+					lineElement = $(lineStructure);
+
+					if(showLineNumbers)
 					{
-						this._codeViewerContainer.append(
-							codeLineStructureWithoutLineNumber
-								.replace(/#line#/, codeLines[i])
-						);
+						lineElement.append($(cellStructure
+							.replace(/#class#/, 'lineNumber')
+							.replace(/#content#/, i + 1)
+						));
 					}
 
+					lineElement.append($(cellStructure
+						.replace(/#class#/, 'codeLine')
+						.replace(/#content#/, codeLines[i])
+					));
+
+					this._codeViewerContainer.append(lineElement);
 				}
 			}
 		},
