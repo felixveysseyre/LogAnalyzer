@@ -5,12 +5,6 @@ $(function($){
 
 		/** Private **/
 
-		_titleContainer: null,
-		_subTitleContainer: null,
-		_contentContainer: null,
-		_resizeContainer: null,
-		_pendingContainer: null,
-
 		/** Public **/
 
 		options: {
@@ -56,10 +50,9 @@ $(function($){
 			{
 				var titleContainerStructure = '<span class="titleContainer">#title#</span>';
 
-				titleContainerStructure = titleContainerStructure.replace(/#title#/, title);
+				var titleContainerElement = $(titleContainerStructure.replace(/#title#/, title));
 
-				this.element.append(titleContainerStructure);
-				this._titleContainer = this.element.find('.titleContainer');
+				this.element.append(titleContainerElement);
 			}
 
 			/** SubTitle container **/
@@ -70,10 +63,9 @@ $(function($){
 			{
 				var subTitleContainerStructure = '<span class="subTitleContainer">#subTitle#</span>';
 
-				subTitleContainerStructure = subTitleContainerStructure.replace(/#subTitle#/, subTitle);
+				var subTitleContainerElement = $(subTitleContainerStructure.replace(/#subTitle#/, subTitle));
 
-				this.element.append(subTitleContainerStructure);
-				this._subTitleContainer = this.element.find('.subTitleContainer');
+				this.element.append(subTitleContainerElement);
 			}
 
 			/** Content container **/
@@ -82,10 +74,9 @@ $(function($){
 
 			var content = (this.getOption('content')) ?  this.getOption('content') : '';
 
-			contentContainerStructure = contentContainerStructure.replace(/#content#/, content);
+			var contentContainerElement = $(contentContainerStructure.replace(/#content#/, content));
 
-			this.element.append(contentContainerStructure);
-			this._contentContainer = this.element.find('.contentContainer');
+			this.element.append(contentContainerElement);
 
 			/** Resize container **/
 
@@ -95,14 +86,13 @@ $(function($){
 			{
 				var resizeContainerStructure = '<div class="resizeContainer">#resizeIcon#</div>';
 
-				resizeContainerStructure = resizeContainerStructure.replace(/#resizeIcon#/, '<i class="fa fa-angle-up"></i>');
+				var resizeContainerElement = $(resizeContainerStructure.replace(/#resizeIcon#/, '<i class="fa fa-angle-up"></i>'));
 
-				this.element.append(resizeContainerStructure);
-				this._resizeContainer = this.element.find('.resizeContainer');
-
-				this._resizeContainer.click(function(){
+				resizeContainerElement.click(function(){
 					self.toggle();
 				});
+
+				this.element.append(resizeContainerElement);
 
 				if(toggle === true)
 				{
@@ -116,10 +106,9 @@ $(function($){
 
 			var pendingMessage = this.getOption('pendingMessage');
 
-			pendingMessageContainerStructure = pendingMessageContainerStructure.replace(/#pendingMessage#/, pendingMessage);
+			var pendingMessageContainerElement = $(pendingMessageContainerStructure.replace(/#pendingMessage#/, pendingMessage));
 
-			this.element.append(pendingMessageContainerStructure);
-			this._pendingContainer = this.element.find('.pendingMessageContainer');
+			this.element.append(pendingMessageContainerElement);
 		},
 
 		/** Public **/
@@ -175,6 +164,8 @@ $(function($){
 				contentContainer.requestViewer(parameters);
 			else if(type === 'tableViewer')
 				contentContainer.tableViewer(parameters);
+			else
+				console.warn('Plugin type not supported.');
 
 			/* Return */
 
@@ -183,12 +174,14 @@ $(function($){
 
 		getContentContainer: function()
 		{
-			return this._contentContainer;
+			return this.element.find('.contentContainer');
 		},
 
 		loadContent: function(content)
 		{
-			this._contentContainer.html(content);
+			this.element
+				.find('.contentContainer')
+				.html(content);
 		},
 
 		setPendingState: function(value)
@@ -224,11 +217,11 @@ $(function($){
 	{
 		if(typeof(parameters.id) !== 'undefined')
 		{
-			var moduleContainerStructure = '<div id="#id#"></div>'.replace(/#id#/, parameters.id);
+			var moduleContainerElement = $('<div id="#id#"></div>'.replace(/#id#/, parameters.id));
 
-			this.append(moduleContainerStructure);
+			this.append(moduleContainerElement);
 
-			return $(this).find('#' + parameters.id).module(parameters);
+			return moduleContainerElement.module(parameters);
 		}
 		else
 		{
