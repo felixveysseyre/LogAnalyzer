@@ -72,6 +72,16 @@ logAnalyzer.dashboard.menuSections.projectConfiguration =
 	]
 };
 
+logAnalyzer.dashboard.menuSections.notificationAdministration =
+{
+	name: 'Notification administration',
+	id: 'notificationAdministrationSection',
+	icon: 'fa-newspaper-o',
+	subSections: [
+		{name: 'See notificationToSend', id: 'seeNotificationToSendSubSection', icon: 'fa-paper-plane', onActivation: logAnalyzer.dashboard.notificationAdministration.seeNotificationToSend}
+	]
+};
+
 /*logAnalyzer.dashboard.menuSections.projectLogs =
 {
 	name: 'Project logs',
