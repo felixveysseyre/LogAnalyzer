@@ -13,7 +13,6 @@ $(function($){
 
 		options: {
 			parentModule: null,
-			id: 'formId',
 			defaultActivation: false,
 			usePicker: true,
 			confirmationRequired: false,
@@ -48,9 +47,12 @@ $(function($){
 
 			/** Form **/
 
-			var formContainerStructure = '<form id="#id#" class="formContainer"></form>';
+			var formContainerStructure = '<form class="formContainer"></form>';
 
-			var formContainerElement = $(formContainerStructure.replace(/#id#/, this.getOption('id')));
+			var formContainerElement = $(formContainerStructure);
+			formContainerElement.submit(function(){
+				return false;
+			});
 
 			this.element.append(formContainerElement);
 
