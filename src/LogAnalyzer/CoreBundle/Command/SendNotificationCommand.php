@@ -55,8 +55,6 @@ class SendNotificationCommand extends ContainerAwareCommand
 
 	private function sendNotification()
 	{
-		$notificationIdsToDelete = array();
-
 		/* Get notifications to send */
 
 		$notificationsToSend = $this
@@ -74,11 +72,6 @@ class SendNotificationCommand extends ContainerAwareCommand
 					$content = $notificationToSend -> getContent();
 
 					$return = $this -> sendEmail($email, $content['subject'], $content['message']);
-
-					if($return)
-					{
-						array_push($notificationIdsToDelete, $notificationToSend -> getNotificationToSendId());
-					}
 				}
 			}
 			elseif($notificationToSend -> getType() === 'collector')
@@ -97,23 +90,22 @@ class SendNotificationCommand extends ContainerAwareCommand
 						$content = $notificationToSend -> getContent();
 
 						$return = $this -> sendMessageToCollector($IP, $port, $content['message']);
-
-						if($return)
-						{
-							array_push($notificationIdsToDelete, $notificationToSend -> getNotificationToSendId());
-						}
 					}
 				}
 			}
-		}
+			else
+			{
+				$return = false;
+			}
 
-		/* Clean notification */
+			/* Clean notification */
 
-		foreach($notificationIdsToDelete as $notificationIdToDelete)
-		{
-			$this
-				-> getNotificationToSendRepository()
-				-> deleteNotificationToSend(array('notificationToSendId' => $notificationIdToDelete));
+			if($return)
+			{
+				$this
+					-> getNotificationToSendRepository()
+					-> deleteNotificationToSend(array('notificationToSendId' => $notificationToSend -> getNotificationToSendId()));
+			}
 		}
 
 		/* Return */
