@@ -52,16 +52,16 @@ $(function($){
 
 			/* Data exporter container */
 
-			var exporterContainerStructure = '<table class="exporterContainer"></table>';
-			var fakeLinkStructure = '<a class="fakeLink" href="" download="" style="display: none;">FakeLink</a>';
+			var exporterContainerElement = $('<table class="exporterContainer"></table>');
+			var fakeLinkElement = $('<a class="fakeLink" href="" download="" style="display: none;">FakeLink</a>');
 
-			this.element.append(exporterContainerStructure);
-			this._exporterContainer = this.element.find('.exporterContainer');
+			this.element.append(exporterContainerElement);
+			this._exporterContainer = exporterContainerElement;
 
 			/* Fake link */
 
-			this.element.append(fakeLinkStructure);
-			this._fakeLink = this.element.find('.fakeLink');
+			this.element.append(fakeLinkElement);
+			this._fakeLink = fakeLinkElement;
 		},
 
 		_getDataAsJSON: function()
@@ -118,7 +118,7 @@ $(function($){
 				{
 					for(var j = 0; j < columns.length; j++)
 					{
-						CSV += data[i][columns[j].key]
+						CSV += String(data[i][columns[j].key])
 							.replace(/(\r\n|\n|\r)/gm, ' ')
 							.replace(/;/, '') + '; ';
 					}
@@ -157,13 +157,16 @@ $(function($){
 			{
 				/* Clean */
 
-				if(this._file !== null) window.URL.revokeObjectURL(this._file);
+				if(this._file !== null)
+				{
+					window.URL.revokeObjectURL(this._file);
+				}
 
 				/* Create file */
 
 				var file = new Blob([content], {type: 'text/plain'});
 
-				this._file =  window.URL.createObjectURL(file);
+				this._file = window.URL.createObjectURL(file);
 
 				/* Set and click fake link */
 
@@ -226,12 +229,14 @@ $(function($){
 			var self = this;
 
 			var exporterContainerStructure =
-				'<tr class="#class#">' +
-					'<td class="name">#name#</td>' +
-					'<td class="action">#action#</td>' +
+				'<tr>' +
+					'<td class="name"></td>' +
+					'<td class="action"></td>' +
 				'</tr>';
+			var exporterContainerElement;
 
-			var buttonStructure = '<button class="#class#" type="button" #option#>#name#</button>';
+			var buttonStructure = '<button type="button" #option#>#name#</button>';
+			var buttonElement;
 
 			var option;
 
@@ -251,49 +256,56 @@ $(function($){
 
 			if(exportDataAsJSON)
 			{
-				/* Structure */
+				/* Button */
 
-				var buttonStructureTemp = buttonStructure
-					.replace(/#class#/, 'exportDataAsJSONAction')
+				buttonElement = $(buttonStructure
 					.replace(/#option#/, option)
-					.replace(/#name#/, 'Export');
-
-				this._exporterContainer.append(exporterContainerStructure
-					.replace(/#class#/, 'exportDataAsJSON')
-					.replace(/#name#/, 'Export data as <i>JSON</i>')
-					.replace(/#action#/, buttonStructureTemp)
+					.replace(/#name#/, 'Export')
 				);
 
-				/* Logic */
-
-				this.element.find('.exportDataAsJSONAction').click(function(){
+				buttonElement.click(function(){
+					self.setPendingState(true);
 					self._saveContentAs('logs.json', self._getDataAsJSON());
+					self.setPendingState(false);
 				});
+
+				/* Structure */
+
+				exporterContainerElement = $(exporterContainerStructure);
+				exporterContainerElement.find('.name').append('Export data as <i>JSON</i>');
+				exporterContainerElement.find('.action').append(buttonElement);
+
+				/* Append */
+
+				this._exporterContainer.append(exporterContainerElement);
 			}
 
 			/** Export as CSV **/
 
 			if(exportDataAsCSV)
 			{
-				/* Structure */
+				/* Button */
 
-				var buttonStructureTemp = buttonStructure
-					.replace(/#class#/, 'exportDataAsCSVAction')
+				buttonElement = $(buttonStructure
 					.replace(/#option#/, option)
-					.replace(/#name#/, 'Export');
-
-				this._exporterContainer.append(
-					exporterContainerStructure
-						.replace(/#class#/, 'exportDataAsCSV')
-						.replace(/#name#/, 'Export data as <i>CSV</i>')
-						.replace(/#action#/, buttonStructureTemp)
+					.replace(/#name#/, 'Export')
 				);
 
-				/* Logic */
-
-				this.element.find('.exportDataAsCSVAction').click(function(){
+				buttonElement.click(function(){
+					self.setPendingState(true);
 					self._saveContentAs('logs.csv', self._getDataAsCSV());
+					self.setPendingState(false);
 				});
+
+				/* Structure */
+
+				exporterContainerElement = $(exporterContainerStructure);
+				exporterContainerElement.find('.name').append('Export data as <i>CSV</i>');
+				exporterContainerElement.find('.action').append(buttonElement);
+
+				/* Append */
+
+				this._exporterContainer.append(exporterContainerElement);
 			}
 
 			/* Plot export */
@@ -311,25 +323,28 @@ $(function($){
 
 			if(exportPlotAsPNG)
 			{
-				/* Structure */
+				/* Button */
 
-				var buttonStructureTemp = buttonStructure
-					.replace(/#class#/, 'exportPlotAsPNGAction')
+				buttonElement = $(buttonStructure
 					.replace(/#option#/, option)
-					.replace(/#name#/, 'Export');
-
-				this._exporterContainer.append(
-					exporterContainerStructure
-						.replace(/#class#/, 'exportPlotAsPNGAction')
-						.replace(/#name#/, 'Export plot as <i>PNG</i>')
-						.replace(/#action#/, buttonStructureTemp)
+					.replace(/#name#/, 'Export')
 				);
 
-				/* Logic */
-
-				this.element.find('.exportPlotAsPNGAction').click(function(){
+				buttonElement.click(function(){
+					self.setPendingState(true);
 					self._saveURLAs('plot.png', self._getPlotImageURL());
+					self.setPendingState(false);
 				});
+
+				/* Structure */
+
+				exporterContainerElement = $(exporterContainerStructure);
+				exporterContainerElement.find('.name').append('Export plot as <i>PNG</i>');
+				exporterContainerElement.find('.action').append(buttonElement);
+
+				/* Append */
+
+				this._exporterContainer.append(exporterContainerElement);
 			}
 		}
 	});
