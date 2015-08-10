@@ -32,6 +32,11 @@ class PermissionGranter
 					'Project Administrator'
 				)
 			),
+			'notificationAdministration' => array(
+				'getNotificationToSendAPI' => array(
+					'Project Administrator'
+				)
+			),
 			'organizationAdministration' => array(
 				'getRoleAPI' => array(
 					'Project Administrator',

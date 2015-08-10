@@ -32,6 +32,12 @@ LogAnalyzer_ProjectConfiguration_updateConstantAPI:
     path:     /projectConfiguration/updateConstantAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:ProjectConfiguration:updateConstantAPI }
 
+# NotificationAdministration #
+
+LogAnalyzer_NotificationAdministration_getUserAPI:
+    path:     /notificationAdministration/getNotificationToSendAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:NotificationAdministration:getNotificationToSendAPI }
+
 # OrganizationAdministration #
 
 LogAnalyzer_OrganizationAdministration_getUserAPI:
