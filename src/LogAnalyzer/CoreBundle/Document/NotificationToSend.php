@@ -119,8 +119,8 @@ class NotificationToSend implements JsonSerializable
 		return array(
 			'notificationToSendId' => $this -> notificationToSendId,
 			'type' => $this -> type,
-			'recipient' => $this -> recipient,
-			'content' => $this -> content
+			'recipient' => $this -> getRecipient(),
+			'content' => $this -> getContent()
 		);
 	}
 }
