@@ -100,19 +100,17 @@ $(function($){
 			this.element.empty();
 
 			/* Structure */
+			var dataPlotterPlotElement = $('<div class="dataPlotterPlotContainer"></div>');
 
-			var dataPlotterPlotStructure = '<div class="dataPlotterPlotContainer"></div>';
-
-			this.element.append(dataPlotterPlotStructure);
-			this._dataPlotterPlotContainer = this.element.find('.dataPlotterPlotContainer');
+			this.element.append(dataPlotterPlotElement);
+			this._dataPlotterPlotContainer = dataPlotterPlotElement;
 
 			if(this.getOption('options'))
 			{
-				var dataPlotterOptionsStructure = '<table class="dataPlotterOptionsContainer"></table>';
+				var dataPlotterOptionsElement = $('<table class="dataPlotterOptionsContainer"></table>');
 
-				this.element.prepend(dataPlotterOptionsStructure);
-
-				this._dataPlotterOptionsContainer = this.element.find('.dataPlotterOptionsContainer');
+				this.element.prepend(dataPlotterOptionsElement);
+				this._dataPlotterOptionsContainer = dataPlotterOptionsElement;
 			}
 		},
 
@@ -133,104 +131,95 @@ $(function($){
 
 				var optionsStructure =
 					'<tr>' +
-						'<td class="timeAggregation">#timeAggregation#</td>' +
-						'<td class="numberOfTick">#numberOfTick#</td>' +
-						'<td class="fontSize">#fontSize#</td>' +
+						'<td class="timeAggregation"></td>' +
+						'<td class="numberOfTick"></td>' +
+						'<td class="fontSize"></td>' +
 					'</tr>';
 
-				var selectStructure =
-					'<select id="#id#" name="#id#">' +
-						'#optionStructures#' +
-					'</select>';
+				var selectStructure = '<select id="#id#" name="#id#"></select>';
 
 				var optionStructure = '<option value="#value#" #options#>#text#</option>';
-
-				var optionStructures;
+				var optionElement;
 
 				/* Clear */
 
 				this._dataPlotterOptionsContainer.empty();
 
-				/* Number of ticks */
-
-				optionStructures = '';
+				/* Time aggregation */
 
 				var timeAggregationPossibility = this.getOption('timeAggregationPossibility');
 
-				for(var i = 0; i < timeAggregationPossibility.length; i++)
-				{
-					optionStructures += optionStructure
-						.replace(/#value#/, timeAggregationPossibility[i])
-						.replace(/#options#/, (timeAggregationPossibility[i] == timeAggregation) ? 'selected' : '')
-						.replace(/#text#/, timeAggregationPossibility[i] + ' m');
-				}
+				var timeAggregationField = $(selectStructure.replace(/#id#/g, 'timeAggregation'));
 
-				var timeAggregationField = selectStructure
-					.replace(/#id#/g, 'timeAggregation')
-					.replace(/#optionStructures#/, optionStructures);
-
-				/* Number of ticks */
-
-				optionStructures = '';
-
-				var numberOfTickPossibility = this.getOption('numberOfTickPossibility');
-
-				for(var i = 0; i < numberOfTickPossibility.length; i++)
-				{
-					optionStructures += optionStructure
-						.replace(/#value#/, numberOfTickPossibility[i])
-						.replace(/#options#/, (numberOfTickPossibility[i] == numberOfTick) ? 'selected' : '')
-						.replace(/#text#/, numberOfTickPossibility[i] + ' ticks');
-				}
-
-				var numberOfTickField = selectStructure
-					.replace(/#id#/g, 'numberOfTick')
-					.replace(/#optionStructures#/, optionStructures);
-
-				/* FontSize selector */
-
-				optionStructures = '';
-
-				var fontSizePossibility = this.getOption('fontSizePossibility');
-
-				for(var i = 0; i < fontSizePossibility.length; i++)
-				{
-					optionStructures += optionStructure
-						.replace(/#value#/, fontSizePossibility[i])
-						.replace(/#options#/, (fontSizePossibility[i] == fontSize) ? 'selected' : '')
-						.replace(/#text#/, fontSizePossibility[i] + ' px');
-				}
-
-				var fontSizeField = selectStructure
-					.replace(/#id#/g, 'fontSize')
-					.replace(/#optionStructures#/, optionStructures);
-
-				/* Structure */
-
-				this._dataPlotterOptionsContainer
-					.append(optionsStructure
-						.replace(/#timeAggregation#/, timeAggregationField)
-						.replace(/#numberOfTick#/, numberOfTickField)
-						.replace(/#fontSize#/, fontSizeField)
-				);
-
-				/* Logic */
-
-				this._dataPlotterOptionsContainer.find('.timeAggregation #timeAggregation').change(function(){
+				timeAggregationField.change(function(){
 					self.setOption('timeAggregation', $(this).val());
 					self._preparedData = null;
 					self.update();
 				});
 
-				this._dataPlotterOptionsContainer.find('.numberOfTick #numberOfTick').change(function(){
+				for(var i = 0; i < timeAggregationPossibility.length; i++)
+				{
+					optionElement = $(optionStructure
+						.replace(/#value#/, timeAggregationPossibility[i])
+						.replace(/#options#/, (timeAggregationPossibility[i] == timeAggregation) ? 'selected' : '')
+						.replace(/#text#/, timeAggregationPossibility[i] + ' m')
+					);
+
+					timeAggregationField.append(optionElement);
+				}
+
+				/* Number of ticks */
+
+				var numberOfTickPossibility = this.getOption('numberOfTickPossibility');
+
+				var numberOfTickField = $(selectStructure.replace(/#id#/g, 'numberOfTick'));
+
+				numberOfTickField.change(function(){
 					self.setOption('numberOfTick', $(this).val());
 					self.update();
 				});
 
-				this._dataPlotterOptionsContainer.find('.fontSize #fontSize').change(function(){
+				for(var i = 0; i < numberOfTickPossibility.length; i++)
+				{
+					optionElement = $(optionStructure
+						.replace(/#value#/, numberOfTickPossibility[i])
+						.replace(/#options#/, (numberOfTickPossibility[i] == numberOfTick) ? 'selected' : '')
+						.replace(/#text#/, numberOfTickPossibility[i] + ' ticks')
+					);
+
+					numberOfTickField.append(optionElement);
+				}
+
+				/* FontSize selector */
+
+				var fontSizePossibility = this.getOption('fontSizePossibility');
+
+				var fontSizeField = $(selectStructure.replace(/#id#/g, 'fontSize'));
+
+				fontSizeField.change(function(){
 					self.setOption('fontSize', $(this).val());
 					self.update();
 				});
+
+				for(var i = 0; i < fontSizePossibility.length; i++)
+				{
+					optionElement = $(optionStructure
+						.replace(/#value#/, fontSizePossibility[i])
+						.replace(/#options#/, (fontSizePossibility[i] == fontSize) ? 'selected' : '')
+						.replace(/#text#/, fontSizePossibility[i] + ' px')
+					);
+
+					fontSizeField.append(optionElement)
+				}
+
+				/* Structure */
+
+				var optionsElement = $(optionsStructure);
+				optionsElement.find('.timeAggregation').append(timeAggregationField);
+				optionsElement.find('.numberOfTick').append(numberOfTickField);
+				optionsElement.find('.fontSize').append(fontSizeField);
+
+				this._dataPlotterOptionsContainer.append(optionsElement);
 			}
 
 			/* Prepare data */
