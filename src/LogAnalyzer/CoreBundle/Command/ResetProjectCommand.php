@@ -58,6 +58,14 @@ class ResetProjectCommand extends ContainerAwareCommand
 		$this -> getConstantRepository() -> deleteConstant();
 		$this -> getRoleRepository() -> deleteRole();
 		$this -> getUserRepository() -> deleteUser();
+		$this -> getLiveGraphRepository() -> deleteLiveGraph();
+		$this -> getLiveGraphCountRepository() -> deleteLiveGraphCount();
+		$this -> getAlertRepository() -> deleteAlert();
+		$this -> getAlertNotificationRepository() -> deleteAlertNotification();
+		$this -> getNotificationToSendRepository() -> deleteNotificationToSend();
+		$this -> getCollectorRepository() -> deleteCollector();
+		$this -> getParserRepository() -> deleteParser();
+		//$this -> getLogRepository() -> deleteLog();
 
 		return true;
 	}
@@ -89,5 +97,77 @@ class ResetProjectCommand extends ContainerAwareCommand
 			-> get('doctrine_mongodb')
 			-> getManager()
 			-> getRepository('LogAnalyzerCoreBundle:User');
+	}
+
+	private function getLiveGraphRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraph');
+	}
+
+	private function getLiveGraphCountRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraphCount');
+	}
+
+	private function getAlertRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Alert');
+	}
+
+	private function getAlertNotificationRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:AlertNotification');
+	}
+
+	private function getNotificationToSendRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:NotificationToSend');
+	}
+
+	private function getCollectorRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Collector');
+	}
+
+	private function getParserRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Parser');
+	}
+
+	private function getLogRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:Log');
 	}
 }
