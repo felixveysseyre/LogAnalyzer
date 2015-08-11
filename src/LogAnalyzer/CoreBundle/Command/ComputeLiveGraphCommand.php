@@ -241,7 +241,7 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 
 		$this
 			-> getAlertRepository()
-			-> updateAlert($alert -> getAlertId(), array('status' => json_encode($status)));
+			-> updateAlert($alert -> getAlertId(), array('status' => $status));
 	}
 
 	private function createAlertNotification($alert, $type, $timeOfNotification)

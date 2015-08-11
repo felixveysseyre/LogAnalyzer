@@ -50,15 +50,11 @@ class AlertRepository extends DocumentRepository
 
 			$liveGraphHuman =  $liveGraphs[0] -> getLiveGraphHuman();
 
-			$trigger = json_encode($trigger);
-
-			$status = json_encode(array(
+			$status = array(
 				'active' => false,
 				'countRaise' => 0,
 				'countUnRaise' => 0,
-			));
-
-			$notification = json_encode($notification);
+			);
 
 			return $this -> insertAlert($alertHuman, $liveGraphHuman, $trigger, $status, $notification);
 		}
@@ -88,12 +84,6 @@ class AlertRepository extends DocumentRepository
 
 			if(isset($clauses['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> equals($clauses['liveGraphHuman']);
-
-			if(isset($clauses['status']))
-				$query -> field('status') -> equals($clauses['status']);
-
-			if(isset($clauses['notification']))
-				$query -> field('notification') -> equals($clauses['notification']);
 		}
 
 		/* Return */
@@ -121,12 +111,6 @@ class AlertRepository extends DocumentRepository
 
 			if(isset($clauses['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> equals($clauses['liveGraphHuman']);
-
-			if(isset($clauses['status']))
-				$query -> field('status') -> equals($clauses['status']);
-
-			if(isset($clauses['notification']))
-				$query -> field('notification') -> equals($clauses['notification']);
 		}
 
 		/* Return */
@@ -157,12 +141,6 @@ class AlertRepository extends DocumentRepository
 
 			if(isset($clauses['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> equals($clauses['liveGraphHuman']);
-
-			if(isset($clauses['status']))
-				$query -> field('status') -> equals($clauses['status']);
-
-			if(isset($clauses['notification']))
-				$query -> field('notification') -> equals($clauses['notification']);
 		}
 
 		/* Return */
@@ -215,6 +193,9 @@ class AlertRepository extends DocumentRepository
 
 			if(isset($fields['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> set($fields['liveGraphHuman']);
+
+			if(isset($fields['trigger']))
+				$query -> field('trigger') -> set($fields['trigger']);
 
 			if(isset($fields['status']))
 				$query -> field('status') -> set($fields['status']);

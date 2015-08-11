@@ -27,17 +27,17 @@ class Alert implements JsonSerializable
 	protected $liveGraphHuman;
 
 	/**
-	 * @MongoDB\String
+	 * @MongoDB\Hash
 	 */
 	protected $trigger;
 
 	/**
-	 * @MongoDB\String
+	 * @MongoDB\Hash
 	 */
 	protected $status;
 
 	/**
-	 * @MongoDB\String
+	 * @MongoDB\Hash
 	 */
 	protected $notification;
 
@@ -105,7 +105,7 @@ class Alert implements JsonSerializable
 	 */
 	public function setTrigger($trigger)
 	{
-		$this -> trigger = json_encode($trigger);
+		$this -> trigger = $trigger;
 
 		return $this;
 	}
@@ -117,7 +117,7 @@ class Alert implements JsonSerializable
 	 */
 	public function getTrigger()
 	{
-		return json_decode($this -> trigger, true);
+		return $this -> trigger;
 	}
 
 	/**
@@ -128,7 +128,7 @@ class Alert implements JsonSerializable
 	 */
 	public function setStatus($status)
 	{
-		$this -> status = json_encode($status);
+		$this -> status = $status;
 
 		return $this;
 	}
@@ -140,7 +140,7 @@ class Alert implements JsonSerializable
 	 */
 	public function getStatus()
 	{
-		return json_decode($this -> status, true);
+		return $this -> status;
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Alert implements JsonSerializable
 	 */
 	public function setNotification($notification)
 	{
-		$this -> notification = json_encode($notification);
+		$this -> notification = $notification;
 
 		return $this;
 	}
@@ -163,7 +163,7 @@ class Alert implements JsonSerializable
 	 */
 	public function getNotification()
 	{
-		return json_decode($this -> notification, true);
+		return $this -> notification;
 	}
 
 	/* Special */
@@ -174,9 +174,9 @@ class Alert implements JsonSerializable
 			'alertId' => $this -> alertId,
 			'alertHuman' => $this -> alertHuman,
 			'liveGraphHuman' => $this -> liveGraphHuman,
-			'trigger' => $this -> getTrigger(),
+			'trigger' => $this -> trigger,
 			//'status' => $this -> status,
-			'notification' => $this -> getNotification()
+			'notification' => $this -> notification
 		);
 	}
 }

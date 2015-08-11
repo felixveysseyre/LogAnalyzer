@@ -461,16 +461,16 @@ class AnalysisAdministrationController extends Controller
 
 			$trigger = array(
 				'comparisonOperator' => $comparisonOperator,
-				'value' => $value,
-				'cycleRaise' => $cycleRaise,
-				'cycleUnRaise' => $cycleUnRaise,
+				'value' => intval($value),
+				'cycleRaise' => intval($cycleRaise),
+				'cycleUnRaise' => intval($cycleUnRaise)
 			);
 
 			$notification = array(
 				'messageRaise' => $messageRaise,
 				'messageUnRaise' => $messageUnRaise,
 				'emails' => array(),
-				'collectorsHuman' => array(),
+				'collectorsHuman' => array()
 			);
 
 			if($email) array_push($notification['emails'], $email);
