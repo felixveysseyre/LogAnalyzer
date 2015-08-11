@@ -8,15 +8,23 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
+
+			/* Internal bundles */
+
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+			new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 			new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
+			/* Unused internal bundles */
+
+			//new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+			//new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+			//new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+
+			/* Custom bundles */
 
             new LogAnalyzer\CoreBundle\LogAnalyzerCoreBundle(),
         );
