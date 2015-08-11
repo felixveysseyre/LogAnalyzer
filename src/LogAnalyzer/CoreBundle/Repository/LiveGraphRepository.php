@@ -40,8 +40,6 @@ class LiveGraphRepository extends DocumentRepository
 
 		if($count1 === 0)
 		{
-			$filter = json_encode($filter);
-
 			return $this -> insertLiveGraph($liveGraphHuman, $filter);
 		}
 		else
@@ -67,9 +65,6 @@ class LiveGraphRepository extends DocumentRepository
 
 			if(isset($clauses['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> equals($clauses['liveGraphHuman']);
-
-			if(isset($clauses['filter']))
-				$query -> field('filter') -> equals($clauses['filter']);
 		}
 
 		/* Return */
@@ -94,9 +89,6 @@ class LiveGraphRepository extends DocumentRepository
 
 			if(isset($clauses['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> equals($clauses['liveGraphHuman']);
-
-			if(isset($clauses['filter']))
-				$query -> field('filter') -> equals($clauses['filter']);
 		}
 
 		/* Return */
@@ -124,9 +116,6 @@ class LiveGraphRepository extends DocumentRepository
 
 			if(isset($clauses['liveGraphHuman']))
 				$query -> field('liveGraphHuman') -> equals($clauses['liveGraphHuman']);
-
-			if(isset($clauses['filter']))
-				$query -> field('filter') -> equals($clauses['filter']);
 		}
 
 		/* Return */

@@ -22,7 +22,7 @@ class LiveGraph implements JsonSerializable
 	protected $liveGraphHuman;
 
 	/**
-	 * @MongoDB\String
+	 * @MongoDB\Hash
 	 */
 	protected $filter;
 
@@ -67,7 +67,7 @@ class LiveGraph implements JsonSerializable
 	 */
 	public function setFilter($filter)
 	{
-		$this -> filter = json_encode($filter);
+		$this -> filter = $filter;
 
 		return $this;
 	}
@@ -79,7 +79,7 @@ class LiveGraph implements JsonSerializable
 	 */
 	public function getFilter()
 	{
-		return json_decode($this -> filter, true);
+		return $this -> filter;
 	}
 
 	/* Special */
@@ -89,7 +89,7 @@ class LiveGraph implements JsonSerializable
 		return array(
 			'liveGraphId' => $this -> liveGraphId,
 			'liveGraphHuman' => $this -> liveGraphHuman,
-			'filter' => $this -> getFilter()
+			'filter' => $this -> filter
 		);
 	}
 }
