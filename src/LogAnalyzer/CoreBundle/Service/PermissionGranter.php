@@ -13,14 +13,6 @@ class PermissionGranter
 	public function __construct()
 	{
 		$this -> permissions = array(
-			/*'projectLogs' => array(
-				'getProjectLogAPI' => array(
-					'Project Administrator'
-				),
-				'getAlertLogAPI' => array(
-					'Project Administrator'
-				),
-			),*/
 			'projectConfiguration' => array(
 				'getInitializationProjectStatusAPI' => array(
 					'Project Administrator'

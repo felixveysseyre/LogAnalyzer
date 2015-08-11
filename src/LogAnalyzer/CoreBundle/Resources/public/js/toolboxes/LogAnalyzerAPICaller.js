@@ -10,11 +10,6 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 {
 	logAnalyzer.toolbox.LogAnalyzerAPICaller.API =
 	{
-		/*projectLogs:
-		{
-			getProjectLog: '/projectLogs/getProjectLogAPI',
-			getAlertLog: '/projectLogs/getAlertLogAPI'
-		},*/
 		projectConfiguration:
 		{
 			getInitializationProjectStatus: '/projectConfiguration/getInitializationProjectStatusAPI/',

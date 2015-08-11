@@ -81,14 +81,3 @@ logAnalyzer.dashboard.menuSections.notificationAdministration =
 		{name: 'See notificationToSend', id: 'seeNotificationToSendSubSection', icon: 'fa-paper-plane', onActivation: logAnalyzer.dashboard.notificationAdministration.seeNotificationToSend}
 	]
 };
-
-/*logAnalyzer.dashboard.menuSections.projectLogs =
-{
-	name: 'Project logs',
-	id: 'projectLogsSection',
-	icon: 'fa-book',
-	subSections: [
-		{name: 'Project logs', id: 'projectLogsSubSection', icon: 'fa-file-text', onActivation: logAnalyzer.dashboard.projectLogs.projectLogs},
-		{name: 'Alert logs', id: 'alertLogsSubSection', icon: 'fa-file-text', onActivation: logAnalyzer.dashboard.projectLogs.alertLogs}
-	]
-};*/
