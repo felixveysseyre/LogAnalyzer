@@ -22,12 +22,12 @@ class NotificationToSend implements JsonSerializable
 	protected $type;
 
 	/**
-	 * @MongoDB\String
+	 * @MongoDB\Collection
 	 */
 	protected $recipient;
 
 	/**
-	 * @MongoDB\String
+	 * @MongoDB\Hash
 	 */
 	protected $content;
 
@@ -72,7 +72,7 @@ class NotificationToSend implements JsonSerializable
 	 */
 	public function setRecipient($recipient)
 	{
-		$this -> recipient = json_encode($recipient);
+		$this -> recipient = $recipient;
 
 		return $this;
 	}
@@ -84,7 +84,7 @@ class NotificationToSend implements JsonSerializable
 	 */
 	public function getRecipient()
 	{
-		return json_decode($this -> recipient, true);
+		return $this -> recipient;
 	}
 
 	/**
@@ -95,7 +95,7 @@ class NotificationToSend implements JsonSerializable
 	 */
 	public function setContent($content)
 	{
-		$this -> content = json_encode($content);
+		$this -> content = $content;
 
 		return $this;
 	}
@@ -107,7 +107,7 @@ class NotificationToSend implements JsonSerializable
 	 */
 	public function getContent()
 	{
-		return json_decode($this -> content, true);
+		return $this -> content;
 	}
 
 	/* Private */
@@ -119,8 +119,8 @@ class NotificationToSend implements JsonSerializable
 		return array(
 			'notificationToSendId' => $this -> notificationToSendId,
 			'type' => $this -> type,
-			'recipient' => $this -> getRecipient(),
-			'content' => $this -> getContent()
+			'recipient' => $this -> recipient,
+			'content' => $this -> content
 		);
 	}
 }

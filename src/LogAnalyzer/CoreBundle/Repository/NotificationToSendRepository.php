@@ -37,9 +37,6 @@ class NotificationToSendRepository extends DocumentRepository
 
 	public function createNotificationToSend($type, $recipient, $content)
 	{
-		$recipient = json_encode($recipient);
-		$content = json_encode($content);
-
 		return $this -> insertNotificationToSend($type, $recipient, $content);
 	}
 
@@ -60,12 +57,6 @@ class NotificationToSendRepository extends DocumentRepository
 			
 			if(isset($clauses['type']))
 				$query -> field('type') -> equals($clauses['type']);
-
-			if(isset($clauses['recipient']))
-				$query -> field('recipient') -> equals($clauses['recipient']);
-
-			if(isset($clauses['content']))
-				$query -> field('content') -> equals($clauses['content']);
 		}
 
 		/* Return */
@@ -90,12 +81,6 @@ class NotificationToSendRepository extends DocumentRepository
 
 			if(isset($clauses['type']))
 				$query -> field('type') -> equals($clauses['type']);
-
-			if(isset($clauses['recipient']))
-				$query -> field('recipient') -> equals($clauses['recipient']);
-
-			if(isset($clauses['content']))
-				$query -> field('content') -> equals($clauses['content']);
 		}
 
 		/* Return */
