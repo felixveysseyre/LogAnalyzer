@@ -137,6 +137,14 @@ class RoleRepository extends DocumentRepository
 			if($this -> deleteRole(array('roleId' => $role -> getRoleId())))
 			{
 				array_push($roleDeleted, $role);
+
+				/* Delete associated user */
+
+				$this
+					-> getUserRepository()
+					-> deleteUserAndContext(array(
+						'roleHuman' => $role -> getRoleHuman()
+					));
 			}
 		}
 
@@ -173,5 +181,14 @@ class RoleRepository extends DocumentRepository
 			-> execute();
 
 		return true;
+	}
+
+	/* Private */
+
+	private function getUserRepository()
+	{
+		return $this
+			-> getDocumentManager()
+			-> getRepository('LogAnalyzerCoreBundle:User');
 	}
 }

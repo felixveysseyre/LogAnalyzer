@@ -49,8 +49,7 @@ class UserRepository extends DocumentRepository
 		if($count1 === 0 && $count2 === 0)
 		{
 			$roles = $this
-				-> getDocumentManager()
-				-> getRepository('LogAnalyzerCoreBundle:Role')
+				-> getRoleRepository()
 				-> getRole(array('roleId' => $roleId));
 
 			$roleHuman =  $roles[0] -> getRoleHuman();
@@ -89,6 +88,9 @@ class UserRepository extends DocumentRepository
 
 			if(isset($clauses['password']))
 				$query -> field('password') -> equals($clauses['password']);
+
+			if(isset($clauses['roleHuman']))
+				$query -> field('roleHuman') -> equals($clauses['roleHuman']);
 		}
 
 		/* Return */
@@ -122,6 +124,9 @@ class UserRepository extends DocumentRepository
 
 			if(isset($clauses['password']))
 				$query -> field('password') -> equals($clauses['password']);
+
+			if(isset($clauses['roleHuman']))
+				$query -> field('roleHuman') -> equals($clauses['roleHuman']);
 		}
 
 		/* Return */
@@ -158,6 +163,9 @@ class UserRepository extends DocumentRepository
 
 			if(isset($clauses['password']))
 				$query -> field('password') -> equals($clauses['password']);
+
+			if(isset($clauses['roleHuman']))
+				$query -> field('roleHuman') -> equals($clauses['roleHuman']);
 		}
 
 		/* Return */
@@ -216,6 +224,9 @@ class UserRepository extends DocumentRepository
 
 			if(isset($fields['password']))
 				$query -> field('password') -> set($fields['password']);
+
+			if(isset($fields['roleHuman']))
+				$query -> field('roleHuman') -> set($fields['roleHuman']);
 		}
 
 		/* Return */
@@ -251,5 +262,12 @@ class UserRepository extends DocumentRepository
 	private function encryptPassword($rawPassword, $salt)
 	{
 		return hash('sha256', $salt . $rawPassword);
+	}
+
+	private function getRoleRepository()
+	{
+		return $this
+			-> getDocumentManager()
+			-> getRepository('LogAnalyzerCoreBundle:Role');
 	}
 }

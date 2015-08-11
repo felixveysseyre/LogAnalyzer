@@ -138,6 +138,22 @@ class LiveGraphRepository extends DocumentRepository
 			if($this -> deleteLiveGraph(array('liveGraphId' => $liveGraph -> getLiveGraphId())))
 			{
 				array_push($liveGraphDeleted, $liveGraph);
+
+				/* Delete associated liveGraphCount */
+
+				$this
+					-> getLiveGraphCountRepository()
+					-> deleteLiveGraphCountAndContext(array(
+							'liveGraphHuman' => $liveGraph -> getLiveGraphHuman()
+						));
+
+				/* Delete associated alert */
+
+				$this
+					-> getAlertRepository()
+					-> deleteAlertAndContext(array(
+							'liveGraphHuman' => $liveGraph -> getLiveGraphHuman()
+						));
 			}
 		}
 
@@ -180,4 +196,18 @@ class LiveGraphRepository extends DocumentRepository
 	}
 
 	/* Private */
+
+	private function getAlertRepository()
+	{
+		return $this
+			-> getDocumentManager()
+			-> getRepository('LogAnalyzerCoreBundle:Alert');
+	}
+
+	private function getLiveGraphCountRepository()
+	{
+		return $this
+			-> getDocumentManager()
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraphCount');
+	}
 }

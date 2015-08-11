@@ -44,8 +44,7 @@ class AlertRepository extends DocumentRepository
 		if($count1 === 0)
 		{
 			$liveGraphs = $this
-				-> getDocumentManager()
-				-> getRepository('LogAnalyzerCoreBundle:LiveGraph')
+				-> getLiveGraphRepository()
 				-> getLiveGraph(array('liveGraphId' => $liveGraphId));
 
 			$liveGraphHuman =  $liveGraphs[0] -> getLiveGraphHuman();
@@ -163,6 +162,14 @@ class AlertRepository extends DocumentRepository
 			if($this -> deleteAlert(array('alertId' => $alert -> getAlertId())))
 			{
 				array_push($alertDeleted, $alert);
+
+				/* Delete associated alertNotification */
+
+				$this
+					-> getAlertNotificationRepository()
+					-> deleteAlertNotificationAndContext(array(
+							'alertHuman' => $alert -> getAlertHuman()
+						));
 			}
 		}
 
@@ -214,4 +221,18 @@ class AlertRepository extends DocumentRepository
 	}
 
 	/* Private */
+
+	private function getLiveGraphRepository()
+	{
+		return $this
+			-> getDocumentManager()
+			-> getRepository('LogAnalyzerCoreBundle:LiveGraph');
+	}
+
+	private function getAlertNotificationRepository()
+	{
+		return $this
+			-> getDocumentManager()
+			-> getRepository('LogAnalyzerCoreBundle:AlertNotification');
+	}
 }
