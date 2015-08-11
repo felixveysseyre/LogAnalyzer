@@ -18,7 +18,6 @@ class AppKernel extends Kernel
 			new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
-            new AppBundle\AppBundle(),
             new LogAnalyzer\CoreBundle\LogAnalyzerCoreBundle(),
         );
 
