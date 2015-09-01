@@ -42,11 +42,14 @@ Thumbs.db
 
 # Symfony #
 ###########
-/app/bootstrap.php.cache
-/app/cache/*
+/bin/
 /app/config/parameters.yml
+/app/bootstrap*
+/app/cache/*
 /app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /app/phpunit.xml
-/bin/
+/vendor/
+/web/bundles/
+/web/assets
