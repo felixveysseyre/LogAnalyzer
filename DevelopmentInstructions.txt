@@ -1,0 +1,62 @@
++++++++++++++++++++++++++++++++++++++++
+LogAnalyzer development instructions
++++++++++++++++++++++++++++++++++++++++
+
+---------------------------------------
+1 - Copy source files to your local directory
+---------------------------------------
+
+---------------------------------------
+2 - Install vendors with Composer
+---------------------------------------
+$ curl -s https://getcomposer.org/installer | php
+$ composer.phar install
+
+---------------------------------------
+3 - Set your local server root to ./web/
+---------------------------------------
+
+---------------------------------------
+4 - Set correct permissions to Symfony directories
+---------------------------------------
+$ HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+$ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
+$ sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
+
+See http://symfony.com/doc/current/book/installation.html for more information
+
+---------------------------------------
+5 - Create MongoDB database
+---------------------------------------
+$ mongo
+$ use LogAnalyzer
+$ quit()
+
+---------------------------------------
+6 - Modify LogAnalyzer configuration file
+---------------------------------------
+Modify ./app/config/parameters.yml
+If file is not created, you can copy it from ./app/config/parameters.yml.dist
+
+---------------------------------------
+7 - Initialize LogAnalyzer
+---------------------------------------
+$ ./script/initializeProject.sh
+
+---------------------------------------
+8 - Create assets symbolic link
+---------------------------------------
+$ ln -s /FullPathToLogAnalyzerDirectory/src/LogAnalyzer/CoreBundle/Resources/public/ ./web/assets
+
+---------------------------------------
+9 - Create crontab for periodic tasks scripted
+---------------------------------------
+See scripts in ./scripts:
+- cleanLiveGraph.sh: every day
+- cleanLog.sh: every day
+- computeLiveGraph.sh: see configuration ('projectConfiguration/manageProject) in the application
+- sendNotification.sh: every 5 minutes
+
+---------------------------------------
+10 - Look at the development the documentation
+---------------------------------------
