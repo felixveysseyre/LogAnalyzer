@@ -39,6 +39,9 @@ class LogRepository extends DocumentRepository
 			if(isset($clauses['priority']))
 				$query -> field('priority') -> equals($clauses['priority']);
 
+			if(isset($clauses['facility']))
+				$query -> field('facility') -> equals($clauses['facility']);
+
 			if(isset($clauses['host']))
 				$query -> field('host') -> equals($clauses['host']);
 
@@ -86,6 +89,9 @@ class LogRepository extends DocumentRepository
 
 			if(isset($clauses['priority']))
 				$query -> field('priority') -> equals($clauses['priority']);
+
+			if(isset($clauses['facility']))
+				$query -> field('facility') -> equals($clauses['facility']);
 
 			if(isset($clauses['host']))
 				$query -> field('host') -> equals($clauses['host']);
@@ -137,6 +143,9 @@ class LogRepository extends DocumentRepository
 
 			if(isset($clauses['priority']))
 				$query -> field('priority') -> equals($clauses['priority']);
+
+			if(isset($clauses['facility']))
+				$query -> field('facility') -> equals($clauses['facility']);
 
 			if(isset($clauses['host']))
 				$query -> field('host') -> equals($clauses['host']);
