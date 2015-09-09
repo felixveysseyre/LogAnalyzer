@@ -30,6 +30,9 @@ $ cd ../LogAnalyzerToDeploy
 ---------------------------------------
 5 - Remove useless files
 ---------------------------------------
+Old assets symbolic link:
+$ rm -rf ./web/assets/
+
 Composer files:
 $ rm composer.phar
 $ rm composer.json
