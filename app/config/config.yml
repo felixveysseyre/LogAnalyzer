@@ -75,7 +75,7 @@ twig:
 doctrine_mongodb:
     connections:
         default:
-            server: mongodb://localhost:27017
+            server: "%mongoDBServer%"
             options: {}
     default_database: "%mongoDBDatabaseName%"
     document_managers:

@@ -2,6 +2,7 @@ parameters:
 
     # MongoDB #
 
+    mongoDBServer: mongodb://User:Password!@localhost:27017/LogAnalyzer
     mongoDBDatabaseName: LogAnalyzer
 
     # Mailer #
