@@ -31,7 +31,6 @@ class DataAccessController extends Controller
 				'host',
 				'service',
 				'message',
-				'syslogTag',
 
 				'hostLike'
 			));

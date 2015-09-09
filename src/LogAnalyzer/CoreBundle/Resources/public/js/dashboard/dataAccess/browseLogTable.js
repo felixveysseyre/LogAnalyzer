@@ -75,7 +75,6 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 
 			if(formValues.reportedTimeActivation) postData.reportedTime = {inf: formValues.reportedTimeInf, sup: formValues.reportedTimeSup};
 
-			if(formValues.syslogTagActivation) postData.syslogTag = formValues.syslogTag;
 			if(formValues.messageActivation) postData.message = formValues.message;
 
 			/** Options **/
@@ -244,14 +243,6 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 				},
 
 				{
-					name: 'Syslog Tag',
-					id: 'syslogTag',
-					help: 'Syslog tag of the logs',
-					activation: null,
-					type: 'text',
-					value: 'tag'
-				},
-				{
 					name: 'Message',
 					id: 'message',
 					help: 'Message pattern of the logs',
@@ -389,7 +380,6 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 			{name: 'Reported Time', key: 'reportedTime'},
 			{name: 'Host', key: 'host'},
 			{name: 'Service', key: 'service'},
-			{name: 'Syslog Tag', key: 'syslogTag'},
 			{name: 'Message', key: 'message'}
 		];
 

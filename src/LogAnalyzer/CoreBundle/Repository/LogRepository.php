@@ -50,9 +50,6 @@ class LogRepository extends DocumentRepository
 
 			if(isset($clauses['message']))
 				$query -> field('message') -> equals(new MongoRegex('/.*' . $clauses['message'] . '.*/i'));
-
-			if(isset($clauses['syslogTag']))
-				$query -> field('syslogTag') -> equals($clauses['syslogTag']);
 		}
 
 		/* Return */
@@ -101,9 +98,6 @@ class LogRepository extends DocumentRepository
 
 			if(isset($clauses['message']))
 				$query -> field('message') -> equals(new MongoRegex('/.*' . $clauses['message'] . '.*/i'));
-
-			if(isset($clauses['syslogTag']))
-				$query -> field('syslogTag') -> equals($clauses['syslogTag']);
 		}
 
 		/* Return */
@@ -155,9 +149,6 @@ class LogRepository extends DocumentRepository
 
 			if(isset($clauses['message']))
 				$query -> field('message') -> equals(new MongoRegex('/.*' . $clauses['message'] . '.*/i'));
-
-			if(isset($clauses['syslogTag']))
-				$query -> field('syslogTag') -> equals($clauses['syslogTag']);
 		}
 
 		/* Return */

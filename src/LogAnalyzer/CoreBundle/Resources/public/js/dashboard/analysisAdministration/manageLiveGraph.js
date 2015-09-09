@@ -57,7 +57,6 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 			if(formValues.hostActivation) postData.filter.host = formValues.host;
 			if(formValues.hostLikeActivation) postData.filter.hostLike = formValues.hostLike;
 			if(formValues.serviceActivation) postData.filter.service = formValues.service;
-			if(formValues.syslogTagActivation) postData.filter.syslogTag = formValues.syslogTag;
 			if(formValues.messageActivation) postData.filter.message = formValues.message;
 
 			logAnalyzer.toolbox.LogAnalyzerAPICaller.callAPI({
@@ -175,14 +174,6 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 					valueKey: 'serviceHuman'
 				},
 
-				{
-					name: 'Syslog Tag',
-					id: 'syslogTag',
-					help: 'Syslog tag of the logs',
-					activation: null,
-					type: 'text',
-					value: 'tag'
-				},
 				{
 					name: 'Message',
 					id: 'message',

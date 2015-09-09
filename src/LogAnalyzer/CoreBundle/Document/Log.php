@@ -52,11 +52,6 @@ class Log implements JsonSerializable
 	protected $message;
 
 	/**
-	 * @MongoDB\String
-	 */
-	protected $syslogTag;
-
-	/**
 	 * Get id
 	 *
 	 * @return id $logId
@@ -241,29 +236,6 @@ class Log implements JsonSerializable
 		return $this -> message;
 	}
 
-	/**
-	 * Set syslogTag
-	 *
-	 * @param string $syslogTag
-	 * @return self
-	 */
-	public function setSyslogTag($syslogTag)
-	{
-		$this -> syslogTag = $syslogTag;
-
-		return $this;
-	}
-
-	/**
-	 * Get syslogTag
-	 *
-	 * @return string $syslogTag
-	 */
-	public function getSyslogTag()
-	{
-		return $this -> syslogTag;
-	}
-
 	/* Private */
 
 	private function formatDateTime($dateTime)
@@ -283,8 +255,7 @@ class Log implements JsonSerializable
 			'facility' => $this -> facility,
 			'host' => $this -> host,
 			'service' => $this -> service,
-			'message' => $this -> message,
-			'syslogTag' => $this -> syslogTag,
+			'message' => $this -> message
 		);
 	}
 }
