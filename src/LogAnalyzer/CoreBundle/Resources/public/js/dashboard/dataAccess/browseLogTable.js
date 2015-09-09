@@ -65,19 +65,16 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 
 			var postData = {};
 
-			/** LogTable clauses **/
-
 			if(formValues.hostActivation) postData.host = formValues.host;
 			if(formValues.hostLikeActivation) postData.hostLike = formValues.hostLike;
 			if(formValues.serviceActivation) postData.service = formValues.service;
 
-			/** Log clauses **/
-
 			if(formValues.reportedTimeActivation) postData.reportedTime = {inf: formValues.reportedTimeInf, sup: formValues.reportedTimeSup};
 
-			if(formValues.messageActivation) postData.message = formValues.message;
+			if(formValues.priorityActivation) postData.priority = formValues.priority;
+			if(formValues.facilityActivation) postData.facility = formValues.facility;
 
-			/** Options **/
+			if(formValues.messageActivation) postData.message = formValues.message;
 
 			if(formValues.forceReturnActivation) postData.forceReturn = formValues.forceReturn;
 
@@ -243,6 +240,27 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 				},
 
 				{
+					name: 'Priority',
+					id: 'priority',
+					help: 'Priority of the logs',
+					activation: null,
+					type: 'number',
+					min: '0',
+					value: '0',
+					max: '7'
+				},
+				{
+					name: 'Facility',
+					id: 'facility',
+					help: 'Facility of the logs',
+					activation: null,
+					type: 'number',
+					min: '0',
+					value: '0',
+					max: '23'
+				},
+
+				{
 					name: 'Message',
 					id: 'message',
 					help: 'Message pattern of the logs',
@@ -380,6 +398,8 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 			{name: 'Reported Time', key: 'reportedTime'},
 			{name: 'Host', key: 'host'},
 			{name: 'Service', key: 'service'},
+			{name: 'Priority', key: 'priority'},
+			{name: 'Facility', key: 'facility'},
 			{name: 'Message', key: 'message'}
 		];
 

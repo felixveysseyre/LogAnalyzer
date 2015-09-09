@@ -57,6 +57,8 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 			if(formValues.hostActivation) postData.filter.host = formValues.host;
 			if(formValues.hostLikeActivation) postData.filter.hostLike = formValues.hostLike;
 			if(formValues.serviceActivation) postData.filter.service = formValues.service;
+			if(formValues.priorityActivation) postData.filter.priority = formValues.priority;
+			if(formValues.facilityActivation) postData.filter.facility = formValues.facility;
 			if(formValues.messageActivation) postData.filter.message = formValues.message;
 
 			logAnalyzer.toolbox.LogAnalyzerAPICaller.callAPI({
@@ -172,6 +174,27 @@ logAnalyzer.dashboard.analysisAdministration = logAnalyzer.dashboard.analysisAdm
 					},
 					nameKey: 'serviceHuman',
 					valueKey: 'serviceHuman'
+				},
+
+				{
+					name: 'Priority',
+					id: 'priority',
+					help: 'Priority of the logs',
+					activation: null,
+					type: 'number',
+					min: '0',
+					value: '0',
+					max: '7'
+				},
+				{
+					name: 'Facility',
+					id: 'facility',
+					help: 'Facility of the logs',
+					activation: null,
+					type: 'number',
+					min: '0',
+					value: '0',
+					max: '23'
 				},
 
 				{
