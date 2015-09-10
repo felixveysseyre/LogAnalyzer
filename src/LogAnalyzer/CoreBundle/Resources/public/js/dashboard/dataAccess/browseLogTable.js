@@ -427,8 +427,8 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 		});
 
 		var defaultColumnsDataTableViewer = [
-			{name: 'Reported Time', key: 'reportedTime'},
-			{name: 'Host', key: 'host'},
+			{name: 'Reported Time', key: 'reportedTime', width: '115px'},
+			{name: 'Host', key: 'host', width: '115px'},
 			{name: 'Service', key: 'service'},
 			{name: 'Priority', key: 'priority'},
 			{name: 'Facility', key: 'facility'},
