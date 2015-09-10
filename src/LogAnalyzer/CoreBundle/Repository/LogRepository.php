@@ -11,6 +11,10 @@ class LogRepository extends DocumentRepository
 
 	public function countLog($clauses = null)
 	{
+		/* Process clauses */
+
+		$clauses = $this -> processClauses($clauses);
+
 		/* Create query */
 
 		$query = $this
@@ -64,6 +68,10 @@ class LogRepository extends DocumentRepository
 
 	public function getLog($clauses = null)
 	{
+		/* Process clauses */
+
+		$clauses = $this -> processClauses($clauses);
+
 		/* Create query */
 
 		$query = $this -> createQueryBuilder();
@@ -116,6 +124,10 @@ class LogRepository extends DocumentRepository
 
 	public function deleteLog($clauses = null)
 	{
+		/* Process clauses */
+
+		$clauses = $this -> processClauses($clauses);
+
 		/* Create query */
 
 		$query = $this
@@ -190,5 +202,31 @@ class LogRepository extends DocumentRepository
 	}
 
 	/* Private */
+
+	private function formatDateForDatabaseCompatibility($date)
+	{
+		return str_replace(' ', 'T', $date);
+	}
+
+	private function processClauses($clauses = null)
+	{
+		if($clauses)
+		{
+			if(isset($clauses['reportedTime']))
+			{
+				if(is_array($clauses['reportedTime']))
+				{
+					$clauses['reportedTime']['inf'] = $this -> formatDateForDatabaseCompatibility($clauses['reportedTime']['inf']);
+					$clauses['reportedTime']['sup'] = $this -> formatDateForDatabaseCompatibility($clauses['reportedTime']['sup']);
+				}
+				else
+				{
+					$clauses['reportedTime'] = $this -> formatDateForDatabaseCompatibility($clauses['reportedTime']);
+				}
+			}
+		}
+
+		return $clauses;
+	}
 
 }
