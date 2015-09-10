@@ -97,9 +97,15 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 
 			seeLiveGraphTemp();
 
+			/* Periodicity */
+
 			if(formValues.autoUpdateActivation)
 			{
 				logAnalyzer.dashboard.addPeriodicAction(seeLiveGraphTemp, formValues.autoUpdate * 60 * 1000);
+			}
+			else
+			{
+				logAnalyzer.dashboard.clearPeriodicActions();
 			}
 		};
 		

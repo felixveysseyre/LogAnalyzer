@@ -85,14 +85,30 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 				addAnswerToRequestViewer(requestAnswer, postData);
 			};
 
-			logAnalyzer.toolbox.LogAnalyzerAPICaller.callAPI({
-				baseURL: baseURL,
-				controller: 'dataAccess',
-				method: 'getLog',
-				postData: postData,
-				successCallback: addAnswerToRequestViewerTemp,
-				errorCallback: addErrorNotificationToRequestViewer
-			});
+			var seeLiveGraphTemp = function()
+			{
+				logAnalyzer.toolbox.LogAnalyzerAPICaller.callAPI({
+					baseURL: baseURL,
+					controller: 'dataAccess',
+					method: 'getLog',
+					postData: postData,
+					successCallback: addAnswerToRequestViewerTemp,
+					errorCallback: addErrorNotificationToRequestViewer
+				});
+			};
+
+			seeLiveGraphTemp();
+
+			/* Periodicity */
+
+			if(formValues.autoUpdateActivation)
+			{
+				logAnalyzer.dashboard.addPeriodicAction(seeLiveGraphTemp, formValues.autoUpdate * 60 * 1000);
+			}
+			else
+			{
+				logAnalyzer.dashboard.clearPeriodicActions();
+			}
 		};
 
 		var parseAction = function(formValues)
@@ -280,6 +296,22 @@ logAnalyzer.dashboard.dataAccess = logAnalyzer.dashboard.dataAccess || {};
 					choices: [
 						{name: 'Yes', value: 'true'},
 						{name: 'No', value: 'false', selected: true}
+					],
+					separator: true
+				},
+
+				{
+					name: 'Auto Update',
+					id: 'autoUpdate',
+					help: 'Auto regenerating time of the request',
+					activation: null,
+					type: 'select',
+					choices: [
+						{name: '1m', value: 1},
+						{name: '5m', value: 5, selected: true},
+						{name: '15m', value: 15},
+						{name: '30m', value: 30},
+						{name: '60m', value: 60}
 					]
 				}
 			],
