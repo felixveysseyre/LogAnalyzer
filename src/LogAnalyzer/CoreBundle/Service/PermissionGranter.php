@@ -44,6 +44,20 @@ class PermissionGranter
 					'Platform Administrator'
 				)
 			),
+			'databaseAdministration' => array(
+				'getRetentionRuleAPI' => array(
+					'Project Administrator',
+					'Platform Administrator'
+				),
+				'createRetentionRuleAPI' => array(
+					'Project Administrator',
+					'Platform Administrator'
+				),
+				'deleteRetentionRuleAPI' => array(
+					'Project Administrator',
+					'Platform Administrator'
+				)
+			),
 			'platformAdministration' => array(
 				'getHostAPI' => array(
 					'Project Administrator',

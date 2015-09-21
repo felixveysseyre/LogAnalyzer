@@ -32,6 +32,20 @@ LogAnalyzer_ProjectConfiguration_updateConstantAPI:
     path:     /projectConfiguration/updateConstantAPI/
     defaults: { _controller: LogAnalyzerCoreBundle:ProjectConfiguration:updateConstantAPI }
 
+# DatabaseAdministration #
+
+LogAnalyzer_DatabaseAdministration_getRetentionRuleAPI:
+    path:     /databaseAdministration/getRetentionRuleAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:DatabaseAdministration:getRetentionRuleAPI }
+
+LogAnalyzer_DatabaseAdministration_createRetentionRuleAPI:
+    path:     /databaseAdministration/createRetentionRuleAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:DatabaseAdministration:createRetentionRuleAPI }
+
+LogAnalyzer_DatabaseAdministration_deleteRetentionRuleAPI:
+    path:     /databaseAdministration/deleteRetentionRuleAPI/
+    defaults: { _controller: LogAnalyzerCoreBundle:DatabaseAdministration:deleteRetentionRuleAPI }
+
 # NotificationAdministration #
 
 LogAnalyzer_NotificationAdministration_getUserAPI:
