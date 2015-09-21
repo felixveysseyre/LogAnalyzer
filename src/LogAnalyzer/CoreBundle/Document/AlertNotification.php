@@ -37,6 +37,11 @@ class AlertNotification implements JsonSerializable
 	protected $endTime;
 
 	/**
+	 * @MongoDB\Hash
+	 */
+	protected $information;
+
+	/**
 	 * Get id
 	 *
 	 * @return id $alertNotificationId
@@ -152,6 +157,29 @@ class AlertNotification implements JsonSerializable
 		}
 	}
 
+	/**
+	 * Set information
+	 *
+	 * @param array $information
+	 * @return self
+	 */
+	public function setInformation($information)
+	{
+		$this -> information = $information;
+
+		return $this;
+	}
+
+	/**
+	 * Get information
+	 *
+	 * @return array $information
+	 */
+	public function getInformation()
+	{
+		return $this -> information;
+	}
+
 	/* Private */
 
 	private function formatDateTime($dateTime)
@@ -168,7 +196,8 @@ class AlertNotification implements JsonSerializable
 			'alertHuman' => $this -> alertHuman,
 			'active' => $this -> active,
 			'startTime' => $this -> getStartTime(true),
-			'endTime' => $this -> getEndTime(true)
+			'endTime' => $this -> getEndTime(true),
+			'information' => $this -> getInformation()
 		);
 	}
 }

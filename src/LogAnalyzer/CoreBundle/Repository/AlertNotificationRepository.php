@@ -8,7 +8,7 @@ class AlertNotificationRepository extends DocumentRepository
 {
 	/* Public */
 
-	public function insertAlertNotification($alertHuman, $active, $startTime = null, $endTime = null)
+	public function insertAlertNotification($alertHuman, $active, $startTime = null, $endTime = null, $information = null)
 	{
 		$data = array(
 			'alertHuman' => $alertHuman,
@@ -17,6 +17,7 @@ class AlertNotificationRepository extends DocumentRepository
 
 		if($startTime) $data['startTime'] = $startTime;
 		if($endTime) $data['endTime'] = $endTime;
+		if($information) $data['information'] = $information;
 
 		/* Create query */
 
@@ -37,9 +38,9 @@ class AlertNotificationRepository extends DocumentRepository
 		return true;
 	}
 
-	public function createAlertNotification($alertHuman, $active, $startTime = null, $endTime = null)
+	public function createAlertNotification($alertHuman, $active, $startTime = null, $endTime = null, $information = null)
 	{
-		return $this -> insertAlertNotification($alertHuman, $active, $startTime, $endTime);
+		return $this -> insertAlertNotification($alertHuman, $active, $startTime, $endTime, $information);
 	}
 
 	public function countAlertNotification($clauses = null)

@@ -93,7 +93,8 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 				//{name: 'AlertNotification ID', key: 'alertNotificationId', width: '100px'},
 				{name: 'Alert', key: 'alertHuman', width: '200px'},
 				{name: 'StartTime', key: 'startTime', width: '200px'},
-				{name: 'EndTime', key: 'endTime', width: '200px'}
+				{name: 'EndTime', key: 'endTime', width: '200px'},
+				{name: 'Information', key: 'information'}
 			],
 			showHeader: true,
 			showLineNumbers: false,
@@ -117,7 +118,8 @@ logAnalyzer.dashboard.platformStatus = logAnalyzer.dashboard.platformStatus || {
 				//{name: 'AlertNotification ID', key: 'alertNotificationId', width: '100px'},
 				{name: 'Alert', key: 'alertHuman', width: '200px'},
 				{name: 'StartTime', key: 'startTime', width: '200px'},
-				{name: 'EndTime', key: 'endTime', width: '200px'}
+				{name: 'EndTime', key: 'endTime', width: '200px'},
+				{name: 'Information', key: 'information'}
 			],
 			showHeader: true,
 			showLineNumbers: false,

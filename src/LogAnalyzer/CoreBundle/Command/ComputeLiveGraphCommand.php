@@ -170,14 +170,19 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 				}
 			}
 
-			$this -> updateAlertStatus($alert, $result, $timeOfNotification);
+			$this -> updateAlertStatus($alert, $result, $timeOfNotification, $liveGraph);
 		}
 	}
 
-	private function updateAlertStatus($alert, $result, $timeOfNotification)
+	private function updateAlertStatus($alert, $result, $timeOfNotification, $liveGraph)
 	{
 		$trigger = $alert -> getTrigger();
 		$status = $alert -> getStatus();
+
+		$information = array(
+			'filter' => $liveGraph -> getFilter(),
+			'trigger' => $trigger
+		);
 
 		$active = $status['active'];
 		$countRaise = $status['countRaise'];
@@ -205,7 +210,7 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 					$active = true;
 					$countRaise = 0;
 
-					$this -> createAlertNotification($alert, true, $timeOfNotification);
+					$this -> createAlertNotification($alert, true, $timeOfNotification, $information);
 				}
 			}
 		}
@@ -244,24 +249,24 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 			-> updateAlert($alert -> getAlertId(), array('status' => $status));
 	}
 
-	private function createAlertNotification($alert, $type, $timeOfNotification)
+	private function createAlertNotification($alert, $type, $timeOfNotification, $information = null)
 	{
 		/* Internal notifications */
 
-		$this -> createInternalNotification($alert, $type, $timeOfNotification);
+		$this -> createInternalNotification($alert, $type, $timeOfNotification, $information);
 
 		/* External notifications */
 
-		$this -> createExternalNotification($alert, $type, $timeOfNotification);
+		$this -> createExternalNotification($alert, $type, $timeOfNotification, $information);
 	}
 
-	private function createInternalNotification($alert, $type, $timeOfNotification)
+	private function createInternalNotification($alert, $type, $timeOfNotification, $information)
 	{
 		if($type)
 		{
 			$this
 				-> getAlertNotificationRepository()
-				-> createAlertNotification($alert -> getAlertHuman(), 'yes', $timeOfNotification, null);
+				-> createAlertNotification($alert -> getAlertHuman(), 'yes', $timeOfNotification, null, $information);
 		}
 		else
 		{
@@ -283,7 +288,7 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 		}
 	}
 
-	private function createExternalNotification($alert, $type, $timeOfNotification)
+	private function createExternalNotification($alert, $type, $timeOfNotification, $information)
 	{
 		$notification = $alert -> getNotification();
 
@@ -313,6 +318,7 @@ class ComputeLiveGraphCommand extends ContainerAwareCommand
 
 				$message = str_replace('{dateTime}', $timeOfNotification, $message);
 				$message = str_replace('{name}', $alert -> getAlertHuman(), $message);
+				$message = str_replace('{information}', $information, $message);
 
 				/* Create notificationToSend objects */
 
