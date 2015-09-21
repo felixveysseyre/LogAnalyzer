@@ -66,6 +66,17 @@ class CleanLogCommand extends ContainerAwareCommand
 				-> getContainer()
 				-> get('Helpers')
 				-> getDateString(0, date('Y-m-d', strtotime($cleaningDate))) . ' 23:59:59';
+
+			$deletionClauses = array(
+				'reportedTime' => array(
+					'inf' => '0000-00-00 00:00:00',
+					'sup' => $removeAfterDate
+				)
+			);
+
+			return $this
+				-> getLogRepository()
+				-> deleteLog($deletionClauses);
 		}
 		else
 		{
@@ -73,22 +84,56 @@ class CleanLogCommand extends ContainerAwareCommand
 				-> getConstantRepository()
 				-> getConstantValue('retentionLog');
 
-			$removeAfterDate = $this
-				-> getContainer()
-				-> get('Helpers')
-				-> getDateString(- ($retentionLog + 1)) . ' 23:59:59';
+			/* Get services existing in database */
+
+			$services = $this
+				-> getLogRepository()
+				-> getService();
+
+			/* Clean logs by service */
+
+			foreach($services as $service)
+			{
+				$retentionRules = $this
+					-> getRetentionRuleRepository()
+					-> getRetentionRule(array('service' => $service));
+
+				/* Get retention to apply */
+
+				if(sizeof($retentionRules) === 1)
+				{
+					$retention = $retentionRules[0] -> getRetention();
+				}
+				else
+				{
+					$retention = $retentionLog;
+				}
+
+				/* Create deletion clauses */
+
+				$removeAfterDate = $this
+					-> getContainer()
+					-> get('Helpers')
+					-> getDateString(- ($retention + 1)) . ' 23:59:59';
+
+				$deletionClauses = array(
+					'service' => $service,
+					'reportedTime' => array(
+						'inf' => '0000-00-00 00:00:00',
+						'sup' => $removeAfterDate
+					)
+				);
+
+				/* Delete logs */
+
+				$this
+					-> getLogRepository()
+					-> deleteLog($deletionClauses);
+
+			}
+
+			return true;
 		}
-
-		$deletionClauses = array(
-			'reportedTime' => array(
-				'inf' => '0000-00-00 00:00:00',
-				'sup' => $removeAfterDate
-			)
-		);
-
-		return $this
-			-> getLogRepository()
-			-> deleteLog($deletionClauses);
 	}
 
 	/* Special */
@@ -109,5 +154,14 @@ class CleanLogCommand extends ContainerAwareCommand
 			-> get('doctrine_mongodb')
 			-> getManager()
 			-> getRepository('LogAnalyzerCoreBundle:Log');
+	}
+
+	private function getRetentionRuleRepository()
+	{
+		return $this
+			-> getContainer()
+			-> get('doctrine_mongodb')
+			-> getManager()
+			-> getRepository('LogAnalyzerCoreBundle:RetentionRule');
 	}
 }
