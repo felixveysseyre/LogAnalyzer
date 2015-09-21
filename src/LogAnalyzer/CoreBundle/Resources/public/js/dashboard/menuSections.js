@@ -62,6 +62,16 @@ logAnalyzer.dashboard.menuSections.organizationAdministration =
 	]
 };
 
+logAnalyzer.dashboard.menuSections.databaseAdministration =
+{
+	name: 'Database administration',
+	id: 'databaseAdministrationSection',
+	icon: 'fa-database',
+	subSections: [
+		{name: 'Manage retention rules', id: 'manageRetentionRuleSubSection', icon: 'fa-clock-o', onActivation: logAnalyzer.dashboard.databaseAdministration.manageRetentionRule}
+	]
+};
+
 logAnalyzer.dashboard.menuSections.projectConfiguration =
 {
 	name: 'Project configuration',

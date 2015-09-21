@@ -20,6 +20,12 @@ logAnalyzer.toolbox.LogAnalyzerAPICaller = logAnalyzer.toolbox.LogAnalyzerAPICal
 		{
 			getNotificationToSend: '/notificationAdministration/getNotificationToSendAPI/'
 		},
+		databaseAdministration:
+		{
+			getRetentionRule: '/databaseAdministration/getRetentionRuleAPI/',
+			createRetentionRule: '/databaseAdministration/createRetentionRuleAPI/',
+			deleteRetentionRule: '/databaseAdministration/deleteRetentionRuleAPI/'
+		},
 		organizationAdministration:
 		{
 			getRole: '/organizationAdministration/getRoleAPI/',

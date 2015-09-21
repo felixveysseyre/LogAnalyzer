@@ -61,6 +61,7 @@ class DashboardController extends Controller
 
 						'dashboard/projectConfiguration/manageProject.js',
 						'dashboard/notificationAdministration/seeNotificationToSend.js',
+						'dashboard/databaseAdministration/manageRetentionRule.js',
 						'dashboard/organizationAdministration/manageUser.js',
 						'dashboard/platformAdministration/manageHost.js',
 						'dashboard/platformAdministration/manageService.js',
