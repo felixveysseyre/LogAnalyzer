@@ -54,9 +54,9 @@ $ ln -s /FullPathToLogAnalyzerDirectory/src/LogAnalyzer/CoreBundle/Resources/pub
 See scripts in ./scripts:
 - cleanLiveGraph.sh: every day
 - cleanLog.sh: every day
-- computeLiveGraph.sh: see configuration ('projectConfiguration/manageProject) in the application
+- computeLiveGraph.sh: see configuration ('projectConfiguration/manageProject') in the application
 - sendNotification.sh: every 5 minutes
 
 ---------------------------------------
-10 - Look at the development the documentation
+10 - Look at the development documentation
 ---------------------------------------
