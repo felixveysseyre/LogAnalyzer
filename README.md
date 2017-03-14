@@ -3,7 +3,9 @@ LogAnalyzer
 
 LogAnalyzer is a web application allowing a system administrator to analyze the logs of a cluster of servers, in real time.
 
-This project is based on [Symfony2](https://symfony.com/) and [MongoDB](https://www.mongodb.com). It has been conceived to be used with [RSYSLOG](http://www.rsyslog.com/).
+LogAnalyzer is based on [Symfony2](https://symfony.com/) and [MongoDB](https://www.mongodb.com). It has been conceived to be used with [RSYSLOG](http://www.rsyslog.com/).
+
+LogAnalyzer is licensed under MIT, so feel free to reuse it as you like.
 
 For any matter, you can reach me at [felix.veysseyre@gmail.com](mailto:felix.veysseyre@gmail.com).
 
